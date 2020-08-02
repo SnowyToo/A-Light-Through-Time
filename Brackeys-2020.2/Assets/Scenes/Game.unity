@@ -1328,6 +1328,7 @@ MonoBehaviour:
     value: 30
   normalPostProcess: {fileID: 11400000, guid: f7355d11c388543429e00baaeb54ec8b, type: 2}
   warpPostProcess: {fileID: 11400000, guid: 8ed495f661539204aa286210bc4cb84c, type: 2}
+  mirrorCollider: {fileID: 936409372}
 --- !u!114 &884107293
 MonoBehaviour:
   m_ObjectHideFlags: 0

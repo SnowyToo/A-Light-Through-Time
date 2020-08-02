@@ -12,14 +12,11 @@ public class Photon : MonoBehaviour
     private Stack<Vector2> velocityHistory;
     private Vector2 startPoint;
     private Vector2 startVelocity;
-    private Collider2D col;
 
     public bool rewindVelocity = true;
 
     void Start()
     {
-        col = GetComponent<Collider2D>();
-
         positionHistory = new Stack<Vector2>();
         velocityHistory = new Stack<Vector2>();
 
@@ -43,8 +40,6 @@ public class Photon : MonoBehaviour
 
     void Rewind()
     {
-        col.enabled = false;
-
         if (positionHistory.Count > 0)
             rb.position = positionHistory.Pop();
         else
@@ -61,8 +56,6 @@ public class Photon : MonoBehaviour
 
     void StorePosition()
     {
-        col.enabled = true;
-
         positionHistory.Push(rb.position);
         if (rewindVelocity)
             velocityHistory.Push(rb.velocity);

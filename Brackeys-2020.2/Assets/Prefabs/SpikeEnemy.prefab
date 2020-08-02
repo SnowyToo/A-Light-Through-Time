@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8362290013693408759}
   - component: {fileID: 8362290013693408757}
   - component: {fileID: 123560786995956010}
+  - component: {fileID: 1127738974161154598}
   m_Layer: 10
   m_Name: SpikeEnemy
   m_TagString: SpikeEnemy
@@ -117,3 +118,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathParticles: {fileID: 4506409821079276685, guid: 18710431ba6e3c244a66dae0513308bc,
     type: 3}
+  collisionDamage: 1
+  range: 2
+  speed: 3
+--- !u!50 &1127738974161154598
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8362290013693408758}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4

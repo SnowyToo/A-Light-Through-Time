@@ -8,6 +8,7 @@ TagManager:
   - LaserEnemy
   - SnapEnemy
   - Photon
+  - Laser
   layers:
   - Default
   - TransparentFX

@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     public static Player player;
     [HideInInspector]
     public static Photon photon;
+    [SerializeField]
+    private Collider2D mirrorCollider;
 
     [HideInInspector]
     public static bool gameIsOver;
@@ -70,11 +72,13 @@ public class GameManager : MonoBehaviour
             {
                 isRewinding = true;
                 cameraProfile.profile = warpPostProcess;
+                mirrorCollider.enabled = false;
             }
             else
             {
                 isRewinding = false;
                 cameraProfile.profile = normalPostProcess;
+                mirrorCollider.enabled = true;
             }
         }
     }

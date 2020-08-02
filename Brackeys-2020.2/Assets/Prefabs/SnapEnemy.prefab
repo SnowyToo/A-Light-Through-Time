@@ -113,3 +113,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathParticles: {fileID: 4506409821079276685, guid: 18710431ba6e3c244a66dae0513308bc,
     type: 3}
+  collisionDamage: 1
