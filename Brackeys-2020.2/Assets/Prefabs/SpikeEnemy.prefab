@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8362290013693408756}
   - component: {fileID: 8362290013693408759}
   - component: {fileID: 8362290013693408757}
-  - component: {fileID: 8362290013693408754}
+  - component: {fileID: 123560786995956010}
   m_Layer: 10
   m_Name: SpikeEnemy
   m_TagString: SpikeEnemy
@@ -103,7 +103,7 @@ EdgeCollider2D:
   - {x: -0.0010256767, y: 0.4275629}
   - {x: 0.48201656, y: -0.40385073}
   - {x: -0.47687435, y: -0.406031}
---- !u!114 &8362290013693408754
+--- !u!114 &123560786995956010
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,6 +112,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8362290013693408758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1621151e44ee1e2448ba0a8ea9ac0b09, type: 3}
+  m_Script: {fileID: 11500000, guid: 21409600a35725c4aab07dce9af29d29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathParticles: {fileID: 4506409821079276685, guid: 18710431ba6e3c244a66dae0513308bc,
+    type: 3}

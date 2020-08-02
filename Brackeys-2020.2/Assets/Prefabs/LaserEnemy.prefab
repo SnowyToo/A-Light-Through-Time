@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 5405739954933564067}
   - component: {fileID: 5405739954933564066}
   - component: {fileID: 190663616}
+  - component: {fileID: 7178095482763796887}
   m_Layer: 10
   m_Name: Enemy02
   m_TagString: Untagged
@@ -257,6 +258,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.45033902
+--- !u!114 &7178095482763796887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405739954933564065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea98e87cccfe628479627f75de7cffe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5405739955580542183
 GameObject:
   m_ObjectHideFlags: 0
@@ -5056,6 +5069,7 @@ GameObject:
   - component: {fileID: 5405739956337562683}
   - component: {fileID: 5405739956337562682}
   - component: {fileID: 1594629416}
+  - component: {fileID: 1999663366551205448}
   m_Layer: 10
   m_Name: Enemy01
   m_TagString: Untagged
@@ -5192,3 +5206,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.45033902
+--- !u!114 &1999663366551205448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405739956337562681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea98e87cccfe628479627f75de7cffe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

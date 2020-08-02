@@ -10,7 +10,6 @@ public class Photon : MonoBehaviour
     // Time rewind
     private Stack<Vector2> positionHistory;
     private Stack<Vector2> velocityHistory;
-    private bool rewinding;
     private Vector2 startPoint;
     private Vector2 startVelocity;
     private Collider2D col;
@@ -23,7 +22,6 @@ public class Photon : MonoBehaviour
 
         positionHistory = new Stack<Vector2>();
         velocityHistory = new Stack<Vector2>();
-        rewinding = false;
 
         rb = GetComponent<Rigidbody2D>();
         SetRandomVelocity();
@@ -33,23 +31,14 @@ public class Photon : MonoBehaviour
         positionHistory.Push(startPoint);
     }
 
-    void Update()
-    {
-
-    }
-
     void FixedUpdate()
     {
         rb.velocity = rb.velocity.normalized * maxSpeed;
 
         if (GameManager.isRewinding)
-        {
             Rewind();
-        }
         else
-        {
             StorePosition();
-        }
     }
 
     void Rewind()

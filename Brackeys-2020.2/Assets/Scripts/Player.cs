@@ -14,21 +14,21 @@ public class Player : MonoBehaviour
     private Camera cam;
     private Vector2 mousePosition;
 
+    // Health
+    private int health;
+    [SerializeField]
+    private int maxHealth;
+
     void Awake()
     {
         cam = Camera.main;
         rb = GetComponent<Rigidbody2D>();
+
+        health = maxHealth;
     }
 
     void Update()
     {
-        //OLD Movement system
-
-        //float horizontal = Input.GetAxis("Horizontal");
-        //float vertical = Input.GetAxis("Vertical");
-        //movement = new Vector2(horizontal, vertical).normalized;
-
-        //NEW system
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
 
@@ -37,15 +37,23 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        //OLD system
-
-        //rb.MovePosition(rb.position + (movement * speed * Time.fixedDeltaTime));
-
-        //NEW system
         rb.velocity = new Vector2(h, v).normalized * speed;
 
         Vector2 aimDirection = mousePosition - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0) Die();
+    }
+
+    void Die()
+    {
+        GameManager.GameOver();
+        // TODO: player death particles? (or just same as enemies maybe)
+        Destroy(gameObject);
     }
 }

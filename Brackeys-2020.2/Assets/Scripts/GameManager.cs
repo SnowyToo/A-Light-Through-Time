@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour
 {
+    // Score
     [SerializeField]
     private List<EnemyScorePair> _enemyScores;
 
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public static int score;
 
+    // Post processing
     [SerializeField]
     private VolumeProfile normalPostProcess;
     [SerializeField]
@@ -18,7 +20,21 @@ public class GameManager : MonoBehaviour
 
     private Volume cameraProfile;
 
+    // Gameplay
+    [HideInInspector]
     public static bool isRewinding;
+
+    [HideInInspector]
+    public static GameObject player;
+
+    [HideInInspector]
+    public static bool gameIsOver;
+
+    void Awake()
+    {
+        player = GameObject.FindWithTag("Player");
+        gameIsOver = false;
+    }
 
     void Start()
     {
@@ -35,15 +51,18 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Rewind"))
+        if (!gameIsOver)
         {
-            isRewinding = true;
-            cameraProfile.profile = warpPostProcess;
-        }
-        else
-        {
-            isRewinding = false;
-            cameraProfile.profile = normalPostProcess;
+            if (Input.GetButton("Rewind"))
+            {
+                isRewinding = true;
+                cameraProfile.profile = warpPostProcess;
+            }
+            else
+            {
+                isRewinding = false;
+                cameraProfile.profile = normalPostProcess;
+            }
         }
     }
 
@@ -52,6 +71,12 @@ public class GameManager : MonoBehaviour
         int scoreGained = GameManager.enemyScores[tag];
         // TODO: update score text UI
         score += scoreGained;
+    }
+
+    public static void GameOver()
+    {
+        gameIsOver = true;
+        Debug.Log("GAME OVER");
     }
 }
 
