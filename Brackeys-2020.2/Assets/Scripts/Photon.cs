@@ -11,12 +11,12 @@ public class Photon : MonoBehaviour
     private Stack<Vector2> history;
     private bool rewinding;
     private Vector2 startPoint;
-    private Collider2D collider;
+    private Collider2D col;
 
     void Start()
     {
-        collider = GetComponent<Collider2D>();
-        
+        col = GetComponent<Collider2D>();
+
         history = new Stack<Vector2>();
         rewinding = false;
 
@@ -32,12 +32,12 @@ public class Photon : MonoBehaviour
         if (Input.GetButton("Rewind"))
         {
             rewinding = true;
-            collider.enabled = false;
+            col.enabled = false;
         }
         else
         {
             rewinding = false;
-            collider.enabled = true;
+            col.enabled = true;
         }
     }
 
