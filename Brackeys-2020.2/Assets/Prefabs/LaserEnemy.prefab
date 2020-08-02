@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1068336200}
   m_Layer: 10
   m_Name: Laser
-  m_TagString: Untagged
+  m_TagString: Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 7178095482763796887}
   m_Layer: 10
   m_Name: Enemy02
-  m_TagString: Untagged
+  m_TagString: LaserEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -270,6 +270,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea98e87cccfe628479627f75de7cffe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathParticles: {fileID: 4506409821079276685, guid: 18710431ba6e3c244a66dae0513308bc,
+    type: 3}
+  collisionDamage: 1
+  partner: {fileID: 1999663366551205448}
 --- !u!1 &5405739955580542183
 GameObject:
   m_ObjectHideFlags: 0
@@ -5072,7 +5076,7 @@ GameObject:
   - component: {fileID: 1999663366551205448}
   m_Layer: 10
   m_Name: Enemy01
-  m_TagString: Untagged
+  m_TagString: LaserEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5218,3 +5222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea98e87cccfe628479627f75de7cffe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathParticles: {fileID: 4506409821079276685, guid: 18710431ba6e3c244a66dae0513308bc,
+    type: 3}
+  collisionDamage: 1
+  partner: {fileID: 7178095482763796887}

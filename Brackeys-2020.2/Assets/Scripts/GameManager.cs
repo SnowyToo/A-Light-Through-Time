@@ -25,14 +25,27 @@ public class GameManager : MonoBehaviour
     public static bool isRewinding;
 
     [HideInInspector]
-    public static GameObject player;
+    public static GameObject playerObject;
+    [HideInInspector]
+    public static GameObject photonObject;
+    [HideInInspector]
+    public static Player player;
+    [HideInInspector]
+    public static Photon photon;
 
     [HideInInspector]
     public static bool gameIsOver;
 
+    [HideInInspector]
+    public static EnemySpawner enemySpawner;
+
     void Awake()
     {
-        player = GameObject.FindWithTag("Player");
+        playerObject = GameObject.FindWithTag("Player");
+        photonObject = GameObject.FindWithTag("Photon");
+        player = playerObject.GetComponent<Player>();
+        photon = photonObject.GetComponent<Photon>();
+        enemySpawner = GetComponent<EnemySpawner>();
         gameIsOver = false;
     }
 
@@ -75,6 +88,8 @@ public class GameManager : MonoBehaviour
 
     public static void GameOver()
     {
+        photon.Die();
+        enemySpawner.enabled = false;
         gameIsOver = true;
         Debug.Log("GAME OVER");
     }

@@ -73,4 +73,10 @@ public class Photon : MonoBehaviour
         float angle = Random.Range(0f, 2f * Mathf.PI);
         rb.velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * maxSpeed;
     }
+
+    public void Die()
+    {
+        // TODO: particles?
+        Destroy(gameObject);
+    }
 }
