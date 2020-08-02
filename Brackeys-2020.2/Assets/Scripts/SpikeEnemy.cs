@@ -24,6 +24,8 @@ public class SpikeEnemy : Enemy
     private int bulletDamage;
     [SerializeField]
     private float bulletSpeed;
+    [SerializeField]
+    private AudioClip[] shootSounds;
 
 
     void Start()
@@ -78,6 +80,7 @@ public class SpikeEnemy : Enemy
     void Shoot()
     {
         nextShot = timeBetweenShots;
+        GameManager.PlaySound(shootSounds, gameObject);
         GameObject bulletGO = Instantiate(bullet, shotPoint.position, transform.rotation);
         bulletGO.GetComponent<Rigidbody2D>().velocity = (player.position - rb.position).normalized * bulletSpeed;
         bulletGO.GetComponent<Bullet>().damage = bulletDamage;

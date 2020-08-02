@@ -7,6 +7,10 @@ public class Photon : MonoBehaviour
     // Bouncing
     public float maxSpeed = 8f;
     private Rigidbody2D rb;
+    [SerializeField]
+    private AudioClip boop;
+    [SerializeField]
+    private GameObject hitParticles;
 
     // Time rewind
     private Stack<Vector2> positionHistory;
@@ -16,13 +20,10 @@ public class Photon : MonoBehaviour
 
     public bool rewindVelocity = true;
 
-    private bool isForcing;
-
     void Start()
     {
         positionHistory = new Stack<Vector2>();
         velocityHistory = new Stack<Vector2>();
-        isForcing = true;
 
         rb = GetComponent<Rigidbody2D>();
         SetRandomVelocity();
@@ -34,8 +35,7 @@ public class Photon : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(isForcing)
-            rb.velocity = rb.velocity.normalized * maxSpeed;
+        rb.velocity = rb.velocity.normalized * maxSpeed;
 
         if (GameManager.isRewinding)
             Rewind();
@@ -78,14 +78,23 @@ public class Photon : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private IEnumerator OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Hit();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == 11)
         {
-            isForcing = false;
+            Hit();
             rb.velocity = GameManager.player.GetAimDirection();
-            yield return new WaitForEndOfFrame();
-            isForcing = true;
         }
+    }
+
+    private void Hit()
+    {
+        GameManager.PlaySound(boop, gameObject, 0.4f);
+        Instantiate(hitParticles, transform.position, Quaternion.identity);
     }
 }

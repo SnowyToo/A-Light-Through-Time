@@ -4,6 +4,8 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private GameObject deathParticles;
+    [SerializeField]
+    private AudioClip[] deathSounds;
 
     [SerializeField]
     private int collisionDamage;
@@ -42,6 +44,7 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         GameManager.EnemyKill(gameObject.tag);
+        GameManager.PlaySound(deathSounds, this.gameObject);
         Instantiate(deathParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

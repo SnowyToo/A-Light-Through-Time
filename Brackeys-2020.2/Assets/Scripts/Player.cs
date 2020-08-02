@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -19,10 +20,19 @@ public class Player : MonoBehaviour
     private int health;
     [SerializeField]
     private int maxHealth;
+    private bool invincible;
+
+    // Misc
+    private Animator anim;
+    [SerializeField]
+    private AudioClip hitSound;
+    [SerializeField]
+    private AudioClip deathSound;
 
     void Awake()
     {
         cam = Camera.main;
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
         health = maxHealth;
@@ -47,15 +57,38 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (invincible)
+            return;
+
         health -= damage;
-        if (health <= 0) Die();
+        if (health <= 0)
+            Die();
+        else
+        {
+            Hit();
+        }
     }
 
     void Die()
     {
         GameManager.GameOver();
+        GameManager.PlaySound(deathSound, gameObject);
         // TODO: player death particles? (or just same as enemies maybe)
         Destroy(gameObject);
+    }
+
+    void Hit()
+    {
+        anim.SetTrigger("Hit");
+        GameManager.PlaySound(hitSound, gameObject);
+        StartCoroutine(Invincibility());
+    }
+
+    private IEnumerator Invincibility()
+    {
+        invincible = true;
+        yield return new WaitForSeconds(2.5f);
+        invincible = false;
     }
 
     public Vector2 GetAimDirection()

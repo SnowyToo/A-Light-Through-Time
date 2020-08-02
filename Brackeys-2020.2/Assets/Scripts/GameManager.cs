@@ -97,6 +97,21 @@ public class GameManager : MonoBehaviour
         gameIsOver = true;
         Debug.Log("GAME OVER");
     }
+
+    public static void PlaySound(AudioClip clip, GameObject source, float volume = 0.8f)
+    {
+        AudioSource sound = new GameObject().AddComponent<AudioSource>();
+        sound.volume = volume;
+        sound.name = source.name + " Sound";
+        sound.clip = clip;
+        sound.Play();
+    }
+
+
+    public static void PlaySound(AudioClip[] clips, GameObject source)
+    {
+        PlaySound(clips[Random.Range(0, clips.Length)], source);
+    }
 }
 
 [System.Serializable]
