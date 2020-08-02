@@ -8,23 +8,29 @@ public class Photon : MonoBehaviour
     private Rigidbody2D rb;
 
     // Time rewind
-    private Stack<Vector2> history;
+    private Stack<Vector2> positionHistory;
+    private Stack<Vector2> velocityHistory;
     private bool rewinding;
     private Vector2 startPoint;
+    private Vector2 startVelocity;
     private Collider2D col;
+
+    public bool rewindVelocity = true;
 
     void Start()
     {
         col = GetComponent<Collider2D>();
 
-        history = new Stack<Vector2>();
+        positionHistory = new Stack<Vector2>();
+        velocityHistory = new Stack<Vector2>();
         rewinding = false;
 
         rb = GetComponent<Rigidbody2D>();
         SetRandomVelocity();
         
         startPoint = rb.position;
-        history.Push(startPoint);
+        startVelocity = rb.velocity;
+        positionHistory.Push(startPoint);
     }
 
     void Update()
@@ -47,14 +53,24 @@ public class Photon : MonoBehaviour
 
         if (rewinding)
         {
-            if (history.Count > 0)
-                rb.position = history.Pop();
+            if (positionHistory.Count > 0)
+                rb.position = positionHistory.Pop();
             else
                 rb.position = startPoint;
+            
+            if (rewindVelocity)
+            {
+                if (velocityHistory.Count > 0)
+                    rb.velocity = velocityHistory.Pop() * -1f;
+                else
+                    rb.position = startVelocity;
+            }
         }
         else
         {
-            history.Push(rb.position);
+            positionHistory.Push(rb.position);
+            if (rewindVelocity)
+                velocityHistory.Push(rb.velocity);
         }
     }
 
