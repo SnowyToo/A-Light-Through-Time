@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     // Aiming
     private Camera cam;
     private Vector2 mousePosition;
+    private Vector2 aimDirection;
 
     // Health
     private int health;
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour
     {
         rb.velocity = new Vector2(h, v).normalized * speed;
 
-        Vector2 aimDirection = mousePosition - rb.position;
+        aimDirection = mousePosition - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;
     }
@@ -55,5 +56,10 @@ public class Player : MonoBehaviour
         GameManager.GameOver();
         // TODO: player death particles? (or just same as enemies maybe)
         Destroy(gameObject);
+    }
+
+    public Vector2 GetAimDirection()
+    {
+        return aimDirection;
     }
 }

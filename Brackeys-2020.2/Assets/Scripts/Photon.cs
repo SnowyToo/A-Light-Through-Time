@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Photon : MonoBehaviour
@@ -15,10 +16,13 @@ public class Photon : MonoBehaviour
 
     public bool rewindVelocity = true;
 
+    private bool isForcing;
+
     void Start()
     {
         positionHistory = new Stack<Vector2>();
         velocityHistory = new Stack<Vector2>();
+        isForcing = true;
 
         rb = GetComponent<Rigidbody2D>();
         SetRandomVelocity();
@@ -30,7 +34,8 @@ public class Photon : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = rb.velocity.normalized * maxSpeed;
+        if(isForcing)
+            rb.velocity = rb.velocity.normalized * maxSpeed;
 
         if (GameManager.isRewinding)
             Rewind();
@@ -71,5 +76,16 @@ public class Photon : MonoBehaviour
     {
         // TODO: particles?
         Destroy(gameObject);
+    }
+
+    private IEnumerator OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == 11)
+        {
+            isForcing = false;
+            rb.velocity = GameManager.player.GetAimDirection();
+            yield return new WaitForEndOfFrame();
+            isForcing = true;
+        }
     }
 }
