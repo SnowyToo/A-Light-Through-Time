@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 25876599}
   - component: {fileID: 25876600}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trail (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 50035447}
   - component: {fileID: 50035446}
   m_Layer: 0
-  m_Name: New Sprite (4)
+  m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,7 +376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 98294290}
   - component: {fileID: 98294291}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,9 +451,9 @@ GameObject:
   - component: {fileID: 255901274}
   - component: {fileID: 255901273}
   - component: {fileID: 255901275}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -632,7 +632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 890876216}
   - component: {fileID: 890876217}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -769,7 +769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 910839888}
   - component: {fileID: 910839889}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trail (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -906,7 +906,7 @@ GameObject:
   m_Component:
   - component: {fileID: 932513911}
   - component: {fileID: 932513912}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1163,7 +1163,7 @@ GameObject:
   - component: {fileID: 1015047115}
   - component: {fileID: 1015047114}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1508,7 +1508,7 @@ GameObject:
   - component: {fileID: 1673493936}
   - component: {fileID: 1673493935}
   m_Layer: 0
-  m_Name: New Sprite (1)
+  m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1613,7 +1613,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1688550585}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1649,7 +1649,8 @@ GameObject:
   - component: {fileID: 1727279412}
   - component: {fileID: 1727279411}
   - component: {fileID: 1727279410}
-  m_Layer: 0
+  - component: {fileID: 1727279414}
+  m_Layer: 9
   m_Name: PhotonBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1670,12 +1671,12 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 0baa2ff4296b3624081280f17353789a, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &1727279411
 CircleCollider2D:
@@ -1759,6 +1760,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1727279414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727279409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42b259eeb214cd44da1b6ec38bf717c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 8
 --- !u!1 &1746778990
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,7 +1785,7 @@ GameObject:
   - component: {fileID: 1746778993}
   - component: {fileID: 1746778992}
   m_Layer: 0
-  m_Name: New Sprite (3)
+  m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1877,7 +1891,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1750383246}
   - component: {fileID: 1750383247}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
