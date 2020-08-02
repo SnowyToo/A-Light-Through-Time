@@ -11,12 +11,12 @@ public class Photon : MonoBehaviour
     private Stack<Vector2> history;
     private bool rewinding;
     private Vector2 startPoint;
-
-    // Enemies
-    public string enemyLayerName;
+    private Collider2D collider;
 
     void Start()
     {
+        collider = GetComponent<Collider2D>();
+        
         history = new Stack<Vector2>();
         rewinding = false;
 
@@ -32,10 +32,12 @@ public class Photon : MonoBehaviour
         if (Input.GetButton("Rewind"))
         {
             rewinding = true;
+            collider.enabled = false;
         }
         else
         {
             rewinding = false;
+            collider.enabled = true;
         }
     }
 
@@ -60,14 +62,5 @@ public class Photon : MonoBehaviour
     {
         float angle = Random.Range(0f, 2f * Mathf.PI);
         rb.velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * maxSpeed;
-    }
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        GameObject other = col.gameObject;
-        if (other.layer == LayerMask.NameToLayer(enemyLayerName))
-        {
-            GameManager.KillEnemy(other);
-        }
     }
 }

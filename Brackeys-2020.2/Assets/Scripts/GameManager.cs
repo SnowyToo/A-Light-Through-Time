@@ -17,12 +17,10 @@ public class GameManager : MonoBehaviour
         score = 0;
     }
 
-    public static void KillEnemy(GameObject enemy)
+    public static void EnemyKill(string tag)
     {
-        int scoreGained = GameManager.enemyScores[enemy.tag];
-        // TODO: death particles maybe?
-        Destroy(enemy);
-        // TODO: update score text
+        int scoreGained = GameManager.enemyScores[tag];
+        // TODO: update score text UI
         GameManager.score += scoreGained;
     }
 }

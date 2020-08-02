@@ -7,6 +7,7 @@ TagManager:
   - SpikeEnemy
   - LaserEnemy
   - SnapEnemy
+  - Photon
   layers:
   - Default
   - TransparentFX
