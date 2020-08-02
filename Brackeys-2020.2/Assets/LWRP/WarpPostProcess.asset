@@ -16,7 +16,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.1
+    m_Value: 0.25
     min: 0
     max: 1
 --- !u!114 &-6763555802410145567
@@ -101,7 +101,7 @@ MonoBehaviour:
     max: 180
   saturation:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: -60
     min: -100
     max: 100
 --- !u!114 &11400000
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: PostProcessing
+  m_Name: WarpPostProcess
   m_EditorClassIdentifier: 
   components:
   - {fileID: -6763555802410145567}
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.24
+    m_Value: -0.2
     min: -1
     max: 1
   xMultiplier:

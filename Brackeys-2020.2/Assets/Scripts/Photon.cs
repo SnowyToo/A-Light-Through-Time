@@ -35,43 +35,48 @@ public class Photon : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Rewind"))
-        {
-            rewinding = true;
-            col.enabled = false;
-        }
-        else
-        {
-            rewinding = false;
-            col.enabled = true;
-        }
+
     }
 
     void FixedUpdate()
     {
         rb.velocity = rb.velocity.normalized * maxSpeed;
 
-        if (rewinding)
+        if (GameManager.isRewinding)
         {
-            if (positionHistory.Count > 0)
-                rb.position = positionHistory.Pop();
-            else
-                rb.position = startPoint;
-            
-            if (rewindVelocity)
-            {
-                if (velocityHistory.Count > 0)
-                    rb.velocity = velocityHistory.Pop() * -1f;
-                else
-                    rb.position = startVelocity;
-            }
+            Rewind();
         }
         else
         {
-            positionHistory.Push(rb.position);
-            if (rewindVelocity)
-                velocityHistory.Push(rb.velocity);
+            StorePosition();
         }
+    }
+
+    void Rewind()
+    {
+        col.enabled = false;
+
+        if (positionHistory.Count > 0)
+            rb.position = positionHistory.Pop();
+        else
+            rb.position = startPoint;
+
+        if (rewindVelocity)
+        {
+            if (velocityHistory.Count > 0)
+                rb.velocity = velocityHistory.Pop();
+            else
+                rb.velocity = startVelocity;
+        }
+    }
+
+    void StorePosition()
+    {
+        col.enabled = true;
+
+        positionHistory.Push(rb.position);
+        if (rewindVelocity)
+            velocityHistory.Push(rb.velocity);
     }
 
     void SetRandomVelocity()
