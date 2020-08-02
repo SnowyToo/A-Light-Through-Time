@@ -9,6 +9,8 @@ TagManager:
   - SnapEnemy
   - Photon
   - Laser
+  - Bullet
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -23,7 +25,7 @@ TagManager:
   - Enemies
   - Mirror
   - PlayerPP
-  - 
+  - Bullets
   - 
   - 
   - 

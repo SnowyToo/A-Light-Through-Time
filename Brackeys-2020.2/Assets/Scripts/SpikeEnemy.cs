@@ -4,17 +4,34 @@ using UnityEngine;
 
 public class SpikeEnemy : Enemy
 {
+    // Movement
     private Rigidbody2D player;
     private Rigidbody2D rb;
     [SerializeField]
-    private float range;
+    private float range = 2f;
     [SerializeField]
-    private float speed;
+    private float speed = 3f;
+
+    // Shooting
+    [SerializeField]
+    private float timeBetweenShots = 1f;
+    private float nextShot;
+    [SerializeField]
+    private GameObject bullet;
+    [SerializeField]
+    private Transform shotPoint;
+    [SerializeField]
+    private int bulletDamage;
+    [SerializeField]
+    private float bulletSpeed;
+
 
     void Start()
     {
         player = GameManager.playerObject.GetComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
+
+        nextShot = timeBetweenShots;
     }
 
     void Update()
@@ -24,7 +41,15 @@ public class SpikeEnemy : Enemy
             EndGame();
             return;
         }
+
+        if (nextShot <= 0f)
+            Shoot();
+        else
+            nextShot -= Time.deltaTime;
     }
+
+    // Move towards player until within range, at which point strafe/circle around the player
+    // Always shoot at the player
 
     void FixedUpdate()
     {
@@ -50,13 +75,18 @@ public class SpikeEnemy : Enemy
         rb.rotation = aimAngle;
     }
 
+    void Shoot()
+    {
+        nextShot = timeBetweenShots;
+        GameObject bulletGO = Instantiate(bullet, shotPoint.position, transform.rotation);
+        bulletGO.GetComponent<Rigidbody2D>().velocity = (player.position - rb.position).normalized * bulletSpeed;
+        bulletGO.GetComponent<Bullet>().damage = bulletDamage;
+    }
+
     void EndGame()
     {
         rb.velocity = Vector2.zero;
         
         this.enabled = false;
     }
-
-    // Move towards player until within range, at which point strafe/circle around the player
-    // Always shoot at the player
 }
