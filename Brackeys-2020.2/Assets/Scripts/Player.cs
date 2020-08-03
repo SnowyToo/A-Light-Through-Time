@@ -86,7 +86,9 @@ public class Player : MonoBehaviour
     private IEnumerator Invincibility()
     {
         invincible = true;
+        GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(invincibiltyTime);
         invincible = false;
+        GetComponent<Collider2D>().enabled = true;
     }
 }

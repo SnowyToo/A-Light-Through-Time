@@ -23,7 +23,7 @@ public class SnapEnemy : Enemy
     [SerializeField]
     private float speed = 2f;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         photonRB = GameManager.photonObject.GetComponent<Rigidbody2D>();

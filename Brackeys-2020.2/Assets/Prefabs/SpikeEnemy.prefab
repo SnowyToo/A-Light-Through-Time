@@ -152,6 +152,8 @@ MonoBehaviour:
   deathSounds:
   - {fileID: 8300000, guid: 902b839147197444ebf6c87621e8f0dc, type: 3}
   - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
+  attributes: []
+  shield: {fileID: 2493650241932866960, guid: 6ec3375ba598e904093cd712e36d8663, type: 3}
   collisionDamage: 1
   range: 2
   speed: 3

@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    [SerializeField]
-    private ShieldEnemy enemyScript;
+    public Enemy parent;
 
-    void OnCollisionEnter2D(Collision2D col)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (col.gameObject.CompareTag("Photon"))
+        if(other.collider.tag == "Photon" && !parent.invincible)
         {
-            enemyScript.DestroyShield();
+            parent.ShieldHit();
             Destroy(gameObject);
         }
     }

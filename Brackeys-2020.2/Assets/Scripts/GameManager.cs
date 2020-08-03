@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public static bool gameIsOver;
 
+    //Enemies
     [HideInInspector]
     public static EnemySpawner enemySpawner;
 

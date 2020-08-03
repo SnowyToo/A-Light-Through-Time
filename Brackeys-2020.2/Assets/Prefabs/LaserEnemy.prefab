@@ -289,6 +289,8 @@ MonoBehaviour:
   deathSounds:
   - {fileID: 8300000, guid: 902b839147197444ebf6c87621e8f0dc, type: 3}
   - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
+  attributes: []
+  shield: {fileID: 2493650241932866960, guid: 6ec3375ba598e904093cd712e36d8663, type: 3}
   collisionDamage: 1
   partner: {fileID: 1999663366551205448}
 --- !u!1 &5405739955580542183
@@ -5083,7 +5085,7 @@ ParticleSystemRenderer:
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 0
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0
@@ -5262,5 +5264,7 @@ MonoBehaviour:
   deathSounds:
   - {fileID: 8300000, guid: 902b839147197444ebf6c87621e8f0dc, type: 3}
   - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
+  attributes: []
+  shield: {fileID: 2493650241932866960, guid: 6ec3375ba598e904093cd712e36d8663, type: 3}
   collisionDamage: 1
   partner: {fileID: 7178095482763796887}

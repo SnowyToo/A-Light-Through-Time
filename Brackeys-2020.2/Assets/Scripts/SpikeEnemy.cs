@@ -27,7 +27,7 @@ public class SpikeEnemy : Enemy
     [SerializeField]
     private AudioClip[] shootSounds;
 
-    void Start()
+    private void Start()
     {
         player = GameManager.playerObject.GetComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
