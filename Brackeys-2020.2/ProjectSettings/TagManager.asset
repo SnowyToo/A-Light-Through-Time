@@ -61,3 +61,6 @@ TagManager:
   - name: Crosshair
     uniqueID: 1043184725
     locked: 0
+  - name: Overlay
+    uniqueID: 2117266281
+    locked: 0

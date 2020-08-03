@@ -5,8 +5,6 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     // Spawn positions
-    [SerializeField]
-    private 
 
     private Queue<GameObject> nextEnemies;
     private Dictionary<EnemySpawn, int> currentEnemies;
@@ -51,11 +49,6 @@ public class EnemySpawner : MonoBehaviour
     }
 
     void SpawnNextEnemy()
-    {
-
-    }
-
-    Vector3 SpawnPosition()
     {
 
     }

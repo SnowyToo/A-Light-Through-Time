@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private VolumeProfile warpPostProcess;
     public static CameraShake camShake;
+    public static UIManager uiManager;
 
     private AudioSource bgm;
     private AudioLowPassFilter lowPass;
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
         enemySpawner = GetComponent<EnemySpawner>();
 
         camShake = Camera.main.GetComponent<CameraShake>();
+        uiManager = GetComponent<UIManager>();
 
         bgm = GetComponent<AudioSource>();
         lowPass = GetComponent<AudioLowPassFilter>();
@@ -76,6 +78,8 @@ public class GameManager : MonoBehaviour
         }
 
         score = 0;
+
+        uiManager.SetUpUI(player.maxHealth);
 
         cameraProfile = Camera.main.transform.GetComponent<Volume>();
     }
@@ -113,6 +117,8 @@ public class GameManager : MonoBehaviour
         int scoreGained = GameManager.enemyScores[tag];
         // TODO: update score text UI
         score += scoreGained;
+
+        uiManager.UpdateScore(score);
     }
 
     public static void CameraShake(float dur, float mag)

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d5eca444bb1b9854490651aa1ed14a23
+guid: f196ee0b0069c6c45a0fe55567c70558
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Caveat
+  fontName: Press Start 2P
   fontNames:
-  - Caveat
+  - Press Start 2P
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
