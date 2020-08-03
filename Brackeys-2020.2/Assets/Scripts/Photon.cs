@@ -112,12 +112,14 @@ public class Photon : MonoBehaviour
     public void StartCapture()
     {
         captured = true;
+        GameManager.uiManager.UpdateRewind(false);
         rb.velocity = Vector2.zero;
     }
 
     public void EndCapture()
     {
         captured = false;
+        GameManager.uiManager.UpdateRewind(true);
         rb.velocity = velocityHistory.Peek() * -1f;
     }
 }

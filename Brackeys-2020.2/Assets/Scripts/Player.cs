@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     // Health
     private int health;
     [SerializeField]
-    private int maxHealth;
+    public int maxHealth;
     [SerializeField]
     private float invincibiltyTime = 2.5f;
     private bool invincible;
@@ -62,6 +62,9 @@ public class Player : MonoBehaviour
             return;
 
         health -= damage;
+
+        GameManager.uiManager.UpdateHealth(health);
+
         if (health <= 0)
             Die();
         else
