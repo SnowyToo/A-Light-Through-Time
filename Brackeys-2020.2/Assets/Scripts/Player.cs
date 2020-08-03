@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     private int health;
     [SerializeField]
     private int maxHealth;
+    [SerializeField]
+    private float invincibiltyTime = 2.5f;
     private bool invincible;
 
     // Misc
@@ -28,6 +30,8 @@ public class Player : MonoBehaviour
     private AudioClip hitSound;
     [SerializeField]
     private AudioClip deathSound;
+    [SerializeField]
+    private GameObject deathParticles;
 
     void Awake()
     {
@@ -64,16 +68,14 @@ public class Player : MonoBehaviour
         if (health <= 0)
             Die();
         else
-        {
             Hit();
-        }
     }
 
     void Die()
     {
         GameManager.GameOver();
         GameManager.PlaySound(deathSound, gameObject);
-        // TODO: player death particles? (or just same as enemies maybe)
+        Instantiate(deathParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
@@ -87,7 +89,7 @@ public class Player : MonoBehaviour
     private IEnumerator Invincibility()
     {
         invincible = true;
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(invincibiltyTime);
         invincible = false;
     }
 

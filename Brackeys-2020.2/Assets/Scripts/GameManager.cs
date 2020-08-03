@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
     {
         if (!gameIsOver)
         {
-            if (Input.GetButton("Rewind"))
+            if (Input.GetButton("Rewind") && !photon.captured)
             {
                 isRewinding = true;
                 cameraProfile.profile = warpPostProcess;
@@ -106,7 +106,6 @@ public class GameManager : MonoBehaviour
         sound.clip = clip;
         sound.Play();
     }
-
 
     public static void PlaySound(AudioClip[] clips, GameObject source)
     {

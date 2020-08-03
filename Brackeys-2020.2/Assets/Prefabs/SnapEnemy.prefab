@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 9110422201019483524}
   - component: {fileID: 9110422201019483523}
   - component: {fileID: 9110422201019483522}
-  - component: {fileID: 9110422201019483525}
+  - component: {fileID: 825865076461980276}
+  - component: {fileID: 2499619431447306424}
   m_Layer: 10
   m_Name: SnapEnemy
   m_TagString: SnapEnemy
@@ -99,7 +100,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.42433095
---- !u!114 &9110422201019483525
+--- !u!114 &825865076461980276
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,9 +109,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 9110422201019483521}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1621151e44ee1e2448ba0a8ea9ac0b09, type: 3}
+  m_Script: {fileID: 11500000, guid: 20b6b42e0a495c649b23688d78bd6403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   deathParticles: {fileID: 4506409821079276685, guid: 18710431ba6e3c244a66dae0513308bc,
     type: 3}
+  deathSounds:
+  - {fileID: 8300000, guid: 902b839147197444ebf6c87621e8f0dc, type: 3}
+  - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
   collisionDamage: 1
+  captureTime: 2
+  timeBetweenUpdates: 1
+  speed: 2
+--- !u!50 &2499619431447306424
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110422201019483521}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4

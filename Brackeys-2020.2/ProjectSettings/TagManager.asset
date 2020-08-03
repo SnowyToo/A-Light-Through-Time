@@ -26,7 +26,7 @@ TagManager:
   - Mirror
   - PlayerPP
   - Bullets
-  - 
+  - Walls
   - 
   - 
   - 
@@ -56,4 +56,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 1059084567
+    locked: 0
+  - name: Crosshair
+    uniqueID: 1043184725
     locked: 0

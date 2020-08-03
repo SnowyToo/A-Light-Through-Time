@@ -149,6 +149,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathParticles: {fileID: 4506409821079276685, guid: 18710431ba6e3c244a66dae0513308bc,
     type: 3}
+  deathSounds:
+  - {fileID: 8300000, guid: 902b839147197444ebf6c87621e8f0dc, type: 3}
+  - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
   collisionDamage: 1
   range: 2
   speed: 3
@@ -157,6 +160,9 @@ MonoBehaviour:
   shotPoint: {fileID: 5363813771540936787}
   bulletDamage: 1
   bulletSpeed: 13
+  shootSounds:
+  - {fileID: 8300000, guid: ed56a33fb3be4024db6aa402cbdd3ddb, type: 3}
+  - {fileID: 8300000, guid: 14681a5b49f7374499077a12f5cd57f9, type: 3}
 --- !u!50 &1127738974161154598
 Rigidbody2D:
   serializedVersion: 4

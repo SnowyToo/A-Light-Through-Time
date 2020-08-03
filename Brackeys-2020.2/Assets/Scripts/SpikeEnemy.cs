@@ -27,7 +27,6 @@ public class SpikeEnemy : Enemy
     [SerializeField]
     private AudioClip[] shootSounds;
 
-
     void Start()
     {
         player = GameManager.playerObject.GetComponent<Rigidbody2D>();
@@ -60,6 +59,10 @@ public class SpikeEnemy : Enemy
             CirclePlayer();
         else
             MoveToPlayer();
+        
+        Vector2 aimDirection = player.position - rb.position;
+        float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = aimAngle;
     }
 
     void CirclePlayer()
@@ -71,10 +74,6 @@ public class SpikeEnemy : Enemy
     void MoveToPlayer()
     {
         rb.velocity = (player.position - rb.position).normalized * speed;
-
-        Vector2 aimDirection = player.position - rb.position;
-        float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = aimAngle;
     }
 
     void Shoot()

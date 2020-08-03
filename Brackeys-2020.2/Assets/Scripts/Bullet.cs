@@ -14,6 +14,7 @@ public class Bullet : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Wall"))
         {
+            Debug.Log("bullet destroyed");
             Destroy(gameObject);
         }
     }
