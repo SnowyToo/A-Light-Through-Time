@@ -40,6 +40,12 @@ public class SnapEnemy : Enemy
 
     void Update()
     {
+        if (GameManager.gameIsOver)
+        {
+            EndGame();
+            return;
+        }
+
         if (nextUpdate <= 0f)
             UpdatePosition();
         else
@@ -57,7 +63,7 @@ public class SnapEnemy : Enemy
 
     void MoveToPhoton()
     {
-        rb.velocity = (trackingPosition.position - rb.position).normalized * speed;
+        rb.velocity = (trackingPosition - rb.position).normalized * speed;
     }
 
     // Move in front of the photon when normal time
@@ -89,5 +95,12 @@ public class SnapEnemy : Enemy
     public override void LaserHit()
     {
         Die();
+    }
+
+    void EndGame()
+    {
+        rb.velocity = Vector2.zero;
+        
+        this.enabled = false;
     }
 }

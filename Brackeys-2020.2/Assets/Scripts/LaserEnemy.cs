@@ -13,7 +13,7 @@ public class LaserEnemy : Enemy
     public override void PhotonHit()
     {
         base.PhotonHit();
-        partner.Die();
+        partner.Die(false);
         Destroy(transform.parent.gameObject);
     }
 }

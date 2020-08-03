@@ -1593,9 +1593,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5020004eb470715469fc07e63e846e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenSpawns: 0
-  enemies: []
-  initialMaxEnemies: 1
+  rangeX: {x: 13.5, y: 15}
+  rangeY: {x: 7, y: 9}
+  timeBetweenSpawns: 1.2
+  initialMaxEnemies: 2
+  enemyPrefabs:
+  - {fileID: 8362290013693408758, guid: 4c43e86af0f8c134383ff83f13931afb, type: 3}
+  - {fileID: 9110422201019483521, guid: f2985a3637de4d540afccb615ad7e9ee, type: 3}
+  - {fileID: 5405739955580542183, guid: 390ebf2f74b43584988cc47400ef82c8, type: 3}
 --- !u!82 &884107294
 AudioSource:
   m_ObjectHideFlags: 0
@@ -18406,6 +18411,36 @@ MonoBehaviour:
   deathParticles: {fileID: 2268556365347586730, guid: 887c5724ae172354086a704057823d1e,
     type: 3}
   captured: 0
+--- !u!1 &1732689463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1732689464}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1732689464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732689463}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.05, y: 7.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1750383245
 GameObject:
   m_ObjectHideFlags: 0
@@ -23787,6 +23822,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5405739955580542183, guid: 390ebf2f74b43584988cc47400ef82c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 390ebf2f74b43584988cc47400ef82c8, type: 3}
 --- !u!1001 &8362290014292717934
@@ -23856,6 +23896,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpikeEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8362290013693408758, guid: 4c43e86af0f8c134383ff83f13931afb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c43e86af0f8c134383ff83f13931afb, type: 3}
 --- !u!1001 &9110422201270174128
@@ -23869,6 +23914,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SnapEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 9110422201019483521, guid: f2985a3637de4d540afccb615ad7e9ee,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9110422201019483524, guid: f2985a3637de4d540afccb615ad7e9ee,
         type: 3}

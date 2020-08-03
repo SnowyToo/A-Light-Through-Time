@@ -15,32 +15,29 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private float timeBetweenSpawns;
     private float timeLeftBetweenSpawns;
-    [SerializeField]
-    private GameObject[] enemies;
 
     [SerializeField]
     private int initialMaxEnemies = 1;
     private int maxEnemies;
 
     // Enemies
+    public GameObject[] enemyPrefabs;
+    public static GameObject[] _enemyPrefabs;
     [HideInInspector]
     public enum EnemyType {SpikeEnemy, SnapEnemy, LaserEnemy};
-    [SerializeField]
-    private GameObject[] enemyPrefabs;
     
-    private Dictionary<EnemyType, GameObject> enemies;
-
     void Start()
     {
         maxEnemies = initialMaxEnemies;
 
         nextEnemies = new Queue<EnemySpawn>();
         currentEnemies = new Dictionary<EnemyType, int>();
-        enemies = new Dictionary<EnemyType, GameObject>();
         
         InitializeCurrentEnemies();
 
         timeLeftBetweenSpawns = timeBetweenSpawns;
+
+        _enemyPrefabs = enemyPrefabs;
     }
 
     void InitializeCurrentEnemies()
@@ -54,7 +51,7 @@ public class EnemySpawner : MonoBehaviour
     int CurrentEnemyCount()
     {
         int count = 0;
-        foreach(KeyValuePair<EnemyType, int> entry in myDictionary)
+        foreach(KeyValuePair<EnemyType, int> entry in currentEnemies)
         {
             count += entry.Value;
         }
@@ -62,26 +59,24 @@ public class EnemySpawner : MonoBehaviour
     }
 
     void Update()
-    {
+    {        
+        // If we aren't waiting and there are enemies left to spawn, spawn the next enemy
         if (nextEnemies.Count > 0)
         {
             if (timeLeftBetweenSpawns <= 0f)
                 SpawnNextEnemy();
             else
                 timeLeftBetweenSpawns -= Time.deltaTime;
-            // If we aren't waiting, spawn the next enemy
         }
         
-        if (CurrentEnemyCount() < maxEnemies)
+        // If we don't j=have enough enemies, pcik one to spawn and enqueue it
+        if (CurrentEnemyCount() + nextEnemies.Count < maxEnemies)
         {
-            // Pick which enemy to spawn
-            int index = Random.Range(0, enemyPrefabs.Length);
-            EnemyType type = (EnemyType) index;
-            // Pick position
-            Vector3 position = SpawnPosition();
-            // Pick attributes
+            Debug.Log("Creating new enemy spawn");
+            EnemyType type = PickType();
+            Vector3 position = PickPosition();
             List<EnemyAttribute> attributes = PickAttributes();
-            // Add to next enemies
+
             EnemySpawn enemySpawn = new EnemySpawn(type, position, attributes);
             nextEnemies.Enqueue(enemySpawn);
         }
@@ -89,19 +84,42 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnNextEnemy()
     {
+        Debug.Log("Spawning new enemy");
         timeLeftBetweenSpawns = timeBetweenSpawns;
 
-        EnemySpawn enemy = nextEnemies.Dequeue();
+        // Instantiate enemy
+        EnemySpawn enemyToSpawn = nextEnemies.Dequeue();
+        GameObject enemyGO = Instantiate(enemyToSpawn.enemyPrefab, enemyToSpawn.position, Quaternion.identity);
+        if (enemyToSpawn.type != EnemyType.LaserEnemy)
+        {
+            Enemy enemy = enemyGO.GetComponent<Enemy>();
+            
+            // Addtributes to enemy
+            foreach (EnemyAttribute attribute in enemyToSpawn.attributes)
+            {
+                enemy.Addtribute(attribute);
+            }
+        }
+        else
+        {
+            // Add attributes to both enemies
+        }
+
+        // Update current enemies
+        currentEnemies[enemyToSpawn.type] ++;
+        Debug.Log(currentEnemies[enemyToSpawn.type]);
     }
 
     EnemyType PickType()
     {
+        // Pick next enemy type based on current enemy types and difficulty
+
         int index = Random.Range(0, enemyPrefabs.Length);
         EnemyType type = (EnemyType) index;
         return type;
     }
 
-    Vector3 SpawnPosition()
+    Vector3 PickPosition()
     {
         int xSign = Random.Range(0, 2) * 2 - 1;
         int ySign = Random.Range(0, 2) * 2 - 1;
@@ -112,22 +130,31 @@ public class EnemySpawner : MonoBehaviour
 
     List<EnemyAttribute> PickAttributes()
     {
+        // Pick attributes based on difficulty
+
         List<EnemyAttribute> attributes = new List<EnemyAttribute>();
         EnemyAttribute shieldAttribute = new EnemyAttribute(EnemyAttribute.AttributeType.SHIELD, Random.Range(0, 3)); //  0, 1 or 2 shields
         attributes.Add(shieldAttribute);
         return attributes;
+    }
+
+    public void RemoveEnemy(EnemyType type)
+    {
+        currentEnemies[type] --;
     }
 }
 
 public struct EnemySpawn
 {
     public GameObject enemyPrefab;
+    public EnemySpawner.EnemyType type;
     public Vector3 position;
     public List<EnemyAttribute> attributes;
 
-    public EnemySpawn(EnemyType type, Vector3 _position, List<EnemyAttribute> _attributes)
+    public EnemySpawn(EnemySpawner.EnemyType _type, Vector3 _position, List<EnemyAttribute> _attributes)
     {
-        enemyPrefab = enemies[type];
+        enemyPrefab = EnemySpawner._enemyPrefabs[(int) _type];
+        type = _type;
         position = _position;
         attributes = _attributes;
     }

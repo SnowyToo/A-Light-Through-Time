@@ -9,6 +9,15 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private AudioClip[] deathSounds;
 
+    private Animator anim;
+
+    [SerializeField]
+    private int collisionDamage;
+
+    [HideInInspector]
+    public EnemySpawner.EnemyType type;
+
+    // Attributes
     private List<EnemyAttribute> attributes = new List<EnemyAttribute>();
     private Stack<Shield> shields = new Stack<Shield>();
     [SerializeField]
@@ -17,11 +26,6 @@ public class Enemy : MonoBehaviour
 
     private readonly EnemyAttribute TIME_WARP = new EnemyAttribute(EnemyAttribute.AttributeType.TIME_ONLY);
     private readonly EnemyAttribute SHIELD = new EnemyAttribute(EnemyAttribute.AttributeType.SHIELD);
-
-    private Animator anim;
-
-    [SerializeField]
-    private int collisionDamage;
 
     private void Awake()
     {
@@ -61,10 +65,7 @@ public class Enemy : MonoBehaviour
         GameManager.player.TakeDamage(collisionDamage);
     }
 
-    public virtual void LaserHit()
-    {
-
-    }
+    public virtual void LaserHit() { }
 
     public void ShieldHit()
     {
@@ -82,8 +83,9 @@ public class Enemy : MonoBehaviour
         invincible = false;
     }
 
-    public void Die()
+    public void Die(bool remove = true)
     {
+        if (remove) GameManager.enemySpawner.RemoveEnemy(type);
         GameManager.EnemyKill(gameObject.tag);
         GameManager.PlaySound(deathSounds, this.gameObject);
         GameManager.SpawnParticles(deathParticles, gameObject);
@@ -94,7 +96,7 @@ public class Enemy : MonoBehaviour
     public void Addtribute(EnemyAttribute attribute)
     {
         if (attribute.type == EnemyAttribute.AttributeType.SHIELD && attribute.amount == 0) return;
-        
+
         attributes.Add(attribute);
 
         if (attribute.type == EnemyAttribute.AttributeType.SHIELD)
