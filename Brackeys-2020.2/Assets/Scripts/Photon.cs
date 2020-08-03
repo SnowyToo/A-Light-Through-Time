@@ -83,7 +83,7 @@ public class Photon : MonoBehaviour
 
     public void Die()
     {
-        Instantiate(deathParticles, transform.position, Quaternion.identity);
+        GameManager.SpawnParticles(deathParticles, gameObject);
         Destroy(gameObject);
     }
 
@@ -106,7 +106,7 @@ public class Photon : MonoBehaviour
     private void Hit()
     {
         GameManager.PlaySound(boop, gameObject, 0.4f);
-        Instantiate(hitParticles, transform.position, Quaternion.identity);
+        GameManager.SpawnParticles(hitParticles, gameObject);
     }
 
     public void StartCapture()

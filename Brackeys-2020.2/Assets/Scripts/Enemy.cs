@@ -1,10 +1,6 @@
-<<<<<<< Updated upstream
-﻿using UnityEngine;
-=======
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
->>>>>>> Stashed changes
 
 public class Enemy : MonoBehaviour
 {
@@ -13,8 +9,6 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private AudioClip[] deathSounds;
 
-<<<<<<< Updated upstream
-=======
     private List<EnemyAttribute> attributes = new List<EnemyAttribute>();
     private Stack<Shield> shields = new Stack<Shield>();
     [SerializeField]
@@ -26,13 +20,13 @@ public class Enemy : MonoBehaviour
 
     private Animator anim;
 
->>>>>>> Stashed changes
     [SerializeField]
     private int collisionDamage;
 
     private void Awake()
     {
-        Addtribute(new EnemyAttribute(EnemyAttribute.AttributeType.TIME_ONLY));
+        //Addtribute(new EnemyAttribute(EnemyAttribute.AttributeType.TIME_ONLY));
+        Addtribute(new EnemyAttribute(EnemyAttribute.AttributeType.SHIELD, 2));
         anim = GetComponent<Animator>();
     }
 
@@ -54,15 +48,11 @@ public class Enemy : MonoBehaviour
 
     public virtual void PhotonHit()
     {
-<<<<<<< Updated upstream
-=======
         if (invincible) return;
 
         if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding) return;
 
         if(shields.Count > 0) return;
-
->>>>>>> Stashed changes
         Die();
     }
 
@@ -81,6 +71,7 @@ public class Enemy : MonoBehaviour
         shields.Pop();
         //Particles?
         anim.SetTrigger("Hit");
+        GameManager.CameraShake(0.2f, 0.2f);
         StartCoroutine(Invincibility());
     }
 
@@ -95,7 +86,8 @@ public class Enemy : MonoBehaviour
     {
         GameManager.EnemyKill(gameObject.tag);
         GameManager.PlaySound(deathSounds, this.gameObject);
-        Instantiate(deathParticles, transform.position, Quaternion.identity);
+        GameManager.SpawnParticles(deathParticles, gameObject);
+        GameManager.CameraShake(0.2f, 0.3f);
         Destroy(gameObject);
     }
 
@@ -128,8 +120,6 @@ public class Enemy : MonoBehaviour
         }
     }
 }
-<<<<<<< Updated upstream
-=======
 
 [System.Serializable]
 public struct EnemyAttribute
@@ -150,4 +140,3 @@ public struct EnemyAttribute
         return type == other.type;
     }
 }
->>>>>>> Stashed changes

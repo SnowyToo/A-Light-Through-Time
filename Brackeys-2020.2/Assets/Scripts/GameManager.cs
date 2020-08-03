@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -42,6 +43,8 @@ public class GameManager : MonoBehaviour
     private VolumeProfile normalPostProcess;
     [SerializeField]
     private VolumeProfile warpPostProcess;
+    public static CameraShake camShake;
+
     private AudioSource bgm;
     private AudioLowPassFilter lowPass;
     private const float NORMAL_LOW_PASS = 7500;
@@ -54,6 +57,8 @@ public class GameManager : MonoBehaviour
         player = playerObject.GetComponent<Player>();
         photon = photonObject.GetComponent<Photon>();
         enemySpawner = GetComponent<EnemySpawner>();
+
+        camShake = Camera.main.GetComponent<CameraShake>();
 
         bgm = GetComponent<AudioSource>();
         lowPass = GetComponent<AudioLowPassFilter>();
@@ -108,6 +113,11 @@ public class GameManager : MonoBehaviour
         score += scoreGained;
     }
 
+    public static void CameraShake(float dur, float mag)
+    {
+        camShake.Shake(dur, mag);
+    }
+
     public static void GameOver()
     {
         photon.Die();
@@ -121,12 +131,14 @@ public class GameManager : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    public static void PlaySound(AudioClip clip, GameObject source, float volume = 0.8f)
+    public static void PlaySound(AudioClip clip, GameObject source, float volume = 0.8f, float pitch = 1f)
     {
         AudioSource sound = new GameObject().AddComponent<AudioSource>();
         sound.volume = volume;
         sound.name = source.name + " Sound";
         sound.clip = clip;
+
+        sound.pitch = pitch;
 
         AudioLowPassFilter lowPass = sound.gameObject.AddComponent<AudioLowPassFilter>();
         lowPass.cutoffFrequency = (isRewinding ? TIME_WARP_LOW_PASS : NORMAL_LOW_PASS);
@@ -138,6 +150,12 @@ public class GameManager : MonoBehaviour
     public static void PlaySound(AudioClip[] clips, GameObject source)
     {
         PlaySound(clips[Random.Range(0, clips.Length)], source);
+    }
+
+    public static void SpawnParticles(GameObject particles, GameObject source)
+    {
+        GameObject part = Instantiate(particles, source.transform.position, Quaternion.identity);
+        Destroy(part.gameObject, 4f);
     }
 }
 

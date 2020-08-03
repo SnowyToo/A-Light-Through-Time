@@ -120,12 +120,12 @@ Rigidbody2D:
   m_GameObject: {fileID: 4100926439769480226}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -144,3 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  wallHit: {fileID: 8300000, guid: 041505bbcfab3034c8b70dbe25db0dc3, type: 3}
+  particles: {fileID: 1431077026564264795, guid: f6348175f68f4b14cb9fc857ecc18e62,
+    type: 3}

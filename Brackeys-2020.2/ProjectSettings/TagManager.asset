@@ -25,7 +25,7 @@ TagManager:
   - Photon
   - Enemies
   - Mirror
-  - PlayerPP
+  - PlayerInvincible
   - Bullets
   - Walls
   - 

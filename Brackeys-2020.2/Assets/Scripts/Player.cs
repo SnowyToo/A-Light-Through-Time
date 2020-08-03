@@ -72,7 +72,8 @@ public class Player : MonoBehaviour
     {
         GameManager.GameOver();
         GameManager.PlaySound(deathSound, gameObject);
-        Instantiate(deathParticles, transform.position, Quaternion.identity);
+        GameManager.SpawnParticles(deathParticles, gameObject);
+        GameManager.CameraShake(0.2f, 0.7f);
         Destroy(gameObject);
     }
 
@@ -80,15 +81,16 @@ public class Player : MonoBehaviour
     {
         anim.SetTrigger("Hit");
         GameManager.PlaySound(hitSound, gameObject);
+        GameManager.CameraShake(0.2f, 0.5f);
         StartCoroutine(Invincibility());
     }
 
     private IEnumerator Invincibility()
     {
         invincible = true;
-        GetComponent<Collider2D>().enabled = false;
+        gameObject.layer = 12;
         yield return new WaitForSeconds(invincibiltyTime);
-        invincible = false;
+        gameObject.layer = 8;
         GetComponent<Collider2D>().enabled = true;
     }
 }
