@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
         sound.name = source.name + " Sound";
         sound.clip = clip;
         sound.Play();
+        Destroy(sound.gameObject, 4f);
     }
 
     public static void PlaySound(AudioClip[] clips, GameObject source)

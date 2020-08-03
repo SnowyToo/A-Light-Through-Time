@@ -155,7 +155,7 @@ MonoBehaviour:
   collisionDamage: 1
   range: 2
   speed: 3
-  timeBetweenShots: 1
+  timeBetweenShots: 2
   bullet: {fileID: 4100926439769480226, guid: 72410b7c8740efe47a0f0980ef405dd5, type: 3}
   shotPoint: {fileID: 5363813771540936787}
   bulletDamage: 1
