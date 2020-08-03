@@ -93,6 +93,8 @@ public class Enemy : MonoBehaviour
 
     public void Addtribute(EnemyAttribute attribute)
     {
+        if (attribute.type == EnemyAttribute.AttributeType.SHIELD && attribute.amount == 0) return;
+        
         attributes.Add(attribute);
 
         if (attribute.type == EnemyAttribute.AttributeType.SHIELD)
