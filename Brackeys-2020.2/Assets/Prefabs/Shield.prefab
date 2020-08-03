@@ -111,3 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1770a239e3bd6448ba952699de9e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 0}
+  shieldPop: {fileID: 120204116769547036, guid: 5d28530c530dd9c41a1b7aba5adc7af5,
+    type: 3}
+  shieldBoop: {fileID: 8300000, guid: 8d719576be887584abb204c389a74c79, type: 3}
