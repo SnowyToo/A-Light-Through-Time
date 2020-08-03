@@ -8,6 +8,8 @@ public class SnapEnemy : Enemy
     [SerializeField]
     private float captureTime = 2f;
     private bool capturing;
+    private EdgeCollider2D edgeCol;
+    private CircleCollider2D cirCol;
 
     // Tracking
     private Rigidbody2D photonRB;
@@ -31,6 +33,9 @@ public class SnapEnemy : Enemy
         photon = GameManager.photon;
         nextUpdate = timeBetweenUpdates;
         capturing = false;
+
+        edgeCol = GetComponent<EdgeCollider2D>();
+        cirCol = GetComponent<CircleCollider2D>();
     }
 
     void Update()
@@ -47,12 +52,12 @@ public class SnapEnemy : Enemy
     void UpdatePosition()
     {
         nextUpdate = timeBetweenUpdates;
-        trackingPosition = photonRB.position;
+        trackingPosition = photonRB.position + photonRB.velocity.normalized * 2f;
     }
 
     void MoveToPhoton()
     {
-        rb.velocity = (photonRB.position - rb.position).normalized * speed;
+        rb.velocity = (photonRB.position + photonRB.velocity.normalized * 2f - rb.position).normalized * speed;
     }
 
     // Move in front of the photon when normal time
@@ -71,10 +76,14 @@ public class SnapEnemy : Enemy
         photonTransform.position = transform.position;
         photon.StartCapture();
 
+        cirCol.enabled = false;
+        edgeCol.enabled = true;
+
         yield return new WaitForSeconds(captureTime);
 
         capturing = false;
         photon.EndCapture();
+        Die();
     }
 
     public override void LaserHit()

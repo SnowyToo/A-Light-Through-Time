@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
+    private bool shaking;
+
     public void Shake(float dur, float mag)
     {
         StartCoroutine(_CameraShake(dur, mag));
@@ -11,6 +13,10 @@ public class CameraShake : MonoBehaviour
 
     public IEnumerator _CameraShake(float duration, float magnitude)
     {
+        if (shaking) yield break;
+
+        shaking = true;
+
         Vector3 originalPos = transform.position;
         float elapsed = 0f;
 
@@ -26,5 +32,7 @@ public class CameraShake : MonoBehaviour
         }
 
         transform.position = originalPos;
+
+        shaking = false;
     }
 }
