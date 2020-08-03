@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
         bgm = GetComponent<AudioSource>();
         lowPass = GetComponent<AudioLowPassFilter>();
         gameIsOver = false;
+
+        score = 0;
     }
 
     void Start()

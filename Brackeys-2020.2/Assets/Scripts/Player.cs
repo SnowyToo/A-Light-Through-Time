@@ -90,6 +90,7 @@ public class Player : MonoBehaviour
         invincible = true;
         gameObject.layer = 12;
         yield return new WaitForSeconds(invincibiltyTime);
+        invincible = false;
         gameObject.layer = 8;
         GetComponent<Collider2D>().enabled = true;
     }
