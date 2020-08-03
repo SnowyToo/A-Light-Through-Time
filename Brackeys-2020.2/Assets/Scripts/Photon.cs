@@ -99,7 +99,7 @@ public class Photon : MonoBehaviour
         if (other.gameObject.layer == 11)
         {
             Hit();
-            rb.velocity = GameManager.player.GetAimDirection();
+            rb.velocity = GameManager.GetMousePosition() - (Vector2)rb.transform.position;
         }
     }
 

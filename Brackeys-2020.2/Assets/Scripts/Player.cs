@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
 
     // Aiming
     private Camera cam;
-    private Vector2 mousePosition;
     private Vector2 aimDirection;
 
     // Health
@@ -46,15 +45,13 @@ public class Player : MonoBehaviour
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
-
-        mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
     void FixedUpdate()
     {
         rb.velocity = new Vector2(h, v).normalized * speed;
 
-        aimDirection = mousePosition - rb.position;
+        aimDirection = GameManager.GetMousePosition() - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;
     }
@@ -91,10 +88,5 @@ public class Player : MonoBehaviour
         invincible = true;
         yield return new WaitForSeconds(invincibiltyTime);
         invincible = false;
-    }
-
-    public Vector2 GetAimDirection()
-    {
-        return aimDirection;
     }
 }

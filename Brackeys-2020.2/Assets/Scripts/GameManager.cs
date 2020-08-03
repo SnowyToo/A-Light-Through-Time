@@ -13,12 +13,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public static int score;
 
-    // Post processing
-    [SerializeField]
-    private VolumeProfile normalPostProcess;
-    [SerializeField]
-    private VolumeProfile warpPostProcess;
-
     private Volume cameraProfile;
 
     // Gameplay
@@ -42,6 +36,16 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public static EnemySpawner enemySpawner;
 
+    // Visuals & Audio
+    [SerializeField]
+    private VolumeProfile normalPostProcess;
+    [SerializeField]
+    private VolumeProfile warpPostProcess;
+    private AudioSource bgm;
+    private AudioLowPassFilter lowPass;
+    private const float NORMAL_LOW_PASS = 7500;
+    private const float TIME_WARP_LOW_PASS = 2500;
+
     void Awake()
     {
         playerObject = GameObject.FindWithTag("Player");
@@ -49,6 +53,9 @@ public class GameManager : MonoBehaviour
         player = playerObject.GetComponent<Player>();
         photon = photonObject.GetComponent<Photon>();
         enemySpawner = GetComponent<EnemySpawner>();
+
+        bgm = GetComponent<AudioSource>();
+        lowPass = GetComponent<AudioLowPassFilter>();
         gameIsOver = false;
     }
 
@@ -74,12 +81,18 @@ public class GameManager : MonoBehaviour
                 isRewinding = true;
                 cameraProfile.profile = warpPostProcess;
                 mirrorCollider.enabled = false;
+
+                bgm.pitch = -1;
+                lowPass.cutoffFrequency = TIME_WARP_LOW_PASS;
             }
             else
             {
                 isRewinding = false;
                 cameraProfile.profile = normalPostProcess;
                 mirrorCollider.enabled = true;
+
+                bgm.pitch = 1;
+                lowPass.cutoffFrequency = NORMAL_LOW_PASS;
             }
         }
 
@@ -102,12 +115,21 @@ public class GameManager : MonoBehaviour
         Debug.Log("GAME OVER");
     }
 
+    public static Vector2 GetMousePosition()
+    {
+        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
     public static void PlaySound(AudioClip clip, GameObject source, float volume = 0.8f)
     {
         AudioSource sound = new GameObject().AddComponent<AudioSource>();
         sound.volume = volume;
         sound.name = source.name + " Sound";
         sound.clip = clip;
+
+        AudioLowPassFilter lowPass = sound.gameObject.AddComponent<AudioLowPassFilter>();
+        lowPass.cutoffFrequency = (isRewinding ? TIME_WARP_LOW_PASS : NORMAL_LOW_PASS);
+
         sound.Play();
         Destroy(sound.gameObject, 4f);
     }
