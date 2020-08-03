@@ -69,7 +69,6 @@ public class Photon : MonoBehaviour
 
     void StorePosition()
     {
-        if (captured) return;
         positionHistory.Push(rb.position);
         if (rewindVelocity)
             velocityHistory.Push(rb.velocity);
@@ -89,13 +88,13 @@ public class Photon : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        //if (captured) return;
+        if (captured) return;
         Hit();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //if (captured) return;
+        if (captured) return;
         if (other.gameObject.layer == 11)
         {
             Hit();
@@ -111,13 +110,13 @@ public class Photon : MonoBehaviour
 
     public void StartCapture()
     {
+        captured = true;
         GameManager.uiManager.UpdateRewind(false);
-        //rb.velocity = Vector2.zero;
     }
 
     public void EndCapture()
     {
+        captured = false;
         GameManager.uiManager.UpdateRewind(true);
-        //rb.velocity = velocityHistory.Peek() * -1f;
     }
 }

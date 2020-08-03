@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SnapEnemy : Enemy
-{
+{  
     // Capturing
     [SerializeField]
     private float captureTime = 2f;

@@ -1573,11 +1573,16 @@ MonoBehaviour:
   - name: SpikeEnemy
     value: 20
   - name: SnapEnemy
-    value: 10
-  - name: LaserEnemy
     value: 30
-  - name: ShieldEnemy
+  - name: LaserEnemy
+    value: 25
+  _attributeScores:
+  - type: 0
+    value: 25
+  - type: 1
     value: 40
+  - type: 2
+    value: 35
   mirrorCollider: {fileID: 936409372}
   normalPostProcess: {fileID: 11400000, guid: f7355d11c388543429e00baaeb54ec8b, type: 2}
   warpPostProcess: {fileID: 11400000, guid: 8ed495f661539204aa286210bc4cb84c, type: 2}

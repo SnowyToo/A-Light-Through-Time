@@ -9,8 +9,11 @@ public class GameManager : MonoBehaviour
     // Score
     [SerializeField]
     private List<EnemyScorePair> _enemyScores;
+    [SerializeField]
+    private List<AttributeScorePair> _attributeScores;
 
     private static Dictionary<string, int> enemyScores;
+    private static Dictionary<EnemyAttribute.AttributeType, int> attributeScores;
     [HideInInspector]
     public static int score;
 
@@ -72,9 +75,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         enemyScores = new Dictionary<string, int>();
+        attributeScores = new Dictionary<EnemyAttribute.AttributeType, int>();
         foreach (EnemyScorePair esp in _enemyScores)
         {
             enemyScores.Add(esp.name, esp.value);
+        }
+        foreach(AttributeScorePair asp in _attributeScores)
+        {
+            attributeScores.Add(asp.type, asp.value);
         }
 
         score = 0;
@@ -112,11 +120,18 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown("r")) SceneManager.LoadScene("Game");
     }
 
-    public static void EnemyKill(string tag)
+    public static void EnemyKill(Enemy enemy)
     {
-        int scoreGained = GameManager.enemyScores[tag];
+        //int scoreGained = GameManager.enemyScores[tag];
+
+        int scoreGain = enemyScores[enemy.tag];
+        foreach(EnemyAttribute e in enemy.attributes)
+        {
+            scoreGain += attributeScores[e.type] * e.amount;
+        }
+
         // TODO: update score text UI
-        score += scoreGained;
+        score += scoreGain;
 
         uiManager.UpdateScore(score);
     }
@@ -171,5 +186,12 @@ public class GameManager : MonoBehaviour
 public struct EnemyScorePair
 {
     public string name;
+    public int value;
+}
+
+[System.Serializable]
+public struct AttributeScorePair
+{
+    public EnemyAttribute.AttributeType type;
     public int value;
 }

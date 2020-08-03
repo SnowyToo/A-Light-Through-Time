@@ -18,10 +18,12 @@ public class Enemy : MonoBehaviour
     public EnemySpawner.EnemyType type;
 
     // Attributes
-    private List<EnemyAttribute> attributes = new List<EnemyAttribute>();
+    [HideInInspector]
+    public List<EnemyAttribute> attributes = new List<EnemyAttribute>();
     private Stack<Shield> shields = new Stack<Shield>();
     [SerializeField]
     private GameObject shield;
+
     public bool invincible;
 
     private readonly EnemyAttribute TIME_WARP = new EnemyAttribute(EnemyAttribute.AttributeType.TIME_ONLY);
@@ -29,8 +31,6 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        //Addtribute(new EnemyAttribute(EnemyAttribute.AttributeType.TIME_ONLY));
-        Addtribute(new EnemyAttribute(EnemyAttribute.AttributeType.SHIELD, 2));
         anim = GetComponent<Animator>();
     }
 
@@ -57,6 +57,7 @@ public class Enemy : MonoBehaviour
         if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding) return;
 
         if(shields.Count > 0) return;
+
         Die();
     }
 
@@ -86,7 +87,7 @@ public class Enemy : MonoBehaviour
     public void Die(bool remove = true)
     {
         if (remove) GameManager.enemySpawner.RemoveEnemy(type);
-        GameManager.EnemyKill(gameObject.tag);
+        GameManager.EnemyKill(this);
         GameManager.PlaySound(deathSounds, this.gameObject);
         GameManager.SpawnParticles(deathParticles, gameObject);
         GameManager.CameraShake(0.2f, 0.3f);
