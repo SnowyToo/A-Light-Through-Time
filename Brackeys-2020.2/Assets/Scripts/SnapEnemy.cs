@@ -52,7 +52,7 @@ public class SnapEnemy : Enemy
 
     void MoveToPhoton()
     {
-        rb.velocity = (photonRB.position - rb.position).normalized * speed;
+        rb.velocity = (trackingPosition.position - rb.position).normalized * speed;
     }
 
     // Move in front of the photon when normal time
