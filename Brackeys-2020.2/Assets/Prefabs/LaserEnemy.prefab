@@ -300,6 +300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5405739955580542182}
+  - component: {fileID: 693054822372366411}
   m_Layer: 10
   m_Name: LaserEnemy
   m_TagString: Untagged
@@ -324,6 +325,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &693054822372366411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405739955580542183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e20d73224414e46aea4a9d6401cb5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 0.2
+  xRange: {x: -8, y: 8}
+  yRange: {x: -2.5, y: 2.5}
+  speed: 0.7
+  rotateSpeed: 10
 --- !u!1 &5405739956020344891
 GameObject:
   m_ObjectHideFlags: 0

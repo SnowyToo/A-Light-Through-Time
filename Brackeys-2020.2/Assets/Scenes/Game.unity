@@ -22564,7 +22564,7 @@ PrefabInstance:
     - target: {fileID: 5405739955580542182, guid: 390ebf2f74b43584988cc47400ef82c8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: 3.16
       objectReference: {fileID: 0}
     - target: {fileID: 5405739955580542182, guid: 390ebf2f74b43584988cc47400ef82c8,
         type: 3}
@@ -22713,6 +22713,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SnapEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 9110422201019483521, guid: f2985a3637de4d540afccb615ad7e9ee,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9110422201019483524, guid: f2985a3637de4d540afccb615ad7e9ee,
         type: 3}
