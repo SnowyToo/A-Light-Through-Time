@@ -18,8 +18,6 @@ public class Photon : MonoBehaviour
     private Vector2 startPoint;
     private Vector2 startVelocity;
 
-    public bool rewindVelocity = true;
-
     // Other
     [SerializeField]
     private GameObject deathParticles;
@@ -58,20 +56,16 @@ public class Photon : MonoBehaviour
         else
             rb.position = startPoint;
 
-        if (rewindVelocity)
-        {
-            if (velocityHistory.Count > 0)
-                rb.velocity = velocityHistory.Pop();
-            else
-                rb.velocity = startVelocity;
-        }
+        if (velocityHistory.Count > 0)
+            rb.velocity = velocityHistory.Pop();
+        else
+            rb.velocity = startVelocity;
     }
 
     void StorePosition()
     {
         positionHistory.Push(rb.position);
-        if (rewindVelocity)
-            velocityHistory.Push(rb.velocity);
+        velocityHistory.Push(rb.velocity);
     }
 
     void SetRandomVelocity()

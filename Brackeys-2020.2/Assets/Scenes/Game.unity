@@ -903,7 +903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7.5
-  maxHealth: 1
+  maxHealth: 3
   invincibiltyTime: 2.5
   hitSound: {fileID: 8300000, guid: 041505bbcfab3034c8b70dbe25db0dc3, type: 3}
   deathSound: {fileID: 8300000, guid: 76b681e6c88986b4fad34bc74e64d8f6, type: 3}
