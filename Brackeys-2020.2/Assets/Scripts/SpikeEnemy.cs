@@ -101,6 +101,8 @@ public class SpikeEnemy : Enemy
         nextShot = timeBetweenShots;
         GameManager.PlaySound(shootSounds, gameObject);
         GameObject bulletGO = Instantiate(bullet, shotPoint.position, transform.rotation);
+        if(attributes.Contains(TIME_WARP))
+            bulletGO.GetComponent<SpriteRenderer>().color = Color.green;
         bulletGO.GetComponent<Rigidbody2D>().velocity = (player.position - rb.position).normalized * bulletSpeed;
         bulletGO.GetComponent<Bullet>().damage = bulletDamage;
     }

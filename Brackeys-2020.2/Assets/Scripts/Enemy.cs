@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject deathParticles;
     [SerializeField]
+    private GameObject greenDeath;
+    [SerializeField]
     private AudioClip[] deathSounds;
 
     private Animator anim;
@@ -107,7 +109,12 @@ public class Enemy : MonoBehaviour
             volume = 0.4f;
 
         GameManager.PlaySound(deathSounds, this.gameObject, volume);
-        GameManager.SpawnParticles(deathParticles, gameObject);
+
+        GameObject particles = deathParticles;
+        if (attributes.Contains(TIME_WARP))
+            particles = greenDeath;
+
+        GameManager.SpawnParticles(particles, gameObject);
         GameManager.CameraShake(0.2f, 0.3f);
         Destroy(gameObject);
     }

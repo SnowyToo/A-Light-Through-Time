@@ -114,7 +114,8 @@ public class GameManager : MonoBehaviour
     {
         isRewinding = false;
         cameraProfile.profile = normalPostProcess;
-        mirrorCollider.enabled = true;
+        if(!gameIsOver)
+            mirrorCollider.enabled = true;
 
         bgm.pitch = 1;
         lowPass.cutoffFrequency = NORMAL_LOW_PASS;
