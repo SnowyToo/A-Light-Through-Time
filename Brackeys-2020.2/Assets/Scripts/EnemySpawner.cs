@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private Vector2 rangeY;
 
+    public List<EnemySpawn> queuedUpEnemies;
     private Queue<EnemySpawn> nextEnemies;
     private Dictionary<EnemyType, int> currentEnemies;
     [SerializeField]
@@ -85,6 +86,10 @@ public class EnemySpawner : MonoBehaviour
             EnemySpawn enemySpawn = new EnemySpawn(type, position, attributes);
             nextEnemies.Enqueue(enemySpawn);
         }
+
+        //Increases max enemies by one for every 100 score.
+        maxEnemies = Mathf.Clamp(initialMaxEnemies + GameManager.score / 100, initialMaxEnemies, 20);
+
     }
 
     void SpawnNextEnemy()

@@ -172,9 +172,9 @@ public class GameManager : MonoBehaviour
         Destroy(sound.gameObject, 4f);
     }
 
-    public static void PlaySound(AudioClip[] clips, GameObject source)
+    public static void PlaySound(AudioClip[] clips, GameObject source, float volume = 0.8f, float pitch = 1f)
     {
-        PlaySound(clips[Random.Range(0, clips.Length)], source);
+        PlaySound(clips[Random.Range(0, clips.Length)], source, volume, pitch);
     }
 
     public static void SpawnParticles(GameObject particles, GameObject source)

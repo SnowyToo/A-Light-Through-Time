@@ -23,8 +23,9 @@ public class UIManager : MonoBehaviour
     {
         if(maxHealth == 1)
         {
+            hearts[2].enabled = hearts[0].enabled = false;
             hearts.RemoveAt(2);
-            hearts.RemoveAt(1);
+            hearts.RemoveAt(0);
         }
         foreach(Image h in hearts)
         {

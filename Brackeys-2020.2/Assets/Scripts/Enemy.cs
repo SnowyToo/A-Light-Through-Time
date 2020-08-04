@@ -94,7 +94,11 @@ public class Enemy : MonoBehaviour
     {
         if (remove) GameManager.enemySpawner.RemoveEnemy(type);
         GameManager.EnemyKill(this);
-        GameManager.PlaySound(deathSounds, this.gameObject);
+        float volume = 0.8f;
+        if (gameObject.tag == "LaserEnemy")
+            volume = 0.4f;
+
+        GameManager.PlaySound(deathSounds, this.gameObject, volume);
         GameManager.SpawnParticles(deathParticles, gameObject);
         GameManager.CameraShake(0.2f, 0.3f);
         Destroy(gameObject);

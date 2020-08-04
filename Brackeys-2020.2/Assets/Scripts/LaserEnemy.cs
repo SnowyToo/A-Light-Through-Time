@@ -12,6 +12,8 @@ public class LaserEnemy : Enemy
 
     public override void PhotonHit()
     {
+        base.PhotonHit();
+
         if (invincible) return;
 
         if (shields.Count > 0) return;

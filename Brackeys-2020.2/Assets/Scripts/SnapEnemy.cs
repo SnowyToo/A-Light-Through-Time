@@ -100,6 +100,8 @@ public class SnapEnemy : Enemy
 
     public override void LaserHit()
     {
+        capturing = false;
+        photon.EndCapture();
         Die();
     }
 
