@@ -73,6 +73,9 @@ public class SnapEnemy : Enemy
     public override void PhotonHit()
     {
         if (shields.Count > 0) return;
+
+        if (invincible) return;
+
         StartCoroutine(CapturePhoton());
     }
 

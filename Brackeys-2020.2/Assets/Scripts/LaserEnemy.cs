@@ -15,6 +15,9 @@ public class LaserEnemy : Enemy
         base.PhotonHit();
 
         if (invincible) return;
+
+        if (shields.Count > 0) return;
+
         partner.Die(false);
         Destroy(transform.parent.gameObject);
     }
