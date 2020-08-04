@@ -35,6 +35,7 @@ public class SpikeEnemy : Enemy
         rb = GetComponent<Rigidbody2D>();
 
         nextShot = timeBetweenShots;
+        type = EnemySpawner.EnemyType.SpikeEnemy;
     }
 
     void Update()
@@ -84,7 +85,6 @@ public class SpikeEnemy : Enemy
             rb.velocity = -repulsionForce;
         else
             rb.velocity = Vector2.zero;
-
 
         Vector2 aimDirection = player.position - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;

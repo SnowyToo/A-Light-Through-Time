@@ -13,23 +13,28 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private GameObject alert;
 
+    // Spawning
     private int nextEnemies;
     private Dictionary<EnemyType, int> currentEnemies;
     [SerializeField]
     private float timeBetweenSpawns;
     private float timeLeftBetweenSpawns;
 
+    // Max enemies
     [SerializeField]
     private int initialMaxEnemies = 1;
     private int maxEnemies;
+    [SerializeField]
+    private int maxEnemiesScoreIncrement = 250;
+    [SerializeField]
+    private int maxEnemiesCap = 20;
+    private int[] maxEnemyTypes;
 
     // Enemies
     public GameObject[] enemyPrefabs;
     public static GameObject[] _enemyPrefabs;
     [HideInInspector]
     public enum EnemyType {SpikeEnemy, SnapEnemy, LaserEnemy};
-    [SerializeField]
-    private int[] maxEnemyTypes;
 
     // Attribute probabilities
     [SerializeField]
@@ -39,11 +44,11 @@ public class EnemySpawner : MonoBehaviour
     
     void Start()
     {
-        maxEnemies = initialMaxEnemies;
-
+        maxEnemyTypes = new int[enemyPrefabs.Length];
+        UpdateMaxEnemies();
         nextEnemies = maxEnemies;
         currentEnemies = new Dictionary<EnemyType, int>();
-        
+
         InitializeCurrentEnemies();
 
         timeLeftBetweenSpawns = timeBetweenSpawns;
@@ -84,8 +89,18 @@ public class EnemySpawner : MonoBehaviour
         if (CurrentEnemyCount() + nextEnemies < maxEnemies)
             nextEnemies ++;
 
-        // Increases max enemies by one for every 250 score.
-        maxEnemies = Mathf.Clamp(initialMaxEnemies + GameManager.score / 250, initialMaxEnemies, 20);
+        // Update maximum enemies on screen and per type
+        UpdateMaxEnemies();
+    }
+
+    void UpdateMaxEnemies()
+    {
+        // Increases max enemies by one for every maxEnemiesScoreIncrement (250) score
+        maxEnemies = Mathf.Clamp(initialMaxEnemies + GameManager.score / maxEnemiesScoreIncrement, initialMaxEnemies, maxEnemiesCap);
+
+        maxEnemyTypes[(int) EnemyType.LaserEnemy] = Mathf.Clamp((int) Mathf.Floor(maxEnemies/4), 1, maxEnemies);
+        maxEnemyTypes[(int) EnemyType.SnapEnemy] = Mathf.Clamp((int) Mathf.Ceil(maxEnemies/3), 1, maxEnemies);
+        maxEnemyTypes[(int) EnemyType.SpikeEnemy] = 1000;
     }
 
     EnemySpawn PickNextEnemy()
@@ -134,10 +149,18 @@ public class EnemySpawner : MonoBehaviour
 
     EnemyType PickType()
     {
-        // Pick next enemy type based on current enemy types and difficulty
-        int index = Random.Range(0, enemyPrefabs.Length);
-        EnemyType type = (EnemyType) index;
-        return type;
+        // Pick next enemy type based on current enemy types and score
+        List<EnemyType> types = new List<EnemyType>();
+        foreach(KeyValuePair<EnemyType, int> entry in currentEnemies)
+        {
+            int i = (int) entry.Key;
+            if (entry.Value < maxEnemyTypes[i])
+                types.Add(entry.Key);
+        }
+
+        int index = Random.Range(0, types.Count);
+        Debug.Log("CHOSEN TYPE: " + types[index]);
+        return types[index];
     }
 
     Vector3 PickPosition()
@@ -151,7 +174,7 @@ public class EnemySpawner : MonoBehaviour
 
     List<EnemyAttribute> PickAttributes()
     {
-        // Pick attributes based on difficulty
+        // Pick attributes based on current score
         List<EnemyAttribute> attributes = new List<EnemyAttribute>();
         
         int shieldNumber = shieldProbabilities.CalculateNumber(GameManager.score);

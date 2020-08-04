@@ -43,6 +43,11 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    void Start()
+    {
+        Debug.Log("MY TYPE IS: " + type);
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Photon"))
@@ -103,7 +108,7 @@ public class Enemy : MonoBehaviour
     public void Die(bool remove = true, bool collectPoints = true)
     {
         if (remove) GameManager.enemySpawner.RemoveEnemy(type);
-        if(collectPoints) GameManager.EnemyKill(this);
+        if (collectPoints) GameManager.EnemyKill(this);
         float volume = 0.8f;
         if (gameObject.tag == "LaserEnemy")
             volume = 0.4f;

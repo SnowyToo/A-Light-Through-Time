@@ -36,6 +36,8 @@ public class SnapEnemy : Enemy
 
         edgeCol = GetComponent<EdgeCollider2D>();
         cirCol = GetComponent<CircleCollider2D>();
+
+        type = EnemySpawner.EnemyType.SnapEnemy;
     }
 
     void Update()

@@ -10,6 +10,11 @@ public class LaserEnemy : Enemy
     // Freely move around
     // Kill both enemies when photon hits one
 
+    void Start()
+    {
+        type = EnemySpawner.EnemyType.LaserEnemy;
+    }
+
     public override void PhotonHit()
     {
         base.PhotonHit();
