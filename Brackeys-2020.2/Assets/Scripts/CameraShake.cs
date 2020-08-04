@@ -17,6 +17,8 @@ public class CameraShake : MonoBehaviour
 
         shaking = true;
 
+        magnitude = magnitude * PlayerData.options.cameraShake;
+
         Vector3 originalPos = transform.position;
         float elapsed = 0f;
 

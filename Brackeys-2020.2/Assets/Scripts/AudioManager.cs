@@ -28,6 +28,11 @@ public class AudioManager : MonoBehaviour
         lowPass = GetComponent<AudioLowPassFilter>();
     }
 
+    public void Update()
+    {
+        bgm.volume = 0.8f * PlayerData.options.masterVolume;
+    }
+
     public void SetTimeWarpMusic()
     {
         bgm.pitch = -1;
@@ -43,7 +48,7 @@ public class AudioManager : MonoBehaviour
     public void PlaySound(AudioClip clip, GameObject source, float volume = 0.8f, float pitch = 1f)
     {
         AudioSource sound = new GameObject().AddComponent<AudioSource>();
-        sound.volume = volume;
+        sound.volume = volume * PlayerData.options.masterVolume;
         sound.name = source.name + " Sound";
         sound.clip = clip;
 
