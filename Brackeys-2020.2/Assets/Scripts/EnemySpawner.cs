@@ -13,8 +13,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private GameObject alert;
 
-    public List<EnemySpawn> queuedUpEnemies;
-    private Queue<EnemySpawn> nextEnemies;
+    private int nextEnemies;
     private Dictionary<EnemyType, int> currentEnemies;
     [SerializeField]
     private float timeBetweenSpawns;
@@ -29,6 +28,8 @@ public class EnemySpawner : MonoBehaviour
     public static GameObject[] _enemyPrefabs;
     [HideInInspector]
     public enum EnemyType {SpikeEnemy, SnapEnemy, LaserEnemy};
+    [SerializeField]
+    private int[] maxEnemyTypes;
 
     // Attribute probabilities
     [SerializeField]
@@ -40,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
     {
         maxEnemies = initialMaxEnemies;
 
-        nextEnemies = new Queue<EnemySpawn>();
+        nextEnemies = maxEnemies;
         currentEnemies = new Dictionary<EnemyType, int>();
         
         InitializeCurrentEnemies();
@@ -71,7 +72,7 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {        
         // If we aren't waiting and there are enemies left to spawn, spawn the next enemy
-        if (nextEnemies.Count > 0)
+        if (nextEnemies > 0)
         {
             if (timeLeftBetweenSpawns <= 0f)
                 SpawnNextEnemy();
@@ -79,20 +80,21 @@ public class EnemySpawner : MonoBehaviour
                 timeLeftBetweenSpawns -= Time.deltaTime;
         }
         
-        // If we don't have enough enemies, pick one to spawn and enqueue it
-        if (CurrentEnemyCount() + nextEnemies.Count < maxEnemies)
-        {
-            EnemyType type = PickType();
-            Vector3 position = PickPosition();
-            List<EnemyAttribute> attributes = PickAttributes();
+        // If we don't have enough enemies, add one to the next enemies
+        if (CurrentEnemyCount() + nextEnemies < maxEnemies)
+            nextEnemies ++;
 
-            EnemySpawn enemySpawn = new EnemySpawn(type, position, attributes);
-            nextEnemies.Enqueue(enemySpawn);
-        }
-
-        //Increases max enemies by one for every 100 score.
+        // Increases max enemies by one for every 250 score.
         maxEnemies = Mathf.Clamp(initialMaxEnemies + GameManager.score / 250, initialMaxEnemies, 20);
+    }
 
+    EnemySpawn PickNextEnemy()
+    {
+        EnemyType type = PickType();
+        Vector3 position = PickPosition();
+        List<EnemyAttribute> attributes = PickAttributes();
+
+        return new EnemySpawn(type, position, attributes);
     }
 
     void SpawnNextEnemy()
@@ -100,7 +102,8 @@ public class EnemySpawner : MonoBehaviour
         timeLeftBetweenSpawns = timeBetweenSpawns;
 
         // Instantiate enemy
-        EnemySpawn enemyToSpawn = nextEnemies.Dequeue();
+        EnemySpawn enemyToSpawn = PickNextEnemy();
+        nextEnemies --;
         GameObject enemyGO = Instantiate(enemyToSpawn.enemyPrefab, enemyToSpawn.position, Quaternion.identity);
         Instantiate(alert, Vector3.zero, Quaternion.identity).GetComponent<Alert>().SetTarget(enemyGO.transform);
         if (enemyToSpawn.type != EnemyType.LaserEnemy)
@@ -232,18 +235,25 @@ public struct ShieldProbabilities
 
     public int CalculateNumber(int score)
     {
+        float[][] changes = {probabilityChanges, secondProbabilityChanges};
+
         int threshold = (int) Mathf.Floor(score/thresholdIncrement);
+        int lastThreshold = EnemySpawner.HighestThresholdIndex(threshold, thresholds);
         float[] probabilities = new float[probabilityChanges.Length];
-        for (int i = 0; i < probabilities.Length; i ++)
+
+        if (lastThreshold == -1)
+            return CalculateShields(probabilities);
+        else if (lastThreshold == thresholds.Length - 1)
+            return CalculateShields(finalProbabilities);
+
+        probabilities = initialProbabilities;
+
+        for (int i = 0; i < lastThreshold; i ++)
         {
-            if (threshold < thresholds[0])
-                probabilities[i] = 0f;
-            else if (threshold < thresholds[1])
-                probabilities[i] = initialProbabilities[i] + (probabilityChanges[i] * (threshold - thresholds[0]));
-            else if (threshold < thresholds[2])
-                probabilities[i] += initialProbabilities[i] + (probabilityChanges[i] * (thresholds[1] - thresholds[0])) + (secondProbabilityChanges[i] * (threshold - thresholds[1]));
-            else
-                probabilities[i] = finalProbabilities[i];
+            for (int j = 0; j < probabilities.Length; j ++)
+            {
+                probabilities[j] += changes[i][j] * (threshold - lastThreshold);
+            }
         }
         return CalculateShields(probabilities);
     }
