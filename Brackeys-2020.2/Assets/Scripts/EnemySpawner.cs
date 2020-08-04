@@ -25,6 +25,9 @@ public class EnemySpawner : MonoBehaviour
     public static GameObject[] _enemyPrefabs;
     [HideInInspector]
     public enum EnemyType {SpikeEnemy, SnapEnemy, LaserEnemy};
+
+    // Probabilities
+    
     
     void Start()
     {
@@ -102,7 +105,14 @@ public class EnemySpawner : MonoBehaviour
         }
         else
         {
-            // Add attributes to both enemies
+            LaserEnemy[] children = enemyGO.GetComponentsInChildren<LaserEnemy>();
+
+            // Addtributes to both laser enemies
+            foreach (EnemyAttribute attribute in enemyToSpawn.attributes)
+            {
+                children[0].Addtribute(attribute);
+                children[1].Addtribute(attribute);
+            }
         }
 
         // Update current enemies
