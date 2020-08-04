@@ -56,19 +56,13 @@ public class SpikeEnemy : Enemy
     {
         float distance = Vector2.Distance(rb.position, player.position);
         if (distance <= range)
-            CirclePlayer();
+            rb.velocity = Vector2.zero;
         else
             MoveToPlayer();
         
         Vector2 aimDirection = player.position - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;
-    }
-
-    void CirclePlayer()
-    {
-        rb.velocity = Vector2.zero;
-        // TODO: make enemy circle player
     }
 
     void MoveToPlayer()

@@ -128,7 +128,7 @@ public class Enemy : MonoBehaviour
         if(attribute.type == AttributeType.REFLECT)
         {
             Shield s = Instantiate(reflect, transform.position, Quaternion.identity, transform).GetComponent<Shield>();
-            s.transform.localPosition = new Vector3(0f, 0.2f, 0f);
+            //s.transform.localPosition = new Vector3(0f, 0.2f, 0f);
             s.transform.localScale = 1.9f * new Vector2(1, 1);
 
             s.parent = this;
