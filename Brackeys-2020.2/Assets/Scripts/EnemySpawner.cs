@@ -159,7 +159,6 @@ public class EnemySpawner : MonoBehaviour
         }
 
         int index = Random.Range(0, types.Count);
-        Debug.Log("CHOSEN TYPE: " + types[index]);
         return types[index];
     }
 

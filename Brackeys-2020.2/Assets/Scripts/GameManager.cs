@@ -106,10 +106,11 @@ public class GameManager : MonoBehaviour
         else
         {
             RegularTime();
+            if (Input.GetKeyDown("m"))
+                LoadScene(0);
+            else if (Input.GetKeyDown("r"))
+                LoadScene(1);
         }
-
-        // For testing purposes
-        if (Input.GetKeyDown("r")) LoadScene("Game");
     }
 
     void RegularTime()
@@ -154,6 +155,7 @@ public class GameManager : MonoBehaviour
         photon.Die();
         enemySpawner.enabled = false;
         gameIsOver = true;
+        uiManager.GameOverUI(score);
     }
 
     public static Vector2 GetMousePosition()

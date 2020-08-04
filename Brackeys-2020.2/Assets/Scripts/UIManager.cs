@@ -14,10 +14,15 @@ public class UIManager : MonoBehaviour
 
     //Score
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI finalScoreText;
+    public TextMeshProUGUI hiScoreText;
 
     //Rewind
     public Image rewindCircle;
     public Image rewindStrikethrough;
+
+    // Game over
+    public Animator deathOverlayAnim;
 
     public void SetUpUI(int maxHealth)
     {
@@ -56,5 +61,12 @@ public class UIManager : MonoBehaviour
     {
         rewindCircle.color = canRewind ? Color.green : Color.red;
         rewindStrikethrough.enabled = !canRewind;
+    }
+
+    public void GameOverUI(int score)
+    {
+        deathOverlayAnim.SetTrigger("GameOver");
+        finalScoreText.text = score.ToString();
+        hiScoreText.text = score.ToString(); // Get high score
     }
 }
