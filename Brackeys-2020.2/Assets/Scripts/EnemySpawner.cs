@@ -27,7 +27,12 @@ public class EnemySpawner : MonoBehaviour
     public enum EnemyType {SpikeEnemy, SnapEnemy, LaserEnemy};
 
     // Probabilities
-    
+    [SerializeField]
+    private EnemyAttribute[] allAttributes;
+    [SerializeField]
+    private List<AttributeProbability> attributeProbabilities;
+    [SerializeField]
+    private ShieldProbabilities shieldProbabilities;
     
     void Start()
     {
@@ -72,7 +77,7 @@ public class EnemySpawner : MonoBehaviour
                 timeLeftBetweenSpawns -= Time.deltaTime;
         }
         
-        // If we don't have enough enemies, pcik one to spawn and enqueue it
+        // If we don't have enough enemies, pick one to spawn and enqueue it
         if (CurrentEnemyCount() + nextEnemies.Count < maxEnemies)
         {
             //Debug.Log("Creating new enemy spawn");
@@ -141,9 +146,22 @@ public class EnemySpawner : MonoBehaviour
     List<EnemyAttribute> PickAttributes()
     {
         // Pick attributes based on difficulty
+        //GenerateAttributeList();
 
         List<EnemyAttribute> attributes = new List<EnemyAttribute>();
-        int shields = Random.Range(0, 2);
+        
+        int shieldNumber = shieldProbabilities.CalculateNumber(GameManager.score);
+        EnemyAttribute shieldAttribute = new EnemyAttribute(Enemy.AttributeType.SHIELD, shieldNumber);
+        attributes.Add(shieldAttribute);
+
+        foreach (AttributeProbability att in attributeProbabilities)
+        {
+            float probability = att.CalculateProbability(GameManager.score);
+            if (Random.value <= probability)
+                attributes.Add(new EnemyAttribute(att.type));
+        }
+
+        /*int shields = Random.Range(0, 2);
         EnemyAttribute shieldAttribute = new EnemyAttribute(EnemyAttribute.AttributeType.SHIELD, shields);
         if (shields == 0 && Random.value > 0.75)
         {
@@ -157,13 +175,23 @@ public class EnemySpawner : MonoBehaviour
             attributes.Add(timeWarpAttribute);
         }
 
-        attributes.Add(shieldAttribute);
+        attributes.Add(shieldAttribute);*/
+
         return attributes;
     }
 
     public void RemoveEnemy(EnemyType type)
     {
         currentEnemies[type] --;
+    }
+
+    public static int HighestThresholdIndex(int score, int[] scoreThresholds)
+    {
+        for (int i = scoreThresholds.Length - 1; i >= 0; i --)
+        {
+            if (scoreThresholds[i] <= score) return i;
+        }
+        return -1;
     }
 }
 
@@ -181,4 +209,41 @@ public struct EnemySpawn
         position = _position;
         attributes = _attributes;
     }
+}
+
+[System.Serializable]
+public struct AttributeProbability
+{
+    public Enemy.AttributeType type;
+    public int[] scoreThresholds;
+    public float[] probabilities;
+
+    public float CalculateProbability(int score)
+    {
+        int index = EnemySpawner.HighestThresholdIndex(score, scoreThresholds);
+        if (index == -1)
+            return 0f;
+        else
+            return probabilities[index];
+    }
+}
+
+[System.Serializable]
+public struct ShieldProbabilities
+{
+    public int[] scoreThresholds;
+
+    public int CalculateNumber(int score)
+    {
+        int index = EnemySpawner.HighestThresholdIndex(score, scoreThresholds);
+        return index;
+    }
+}
+
+[System.Serializable]
+public struct ShieldNumbers
+{
+    public float noShields;
+    public float oneShield;
+    public float twoShields;
 }

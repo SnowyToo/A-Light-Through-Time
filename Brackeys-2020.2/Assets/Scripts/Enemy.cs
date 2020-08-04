@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     public EnemySpawner.EnemyType type;
 
     // Attributes
+    public enum AttributeType { SHIELD, TIME_ONLY, REFLECT }
     [HideInInspector]
     public List<EnemyAttribute> attributes = new List<EnemyAttribute>();
     [HideInInspector]
@@ -30,7 +31,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public bool invincible;
 
-    protected readonly EnemyAttribute TIME_WARP = new EnemyAttribute(EnemyAttribute.AttributeType.TIME_ONLY);
+    protected readonly EnemyAttribute TIME_WARP = new EnemyAttribute(AttributeType.TIME_ONLY);
 
     private void Awake()
     {
@@ -101,11 +102,11 @@ public class Enemy : MonoBehaviour
 
     public void Addtribute(EnemyAttribute attribute)
     {
-        if (attribute.type == EnemyAttribute.AttributeType.SHIELD && attribute.amount == 0) return;
+        if (attribute.type == AttributeType.SHIELD && attribute.amount == 0) return;
 
         attributes.Add(attribute);
 
-        if (attribute.type == EnemyAttribute.AttributeType.SHIELD)
+        if (attribute.type == AttributeType.SHIELD)
         {
             for(int i = 0; i < attribute.amount; i++)
             {
@@ -119,12 +120,12 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if(attribute.type == EnemyAttribute.AttributeType.TIME_ONLY)
+        if(attribute.type == AttributeType.TIME_ONLY)
         {
-            GetComponent<SpriteRenderer>().color = Color.yellow;
+            GetComponent<SpriteRenderer>().color = Color.green;
         }
 
-        if(attribute.type == EnemyAttribute.AttributeType.REFLECT)
+        if(attribute.type == AttributeType.REFLECT)
         {
             Shield s = Instantiate(reflect, transform.position, Quaternion.identity, transform).GetComponent<Shield>();
             s.transform.localPosition = new Vector3(0f, 0.2f, 0f);
@@ -138,12 +139,11 @@ public class Enemy : MonoBehaviour
 [System.Serializable]
 public struct EnemyAttribute
 {
-    public enum AttributeType { SHIELD, TIME_ONLY, REFLECT }
-    public AttributeType type;
+    public Enemy.AttributeType type;
 
     public int amount;
 
-    public EnemyAttribute(AttributeType _type, int _amount = 0)
+    public EnemyAttribute(Enemy.AttributeType _type, int _amount = 0)
     {
         type = _type;
         amount = _amount;

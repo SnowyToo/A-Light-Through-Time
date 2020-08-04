@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private List<AttributeScorePair> _attributeScores;
 
     private static Dictionary<string, int> enemyScores;
-    private static Dictionary<EnemyAttribute.AttributeType, int> attributeScores;
+    private static Dictionary<Enemy.AttributeType, int> attributeScores;
     [HideInInspector]
     public static int score;
 
@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         enemyScores = new Dictionary<string, int>();
-        attributeScores = new Dictionary<EnemyAttribute.AttributeType, int>();
+        attributeScores = new Dictionary<Enemy.AttributeType, int>();
         foreach (EnemyScorePair esp in _enemyScores)
         {
             enemyScores.Add(esp.name, esp.value);
@@ -101,6 +101,8 @@ public class GameManager : MonoBehaviour
             else
                 RegularTime();
         }
+        else if (isRewinding)
+            RegularTime();
 
         // For testing purposes
         if (Input.GetKeyDown("r")) SceneManager.LoadScene("Game");
@@ -124,8 +126,6 @@ public class GameManager : MonoBehaviour
 
         bgm.pitch = -1;
         lowPass.cutoffFrequency = TIME_WARP_LOW_PASS;
-
-        if (gameIsOver) RegularTime();
     }
 
     public static void EnemyKill(Enemy enemy)
@@ -198,6 +198,6 @@ public struct EnemyScorePair
 [System.Serializable]
 public struct AttributeScorePair
 {
-    public EnemyAttribute.AttributeType type;
+    public Enemy.AttributeType type;
     public int value;
 }
