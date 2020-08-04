@@ -23730,15 +23730,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 123560786995956010, guid: 4c43e86af0f8c134383ff83f13931afb,
+        type: 3}
+      propertyPath: timeBetweenShots
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8362290013693408756, guid: 4c43e86af0f8c134383ff83f13931afb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.78
+      value: -14.76
       objectReference: {fileID: 0}
     - target: {fileID: 8362290013693408756, guid: 4c43e86af0f8c134383ff83f13931afb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.54
+      value: 0.45888036
       objectReference: {fileID: 0}
     - target: {fileID: 8362290013693408756, guid: 4c43e86af0f8c134383ff83f13931afb,
         type: 3}

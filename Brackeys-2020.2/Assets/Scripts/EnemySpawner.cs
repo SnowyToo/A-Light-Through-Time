@@ -133,13 +133,13 @@ public class EnemySpawner : MonoBehaviour
         // Pick attributes based on difficulty
 
         List<EnemyAttribute> attributes = new List<EnemyAttribute>();
-        int shields = Random.Range(0, 3);
+        int shields = Random.Range(0, 2);
         EnemyAttribute shieldAttribute = new EnemyAttribute(EnemyAttribute.AttributeType.SHIELD, shields);
-        // if (shields == 0 && Random.value > 0.5)
-        // {
-        //     EnemyAttribute reflectAttribute = new EnemyAttribute(EnemyAttribute.AttributeType.REFLECT);
-        //     attributes.Add(reflectAttribute);
-        // }
+        if (shields == 0 && Random.value > 0.75)
+        {
+            EnemyAttribute reflectAttribute = new EnemyAttribute(EnemyAttribute.AttributeType.REFLECT);
+            attributes.Add(reflectAttribute);
+        }
 
         if (Random.value > 0.75)
         {
