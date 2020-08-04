@@ -101,6 +101,10 @@ public class GameManager : MonoBehaviour
             else
                 RegularTime();
         }
+        else
+        {
+            RegularTime();
+        }
 
         // For testing purposes
         if (Input.GetKeyDown("r")) SceneManager.LoadScene("Game");
