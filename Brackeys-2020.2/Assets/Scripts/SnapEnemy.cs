@@ -72,6 +72,7 @@ public class SnapEnemy : Enemy
 
     public override void PhotonHit()
     {
+        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding) return;
         if (shields.Count > 0) return;
         StartCoroutine(CapturePhoton());
     }
