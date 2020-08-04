@@ -97,27 +97,35 @@ public class GameManager : MonoBehaviour
         if (!gameIsOver)
         {
             if (Input.GetButton("Rewind") && !photon.captured)
-            {
-                isRewinding = true;
-                cameraProfile.profile = warpPostProcess;
-                mirrorCollider.enabled = false;
-
-                bgm.pitch = -1;
-                lowPass.cutoffFrequency = TIME_WARP_LOW_PASS;
-            }
+                RewindTime();
             else
-            {
-                isRewinding = false;
-                cameraProfile.profile = normalPostProcess;
-                mirrorCollider.enabled = true;
-
-                bgm.pitch = 1;
-                lowPass.cutoffFrequency = NORMAL_LOW_PASS;
-            }
+                RegularTime();
         }
 
         // For testing purposes
         if (Input.GetKeyDown("r")) SceneManager.LoadScene("Game");
+    }
+
+    void RegularTime()
+    {
+        isRewinding = false;
+        cameraProfile.profile = normalPostProcess;
+        mirrorCollider.enabled = true;
+
+        bgm.pitch = 1;
+        lowPass.cutoffFrequency = NORMAL_LOW_PASS;
+    }
+
+    void RewindTime()
+    {
+        isRewinding = true;
+        cameraProfile.profile = warpPostProcess;
+        mirrorCollider.enabled = false;
+
+        bgm.pitch = -1;
+        lowPass.cutoffFrequency = TIME_WARP_LOW_PASS;
+
+        if (gameIsOver) RegularTime();
     }
 
     public static void EnemyKill(Enemy enemy)
@@ -130,7 +138,6 @@ public class GameManager : MonoBehaviour
             scoreGain += attributeScores[e.type] * e.amount;
         }
 
-        // TODO: update score text UI
         score += scoreGain;
 
         uiManager.UpdateScore(score);
@@ -146,7 +153,6 @@ public class GameManager : MonoBehaviour
         photon.Die();
         enemySpawner.enabled = false;
         gameIsOver = true;
-        Debug.Log("GAME OVER");
     }
 
     public static Vector2 GetMousePosition()

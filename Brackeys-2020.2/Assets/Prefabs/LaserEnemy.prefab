@@ -290,9 +290,12 @@ MonoBehaviour:
   deathSounds:
   - {fileID: 8300000, guid: 902b839147197444ebf6c87621e8f0dc, type: 3}
   - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
-  shield: {fileID: 2493650241932866960, guid: 6ec3375ba598e904093cd712e36d8663, type: 3}
-  invincible: 0
   collisionDamage: 1
+  type: 0
+  attributes: []
+  shield: {fileID: 2493650241932866960, guid: 6ec3375ba598e904093cd712e36d8663, type: 3}
+  reflect: {fileID: 3631163048206574139, guid: 0bcee80c4977ddf43a6c47b5bb35a091, type: 3}
+  invincible: 0
   partner: {fileID: 1999663366551205448}
 --- !u!95 &811148245
 Animator:
@@ -5285,9 +5288,12 @@ MonoBehaviour:
   deathSounds:
   - {fileID: 8300000, guid: 902b839147197444ebf6c87621e8f0dc, type: 3}
   - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
-  shield: {fileID: 2493650241932866960, guid: 6ec3375ba598e904093cd712e36d8663, type: 3}
-  invincible: 0
   collisionDamage: 1
+  type: 0
+  attributes: []
+  shield: {fileID: 2493650241932866960, guid: 6ec3375ba598e904093cd712e36d8663, type: 3}
+  reflect: {fileID: 3631163048206574139, guid: 0bcee80c4977ddf43a6c47b5bb35a091, type: 3}
+  invincible: 0
   partner: {fileID: 7178095482763796887}
 --- !u!95 &286734595
 Animator:

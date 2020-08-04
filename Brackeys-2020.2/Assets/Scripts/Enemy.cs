@@ -20,14 +20,17 @@ public class Enemy : MonoBehaviour
     // Attributes
     [HideInInspector]
     public List<EnemyAttribute> attributes = new List<EnemyAttribute>();
-    private Stack<Shield> shields = new Stack<Shield>();
+    [HideInInspector]
+    public Stack<Shield> shields = new Stack<Shield>();
     [SerializeField]
     private GameObject shield;
+    [SerializeField]
+    private GameObject reflect;
 
+    [HideInInspector]
     public bool invincible;
 
     private readonly EnemyAttribute TIME_WARP = new EnemyAttribute(EnemyAttribute.AttributeType.TIME_ONLY);
-    private readonly EnemyAttribute SHIELD = new EnemyAttribute(EnemyAttribute.AttributeType.SHIELD);
 
     private void Awake()
     {
@@ -68,13 +71,15 @@ public class Enemy : MonoBehaviour
 
     public virtual void LaserHit() { }
 
-    public void ShieldHit()
+    public void ShieldHit(bool hurt)
     {
-        shields.Pop();
-        //Particles?
-        anim.SetTrigger("Hit");
         GameManager.CameraShake(0.2f, 0.2f);
-        StartCoroutine(Invincibility());
+        if (hurt)
+        {
+            shields.Pop();
+            anim.SetTrigger("Hit");
+            StartCoroutine(Invincibility());
+        }
     }
 
     public IEnumerator Invincibility()
@@ -122,6 +127,9 @@ public class Enemy : MonoBehaviour
         if(attribute.type == EnemyAttribute.AttributeType.REFLECT)
         {
             GetComponent<SpriteRenderer>().color = Color.yellow;
+
+            Shield s = Instantiate(reflect, transform.position, Quaternion.identity, transform).GetComponent<Shield>();
+            s.parent = this;
         }
     }
 }

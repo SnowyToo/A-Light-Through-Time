@@ -12,16 +12,22 @@ public class Shield : MonoBehaviour
     [SerializeField]
     AudioClip shieldBoop;
 
+    [SerializeField]
+    private bool destroyable = true;
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if(other.collider.tag == "Photon" && !parent.invincible)
         {
-            parent.ShieldHit();
+            parent.ShieldHit(destroyable);
 
             GameManager.PlaySound(shieldBoop, gameObject);
-            GameManager.SpawnParticles(shieldPop, gameObject);
 
-            Destroy(gameObject);
+            if (destroyable)
+            {
+                GameManager.SpawnParticles(shieldPop, gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 }

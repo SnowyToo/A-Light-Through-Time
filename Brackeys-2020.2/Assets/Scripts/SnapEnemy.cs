@@ -72,17 +72,19 @@ public class SnapEnemy : Enemy
 
     public override void PhotonHit()
     {
+        if (shields.Count > 0) return;
         StartCoroutine(CapturePhoton());
     }
 
     IEnumerator CapturePhoton()
     {
+        if (photon.captured || invincible) yield break;
         capturing = true;
         rb.velocity = Vector2.zero;
         photonTransform.position = transform.position;
         photon.StartCapture();
 
-        cirCol.enabled = false;
+        //cirCol.enabled = false;
         edgeCol.enabled = true;
 
         yield return new WaitForSeconds(captureTime);

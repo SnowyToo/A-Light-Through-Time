@@ -69,10 +69,10 @@ public class EnemySpawner : MonoBehaviour
                 timeLeftBetweenSpawns -= Time.deltaTime;
         }
         
-        // If we don't j=have enough enemies, pcik one to spawn and enqueue it
+        // If we don't have enough enemies, pcik one to spawn and enqueue it
         if (CurrentEnemyCount() + nextEnemies.Count < maxEnemies)
         {
-            Debug.Log("Creating new enemy spawn");
+            //Debug.Log("Creating new enemy spawn");
             EnemyType type = PickType();
             Vector3 position = PickPosition();
             List<EnemyAttribute> attributes = PickAttributes();
@@ -84,7 +84,7 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnNextEnemy()
     {
-        Debug.Log("Spawning new enemy");
+        //Debug.Log("Spawning new enemy");
         timeLeftBetweenSpawns = timeBetweenSpawns;
 
         // Instantiate enemy
@@ -107,7 +107,7 @@ public class EnemySpawner : MonoBehaviour
 
         // Update current enemies
         currentEnemies[enemyToSpawn.type] ++;
-        Debug.Log(currentEnemies[enemyToSpawn.type]);
+        //Debug.Log(currentEnemies[enemyToSpawn.type]);
     }
 
     EnemyType PickType()
@@ -133,7 +133,20 @@ public class EnemySpawner : MonoBehaviour
         // Pick attributes based on difficulty
 
         List<EnemyAttribute> attributes = new List<EnemyAttribute>();
-        EnemyAttribute shieldAttribute = new EnemyAttribute(EnemyAttribute.AttributeType.SHIELD, Random.Range(0, 3)); //  0, 1 or 2 shields
+        int shields = Random.Range(0, 3);
+        EnemyAttribute shieldAttribute = new EnemyAttribute(EnemyAttribute.AttributeType.SHIELD, shields);
+        // if (shields == 0 && Random.value > 0.5)
+        // {
+        //     EnemyAttribute reflectAttribute = new EnemyAttribute(EnemyAttribute.AttributeType.REFLECT);
+        //     attributes.Add(reflectAttribute);
+        // }
+
+        if (Random.value > 0.75)
+        {
+            EnemyAttribute timeWarpAttribute = new EnemyAttribute(EnemyAttribute.AttributeType.TIME_ONLY);
+            attributes.Add(timeWarpAttribute);
+        }
+
         attributes.Add(shieldAttribute);
         return attributes;
     }

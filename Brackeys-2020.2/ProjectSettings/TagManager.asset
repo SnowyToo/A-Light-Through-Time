@@ -11,7 +11,7 @@ TagManager:
   - Laser
   - Bullet
   - Wall
-  - ShieldEnemy
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -29,7 +29,7 @@ TagManager:
   - Bullets
   - Walls
   - Shield
-  - 
+  - Laser
   - 
   - 
   - 
