@@ -24,19 +24,25 @@ public class Shield : MonoBehaviour
         }
     }
 
+    public void Hit()
+    {
+        parent.ShieldHit(destroyable);
+
+        GameManager.PlaySound(shieldBoop, gameObject);
+
+        if (destroyable)
+        {
+            GameManager.SpawnParticles(shieldPop, gameObject);
+            Destroy(gameObject);
+        }
+    }
+
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if(other.collider.tag == "Photon" && !parent.invincible)
         {
-            parent.ShieldHit(destroyable);
-
-            GameManager.PlaySound(shieldBoop, gameObject);
-
-            if (destroyable)
-            {
-                GameManager.SpawnParticles(shieldPop, gameObject);
-                Destroy(gameObject);
-            }
+            Hit();
         }
     }
 }

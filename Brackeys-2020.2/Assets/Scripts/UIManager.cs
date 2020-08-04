@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI finalScoreText;
     public TextMeshProUGUI hiScoreText;
+    public GameObject newHiScoreText;
 
     //Rewind
     public Image rewindCircle;
@@ -66,7 +67,15 @@ public class UIManager : MonoBehaviour
     public void GameOverUI(int score)
     {
         deathOverlayAnim.SetTrigger("GameOver");
+        StartCoroutine(CheatyWorkAroundToNotUseAnimationEvents());
         finalScoreText.text = score.ToString();
-        hiScoreText.text = score.ToString(); // Get high score
+        hiScoreText.text = PlayerData.stats.hiScore.ToString();
+    }
+
+    private IEnumerator CheatyWorkAroundToNotUseAnimationEvents()
+    {
+        yield return new WaitForSeconds(1.0333f*4);
+        if (GameManager.newHiscore)
+            newHiScoreText.SetActive(true);
     }
 }

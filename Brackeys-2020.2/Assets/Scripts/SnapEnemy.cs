@@ -38,6 +38,8 @@ public class SnapEnemy : Enemy
         cirCol = GetComponent<CircleCollider2D>();
 
         type = EnemySpawner.EnemyType.SnapEnemy;
+
+        StartCoroutine(Invincibility());
     }
 
     void Update()
@@ -115,6 +117,12 @@ public class SnapEnemy : Enemy
         {
             if (curSprite == null)
                 curSprite = Instantiate(warpSprite, transform.position, Quaternion.identity, transform);
+            return;
+        }
+
+        if(shields.Count > 0)
+        {
+            shields.Peek().Hit();
             return;
         }
 

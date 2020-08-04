@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private List<AttributeScorePair> _attributeScores;
 
+    public static bool newHiscore;
+
     private static Dictionary<string, int> enemyScores;
     private static Dictionary<Enemy.AttributeType, int> attributeScores;
     [HideInInspector]
@@ -109,7 +111,7 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown("m"))
                 LoadScene(0);
             else if (Input.GetKeyDown("r"))
-                LoadScene(1);
+                LoadScene(2);
         }
     }
 
@@ -142,6 +144,11 @@ public class GameManager : MonoBehaviour
 
         score += scoreGain;
 
+        if(score > PlayerData.stats.hiScore)
+        {
+            newHiscore = true;
+        }
+
         uiManager.UpdateScore(score);
     }
 
@@ -155,6 +162,11 @@ public class GameManager : MonoBehaviour
         photon.Die();
         enemySpawner.enabled = false;
         gameIsOver = true;
+        if(newHiscore)
+        {
+            PlayerData.stats.hiScore = score;
+            PlayerData.stats.Save();
+        }
         uiManager.GameOverUI(score);
     }
 

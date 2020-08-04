@@ -35,4 +35,9 @@ public struct Stats
     {
         return $"{deaths} deaths, {totalScore} score, {hiScore} highScore, {snappersKilled} snappers, {lasersKilled} lasers, {spikesKilled} spikes, {shieldDestroyed} shileds, {timesReflects} reflect";
     }
+
+    public void Save()
+    {
+        SaveManager.Save(this);
+    }
 }
