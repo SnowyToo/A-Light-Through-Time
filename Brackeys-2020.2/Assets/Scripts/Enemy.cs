@@ -121,13 +121,13 @@ public class Enemy : MonoBehaviour
 
         if(attribute.type == EnemyAttribute.AttributeType.TIME_ONLY)
         {
-            GetComponent<SpriteRenderer>().color = Color.yellow;
+            GetComponent<SpriteRenderer>().color = Color.green;
         }
 
         if(attribute.type == EnemyAttribute.AttributeType.REFLECT)
         {
             Shield s = Instantiate(reflect, transform.position, Quaternion.identity, transform).GetComponent<Shield>();
-            s.transform.localPosition = new Vector3(0f, 0.2f, 0f);
+            //s.transform.localPosition = new Vector3(0f, 0.2f, 0f);
             s.transform.localScale = 1.9f * new Vector2(1, 1);
 
             s.parent = this;

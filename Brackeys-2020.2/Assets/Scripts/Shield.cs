@@ -15,6 +15,15 @@ public class Shield : MonoBehaviour
     [SerializeField]
     private bool destroyable = true;
 
+    private void FixedUpdate()
+    {
+        if(!destroyable)
+        {
+            Vector2 aimDirection = GameManager.player.transform.position - transform.position;
+            transform.up = aimDirection;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if(other.collider.tag == "Photon" && !parent.invincible)

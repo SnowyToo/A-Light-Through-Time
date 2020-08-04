@@ -117,7 +117,7 @@ MonoBehaviour:
   deathParticles: {fileID: 4506409821079276685, guid: 18710431ba6e3c244a66dae0513308bc,
     type: 3}
   deathSounds:
-  - {fileID: 8300000, guid: 902b839147197444ebf6c87621e8f0dc, type: 3}
+  - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
   - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
   collisionDamage: 1
   type: 0
