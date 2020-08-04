@@ -48,22 +48,24 @@ public class GameManager : MonoBehaviour
     private VolumeProfile warpPostProcess;
     public static CameraShake camShake;
     public static UIManager uiManager;
+    public static AudioManager audioManager;
 
     private AudioSource bgm;
     private AudioLowPassFilter lowPass;
-    private const float NORMAL_LOW_PASS = 7500;
-    private const float TIME_WARP_LOW_PASS = 2500;
+
+    public static GameManager ins;
 
     void Awake()
     {
         playerObject = GameObject.FindWithTag("Player");
         photonObject = GameObject.FindWithTag("Photon");
         player = playerObject.GetComponent<Player>();
+        
         photon = photonObject.GetComponent<Photon>();
         enemySpawner = GetComponent<EnemySpawner>();
-
         camShake = Camera.main.GetComponent<CameraShake>();
         uiManager = GetComponent<UIManager>();
+        audioManager = GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>();
 
         bgm = GetComponent<AudioSource>();
         lowPass = GetComponent<AudioLowPassFilter>();
@@ -107,7 +109,7 @@ public class GameManager : MonoBehaviour
         }
 
         // For testing purposes
-        if (Input.GetKeyDown("r")) SceneManager.LoadScene("Game");
+        if (Input.GetKeyDown("r")) LoadScene("Game");
     }
 
     void RegularTime()
@@ -117,8 +119,7 @@ public class GameManager : MonoBehaviour
         if(!gameIsOver)
             mirrorCollider.enabled = true;
 
-        bgm.pitch = 1;
-        lowPass.cutoffFrequency = NORMAL_LOW_PASS;
+        audioManager.SetNormalMusic();
     }
 
     void RewindTime()
@@ -127,8 +128,7 @@ public class GameManager : MonoBehaviour
         cameraProfile.profile = warpPostProcess;
         mirrorCollider.enabled = false;
 
-        bgm.pitch = -1;
-        lowPass.cutoffFrequency = TIME_WARP_LOW_PASS;
+        audioManager.SetTimeWarpMusic();
     }
 
     public static void EnemyKill(Enemy enemy)
@@ -161,20 +161,15 @@ public class GameManager : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
+    public static void SpawnParticles(GameObject particles, GameObject source)
+    {
+        GameObject part = Instantiate(particles, source.transform.position, Quaternion.identity);
+        Destroy(part.gameObject, 4f);
+    }
+
     public static void PlaySound(AudioClip clip, GameObject source, float volume = 0.8f, float pitch = 1f)
     {
-        AudioSource sound = new GameObject().AddComponent<AudioSource>();
-        sound.volume = volume;
-        sound.name = source.name + " Sound";
-        sound.clip = clip;
-
-        sound.pitch = pitch;
-
-        AudioLowPassFilter lowPass = sound.gameObject.AddComponent<AudioLowPassFilter>();
-        lowPass.cutoffFrequency = (isRewinding ? TIME_WARP_LOW_PASS : NORMAL_LOW_PASS);
-
-        sound.Play();
-        Destroy(sound.gameObject, 4f);
+        audioManager.PlaySound(clip, source, volume, pitch);
     }
 
     public static void PlaySound(AudioClip[] clips, GameObject source, float volume = 0.8f, float pitch = 1f)
@@ -182,10 +177,14 @@ public class GameManager : MonoBehaviour
         PlaySound(clips[Random.Range(0, clips.Length)], source, volume, pitch);
     }
 
-    public static void SpawnParticles(GameObject particles, GameObject source)
+    public static void LoadScene(int index)
     {
-        GameObject part = Instantiate(particles, source.transform.position, Quaternion.identity);
-        Destroy(part.gameObject, 4f);
+        SceneManager.LoadScene(index);
+    }
+
+    public static void LoadScene(string name)
+    {
+        LoadScene(SceneManager.GetSceneByName(name).buildIndex);
     }
 }
 
