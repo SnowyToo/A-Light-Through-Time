@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     private AudioClip wallHit;
     [SerializeField]
     private GameObject redParticles;
+    [SerializeField]
     private GameObject greenParticles;
 
     void OnCollisionEnter2D(Collision2D other)
