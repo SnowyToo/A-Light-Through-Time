@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
         }
 
         score = 0;
+        newHiscore = false;
 
         uiManager.SetUpUI(player.maxHealth);
 
@@ -143,6 +144,8 @@ public class GameManager : MonoBehaviour
         }
 
         score += scoreGain;
+
+        Debug.Log(PlayerData.stats.hiScore);
 
         if(score > PlayerData.stats.hiScore)
         {
