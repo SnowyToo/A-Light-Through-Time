@@ -242,7 +242,7 @@ MonoBehaviour:
     type: 3}
   invincible: 0
   range: 4
-  speed: 3.5
+  speed: 3
   timeBetweenShots: 2
   bullet: {fileID: 4100926439769480226, guid: 72410b7c8740efe47a0f0980ef405dd5, type: 3}
   shotPoint: {fileID: 5363813771540936787}

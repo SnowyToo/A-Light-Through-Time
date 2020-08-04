@@ -127,9 +127,9 @@ MonoBehaviour:
   warpSprite: {fileID: 8813261529561919023, guid: 15009081b9c23944ea61b474eafbd55a,
     type: 3}
   invincible: 0
-  captureTime: 2
+  captureTime: 2.5
   timeBetweenUpdates: 0.5
-  speed: 3
+  speed: 2.5
 --- !u!50 &2499619431447306424
 Rigidbody2D:
   serializedVersion: 4

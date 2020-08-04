@@ -1698,18 +1698,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyScores:
   - name: SpikeEnemy
-    value: 10
+    value: 30
   - name: SnapEnemy
-    value: 10
+    value: 35
   - name: LaserEnemy
-    value: 10
+    value: 30
   _attributeScores:
   - type: 0
-    value: 10
+    value: 15
   - type: 1
-    value: 15
+    value: 20
   - type: 2
-    value: 15
+    value: 25
   mirrorCollider: {fileID: 936409372}
   normalPostProcess: {fileID: 11400000, guid: f7355d11c388543429e00baaeb54ec8b, type: 2}
   warpPostProcess: {fileID: 11400000, guid: 8ed495f661539204aa286210bc4cb84c, type: 2}
@@ -1727,6 +1727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangeX: {x: 13.5, y: 15}
   rangeY: {x: 7, y: 9}
+  alert: {fileID: 958473443704928540, guid: 7c1fc6a9a18d74e40b41a2bb87a4deee, type: 3}
   timeBetweenSpawns: 0.2
   initialMaxEnemies: 2
   enemyPrefabs:

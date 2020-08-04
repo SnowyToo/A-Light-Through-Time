@@ -10,6 +10,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private Vector2 rangeY;
 
+    [SerializeField]
+    private GameObject alert;
+
     public List<EnemySpawn> queuedUpEnemies;
     private Queue<EnemySpawn> nextEnemies;
     private Dictionary<EnemyType, int> currentEnemies;
@@ -88,7 +91,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         //Increases max enemies by one for every 100 score.
-        maxEnemies = Mathf.Clamp(initialMaxEnemies + GameManager.score / 100, initialMaxEnemies, 20);
+        maxEnemies = Mathf.Clamp(initialMaxEnemies + GameManager.score / 250, initialMaxEnemies, 20);
 
     }
 
@@ -99,6 +102,7 @@ public class EnemySpawner : MonoBehaviour
         // Instantiate enemy
         EnemySpawn enemyToSpawn = nextEnemies.Dequeue();
         GameObject enemyGO = Instantiate(enemyToSpawn.enemyPrefab, enemyToSpawn.position, Quaternion.identity);
+        Instantiate(alert, Vector3.zero, Quaternion.identity).GetComponent<Alert>().SetTarget(enemyGO.transform);
         if (enemyToSpawn.type != EnemyType.LaserEnemy)
         {
             Enemy enemy = enemyGO.GetComponent<Enemy>();
