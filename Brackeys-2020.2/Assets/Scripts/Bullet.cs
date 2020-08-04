@@ -8,7 +8,8 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private AudioClip wallHit;
     [SerializeField]
-    private GameObject particles;
+    private GameObject redParticles;
+    private GameObject greenParticles;
 
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -19,6 +20,9 @@ public class Bullet : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Wall"))
         {
+            GameObject particles = redParticles;
+            if (GetComponent<SpriteRenderer>().color == Color.green)
+                particles = greenParticles;
 
             GameManager.SpawnParticles(particles, gameObject);
             GameManager.PlaySound(wallHit, gameObject, 0.8f, 5f);
