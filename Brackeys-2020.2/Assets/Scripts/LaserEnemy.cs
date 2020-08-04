@@ -12,11 +12,11 @@ public class LaserEnemy : Enemy
 
     public override void PhotonHit()
     {
-        base.PhotonHit();
-
         if (invincible) return;
 
         if (shields.Count > 0) return;
+
+        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding) return;
 
         partner.Die(false);
         Destroy(transform.parent.gameObject);

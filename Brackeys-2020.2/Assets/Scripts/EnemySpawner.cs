@@ -26,9 +26,7 @@ public class EnemySpawner : MonoBehaviour
     [HideInInspector]
     public enum EnemyType {SpikeEnemy, SnapEnemy, LaserEnemy};
 
-    // Probabilities
-    [SerializeField]
-    private EnemyAttribute[] allAttributes;
+    // Attribute probabilities
     [SerializeField]
     private List<AttributeProbability> attributeProbabilities;
     [SerializeField]
@@ -80,7 +78,6 @@ public class EnemySpawner : MonoBehaviour
         // If we don't have enough enemies, pick one to spawn and enqueue it
         if (CurrentEnemyCount() + nextEnemies.Count < maxEnemies)
         {
-            //Debug.Log("Creating new enemy spawn");
             EnemyType type = PickType();
             Vector3 position = PickPosition();
             List<EnemyAttribute> attributes = PickAttributes();
@@ -92,7 +89,6 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnNextEnemy()
     {
-        //Debug.Log("Spawning new enemy");
         timeLeftBetweenSpawns = timeBetweenSpawns;
 
         // Instantiate enemy
@@ -122,13 +118,11 @@ public class EnemySpawner : MonoBehaviour
 
         // Update current enemies
         currentEnemies[enemyToSpawn.type] ++;
-        //Debug.Log(currentEnemies[enemyToSpawn.type]);
     }
 
     EnemyType PickType()
     {
         // Pick next enemy type based on current enemy types and difficulty
-
         int index = Random.Range(0, enemyPrefabs.Length);
         EnemyType type = (EnemyType) index;
         return type;
@@ -146,8 +140,6 @@ public class EnemySpawner : MonoBehaviour
     List<EnemyAttribute> PickAttributes()
     {
         // Pick attributes based on difficulty
-        //GenerateAttributeList();
-
         List<EnemyAttribute> attributes = new List<EnemyAttribute>();
         
         int shieldNumber = shieldProbabilities.CalculateNumber(GameManager.score);
@@ -160,22 +152,6 @@ public class EnemySpawner : MonoBehaviour
             if (Random.value <= probability)
                 attributes.Add(new EnemyAttribute(att.type));
         }
-
-        /*int shields = Random.Range(0, 2);
-        EnemyAttribute shieldAttribute = new EnemyAttribute(EnemyAttribute.AttributeType.SHIELD, shields);
-        if (shields == 0 && Random.value > 0.75)
-        {
-            EnemyAttribute reflectAttribute = new EnemyAttribute(EnemyAttribute.AttributeType.REFLECT);
-            attributes.Add(reflectAttribute);
-        }
-
-        if (Random.value > 0.75)
-        {
-            EnemyAttribute timeWarpAttribute = new EnemyAttribute(EnemyAttribute.AttributeType.TIME_ONLY);
-            attributes.Add(timeWarpAttribute);
-        }
-
-        attributes.Add(shieldAttribute);*/
 
         return attributes;
     }
@@ -215,35 +191,63 @@ public struct EnemySpawn
 public struct AttributeProbability
 {
     public Enemy.AttributeType type;
-    public int[] scoreThresholds;
-    public float[] probabilities;
+    public float firstProbability;
+    public float probabilityChange;
+    public int firstThreshold;
+    public int thresholdIncrement;
 
     public float CalculateProbability(int score)
     {
-        int index = EnemySpawner.HighestThresholdIndex(score, scoreThresholds);
-        if (index == -1)
-            return 0f;
+        int threshold = (int) Mathf.Floor(score/thresholdIncrement);
+        float probability;
+
+        if (threshold >= firstThreshold)
+            probability = firstProbability + (probabilityChange * (threshold - firstThreshold));
         else
-            return probabilities[index];
+            probability = 0f;
+        
+        if (probability > 1f) probability = 1f;
+        return probability;
     }
 }
 
 [System.Serializable]
 public struct ShieldProbabilities
 {
-    public int[] scoreThresholds;
+    public float[] initialProbabilities;
+    public float[] finalProbabilities;
+    public float[] probabilityChanges;
+    public float[] secondProbabilityChanges;
+    public int[] thresholds;
+    public int thresholdIncrement;
 
     public int CalculateNumber(int score)
     {
-        int index = EnemySpawner.HighestThresholdIndex(score, scoreThresholds);
-        return index;
+        int threshold = (int) Mathf.Floor(score/thresholdIncrement);
+        float[] probabilities = new float[probabilityChanges.Length];
+        for (int i = 0; i < probabilities.Length; i ++)
+        {
+            if (threshold < thresholds[0])
+                probabilities[i] = 0f;
+            else if (threshold < thresholds[1])
+                probabilities[i] = initialProbabilities[i] + (probabilityChanges[i] * (threshold - thresholds[0]));
+            else if (threshold < thresholds[2])
+                probabilities[i] += initialProbabilities[i] + (probabilityChanges[i] * (thresholds[1] - thresholds[0])) + (secondProbabilityChanges[i] * (threshold - thresholds[1]));
+            else
+                probabilities[i] = finalProbabilities[i];
+        }
+        return CalculateShields(probabilities);
     }
-}
 
-[System.Serializable]
-public struct ShieldNumbers
-{
-    public float noShields;
-    public float oneShield;
-    public float twoShields;
+    int CalculateShields(float[] probabilities)
+    {
+        float max = 0f;
+        float r = Random.value;
+        for (int i = 0; i < probabilities.Length; i ++)
+        {
+            max += probabilities[i];
+            if (r < max) return i;
+        }
+        return 0;
+    }
 }

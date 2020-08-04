@@ -1046,7 +1046,7 @@ SpriteRenderer:
   m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &503167243
@@ -1975,27 +1975,36 @@ MonoBehaviour:
   - {fileID: 8362290013693408758, guid: 4c43e86af0f8c134383ff83f13931afb, type: 3}
   - {fileID: 9110422201019483521, guid: f2985a3637de4d540afccb615ad7e9ee, type: 3}
   - {fileID: 5405739955580542183, guid: 390ebf2f74b43584988cc47400ef82c8, type: 3}
-  allAttributes: []
   attributeProbabilities:
-  - type: 0
-    scoreThresholds: 4b00000096000000e10000002c010000
-    probabilities:
-    - 0.25
-    - 0.4
-    - 0.55
-    - 0.7
   - type: 1
-    scoreThresholds: 96000000e10000002c010000
-    probabilities:
-    - 0.1
-    - 0.15
-    - 0.2
+    firstProbability: 0.1
+    probabilityChange: 0.05
+    firstThreshold: 2
+    thresholdIncrement: 75
   - type: 2
-    scoreThresholds: 96000000e10000002c010000
-    probabilities:
+    firstProbability: 0.05
+    probabilityChange: 0.05
+    firstThreshold: 2
+    thresholdIncrement: 75
+  shieldProbabilities:
+    initialProbabilities:
+    - 0.75
+    - 0.25
+    - 0
+    finalProbabilities:
+    - 0
     - 0.05
+    - 0.95
+    probabilityChanges:
+    - -0.15
     - 0.1
-    - 0.15
+    - 0.05
+    secondProbabilityChanges:
+    - 0
+    - -0.1
+    - 0.1
+    thresholds: 01000000060000000d000000
+    thresholdIncrement: 75
 --- !u!82 &884107294
 AudioSource:
   m_ObjectHideFlags: 0

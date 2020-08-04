@@ -101,8 +101,6 @@ public class GameManager : MonoBehaviour
             else
                 RegularTime();
         }
-        else if (isRewinding)
-            RegularTime();
 
         // For testing purposes
         if (Input.GetKeyDown("r")) SceneManager.LoadScene("Game");
@@ -130,8 +128,6 @@ public class GameManager : MonoBehaviour
 
     public static void EnemyKill(Enemy enemy)
     {
-        //int scoreGained = GameManager.enemyScores[tag];
-
         int scoreGain = enemyScores[enemy.tag];
         foreach(EnemyAttribute e in enemy.attributes)
         {

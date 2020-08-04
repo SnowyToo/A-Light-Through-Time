@@ -239,7 +239,7 @@ MonoBehaviour:
   shield: {fileID: 2493650241932866960, guid: 6ec3375ba598e904093cd712e36d8663, type: 3}
   reflect: {fileID: 3631163048206574139, guid: 0bcee80c4977ddf43a6c47b5bb35a091, type: 3}
   invincible: 0
-  range: 2.5
+  range: 4
   speed: 2.5
   timeBetweenShots: 2
   bullet: {fileID: 4100926439769480226, guid: 72410b7c8740efe47a0f0980ef405dd5, type: 3}
