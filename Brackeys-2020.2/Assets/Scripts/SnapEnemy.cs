@@ -59,6 +59,10 @@ public class SnapEnemy : Enemy
     {
         nextUpdate = timeBetweenUpdates;
         trackingPosition = photonRB.position;
+        if (photon.captured)
+        {
+            trackingPosition = GameManager.playerObject.transform.position;
+        }
     }
 
     void MoveToPhoton()
@@ -72,7 +76,12 @@ public class SnapEnemy : Enemy
 
     public override void PhotonHit()
     {
-        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding) return;
+        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding)
+        {
+            if (curSprite == null)
+                curSprite = Instantiate(warpSprite, transform.position, Quaternion.identity, transform);
+            return;
+        }
         if (shields.Count > 0) return;
 
         if (invincible) return;
@@ -100,9 +109,17 @@ public class SnapEnemy : Enemy
 
     public override void LaserHit()
     {
+        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding)
+        {
+            if (curSprite == null)
+                curSprite = Instantiate(warpSprite, transform.position, Quaternion.identity, transform);
+            return;
+        }
+
         capturing = false;
         photon.EndCapture();
-        Die();
+
+        Die(collectPoints:false);
     }
 
     void EndGame()

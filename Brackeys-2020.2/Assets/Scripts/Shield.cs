@@ -17,7 +17,7 @@ public class Shield : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!destroyable)
+        if(!destroyable && GameManager.player != null)
         {
             Vector2 aimDirection = GameManager.player.transform.position - transform.position;
             transform.up = aimDirection;

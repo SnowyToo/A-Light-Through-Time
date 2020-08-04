@@ -27,6 +27,9 @@ public class Enemy : MonoBehaviour
     private GameObject shield;
     [SerializeField]
     private GameObject reflect;
+    [SerializeField]
+    protected GameObject warpSprite; //I will keep using time warp out of spite now.
+    protected GameObject curSprite;
 
     [HideInInspector]
     public bool invincible;
@@ -58,7 +61,12 @@ public class Enemy : MonoBehaviour
     {
         if (invincible) return;
 
-        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding) return;
+        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding)
+        {
+            if(curSprite == null)
+                curSprite = Instantiate(warpSprite, transform.position, Quaternion.identity, transform);
+            return;
+        }
 
         if(shields.Count > 0) return;
 
@@ -90,10 +98,10 @@ public class Enemy : MonoBehaviour
         invincible = false;
     }
 
-    public void Die(bool remove = true)
+    public void Die(bool remove = true, bool collectPoints = true)
     {
         if (remove) GameManager.enemySpawner.RemoveEnemy(type);
-        GameManager.EnemyKill(this);
+        if(collectPoints) GameManager.EnemyKill(this);
         float volume = 0.8f;
         if (gameObject.tag == "LaserEnemy")
             volume = 0.4f;
@@ -132,7 +140,6 @@ public class Enemy : MonoBehaviour
         if(attribute.type == AttributeType.REFLECT)
         {
             Shield s = Instantiate(reflect, transform.position, Quaternion.identity, transform).GetComponent<Shield>();
-            //s.transform.localPosition = new Vector3(0f, 0.2f, 0f);
             s.transform.localScale = 1.9f * new Vector2(1, 1);
 
             s.parent = this;

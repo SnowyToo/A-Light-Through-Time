@@ -20,7 +20,7 @@ public class LaserEnemy : Enemy
 
         if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding) return;
 
-        partner.Die(false);
+        partner.Die(false, false);
         Destroy(transform.parent.gameObject);
     }
 }
