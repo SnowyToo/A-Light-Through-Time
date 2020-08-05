@@ -65,10 +65,7 @@ public class Photon : MonoBehaviour
 
     void StorePosition()
     {
-        if (!isCovered)
-            col.isTrigger = false;
-        else
-            col.isTrigger = true;
+        col.isTrigger = false;
         positionHistory.Push(rb.position);
         velocityHistory.Push(rb.velocity);
     }
@@ -94,17 +91,6 @@ public class Photon : MonoBehaviour
             Hit();
             rb.velocity = GameManager.GetMousePosition() - rb.position;
         }
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (!GameManager.isRewinding && (other.gameObject.layer == 10 || other.gameObject.layer == 15 || other.gameObject.layer == 16))
-            isCovered = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        isCovered = false;
     }
 
     private void Hit()
