@@ -2157,6 +2157,8 @@ MonoBehaviour:
     value: 35
   - name: LaserEnemy
     value: 30
+  - name: BounceEnemy
+    value: 25
   _attributeScores:
   - type: 0
     value: 5
@@ -2188,12 +2190,13 @@ MonoBehaviour:
   alert: {fileID: 958473443704928540, guid: 7c1fc6a9a18d74e40b41a2bb87a4deee, type: 3}
   timeBetweenSpawns: 0.2
   initialMaxEnemies: 2
-  maxEnemiesScoreIncrement: 250
+  maxEnemiesScoreIncrement: 450
   maxEnemiesCap: 20
   enemyPrefabs:
   - {fileID: 8362290013693408758, guid: 4c43e86af0f8c134383ff83f13931afb, type: 3}
   - {fileID: 9110422201019483521, guid: f2985a3637de4d540afccb615ad7e9ee, type: 3}
   - {fileID: 5405739955580542183, guid: 390ebf2f74b43584988cc47400ef82c8, type: 3}
+  - {fileID: 1995678366626813561, guid: e51dd7dc80cfed54d89fa3b145fdc4b8, type: 3}
   attributeProbabilities:
   - type: 0
     probabilityPerAmount:
@@ -19502,6 +19505,7 @@ GameObject:
   - component: {fileID: 1727279411}
   - component: {fileID: 1727279410}
   - component: {fileID: 1727279414}
+  - component: {fileID: 1727279415}
   m_Layer: 9
   m_Name: Photon
   m_TagString: Photon
@@ -19624,13 +19628,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b259eeb214cd44da1b6ec38bf717c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 7
   boop: {fileID: 8300000, guid: 84b3c7f469acead4a8a90a05857dfce9, type: 3}
   hitParticles: {fileID: 1431077026564264795, guid: 373b92de17b2bbd4985df1ec59ee8db9,
     type: 3}
   deathParticles: {fileID: 2268556365347586730, guid: 887c5724ae172354086a704057823d1e,
     type: 3}
   captured: 0
+--- !u!114 &1727279415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727279409}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2c3d4aa61681d1459fd3b3a9a25049f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 7
+  startOutsideWalls: 0
 --- !u!1 &1750383245
 GameObject:
   m_ObjectHideFlags: 0

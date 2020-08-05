@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public static Player player;
     [HideInInspector]
     public static Photon photon;
+    private BounceObject photonBounce;
     [SerializeField]
     private Collider2D mirrorCollider;
 
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour
         photonObject = GameObject.FindWithTag("Photon");
         player = playerObject.GetComponent<Player>();
         photon = photonObject.GetComponent<Photon>();
+        photonBounce = photonObject.GetComponent<BounceObject>();
 
         enemySpawner = GetComponent<EnemySpawner>();
         camShake = Camera.main.GetComponent<CameraShake>();
@@ -99,6 +101,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         player.enabled = true;
         photon.enabled = true;
+        photonBounce.enabled = true;
         enemySpawner.enabled = true;
         counting = false;
         uiManager.DisableCountdown();
@@ -231,6 +234,12 @@ public class GameManager : MonoBehaviour
     public static void LoadScene(string name)
     {
         LoadScene(SceneManager.GetSceneByName(name).buildIndex);
+    }
+
+    public static Vector2 RandomVelocity(float maxSpeed)
+    {
+        float angle = Random.Range(0f, 2f * Mathf.PI);
+        return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * maxSpeed;
     }
 }
 

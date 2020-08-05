@@ -13,6 +13,8 @@ TagManager:
   - Wall
   - Shield
   - AudioManager
+  - BounceEnemy
+  - Piece
   layers:
   - Default
   - TransparentFX
@@ -31,7 +33,7 @@ TagManager:
   - Walls
   - Shield
   - Laser
-  - 
+  - BounceStuff
   - 
   - 
   - 

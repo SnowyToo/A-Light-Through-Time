@@ -5,7 +5,6 @@ using UnityEngine;
 public class Photon : MonoBehaviour
 {
     // Bouncing
-    public float maxSpeed = 8f;
     private Rigidbody2D rb;
     [SerializeField]
     private AudioClip boop;
@@ -32,7 +31,6 @@ public class Photon : MonoBehaviour
         velocityHistory = new Stack<Vector2>();
 
         rb = GetComponent<Rigidbody2D>();
-        SetRandomVelocity();
         
         startPoint = rb.position;
         startVelocity = rb.velocity;
@@ -41,8 +39,6 @@ public class Photon : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = rb.velocity.normalized * maxSpeed;
-
         if (GameManager.isRewinding)
             Rewind();
         else
@@ -68,12 +64,6 @@ public class Photon : MonoBehaviour
         velocityHistory.Push(rb.velocity);
     }
 
-    void SetRandomVelocity()
-    {
-        float angle = Random.Range(0f, 2f * Mathf.PI);
-        rb.velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * maxSpeed;
-    }
-
     public void Die()
     {
         GameManager.SpawnParticles(deathParticles, gameObject);
@@ -82,6 +72,8 @@ public class Photon : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.tag == "BounceEnemy") Debug.Log("photon hit bounce enemy");
+        if (other.gameObject.tag == "Piece") Debug.Log("photon hit piece");
         Hit();
     }
 
@@ -91,7 +83,7 @@ public class Photon : MonoBehaviour
         if (other.gameObject.layer == 11)
         {
             Hit();
-            rb.velocity = GameManager.GetMousePosition() - (Vector2)rb.transform.position;
+            rb.velocity = GameManager.GetMousePosition() - rb.position;
         }
     }
 

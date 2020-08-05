@@ -34,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject[] enemyPrefabs;
     public static GameObject[] _enemyPrefabs;
     [HideInInspector]
-    public enum EnemyType {SpikeEnemy, SnapEnemy, LaserEnemy};
+    public enum EnemyType {SpikeEnemy, SnapEnemy, LaserEnemy, BounceEnemy};
 
     // Attribute probabilities
     [SerializeField]
@@ -101,6 +101,7 @@ public class EnemySpawner : MonoBehaviour
         maxEnemyTypes[(int) EnemyType.LaserEnemy] = Mathf.Clamp((int) Mathf.Floor(maxEnemies/4), 1, maxEnemies);
         maxEnemyTypes[(int) EnemyType.SnapEnemy] = Mathf.Clamp((int) Mathf.Ceil(maxEnemies/3), 1, maxEnemies);
         maxEnemyTypes[(int) EnemyType.SpikeEnemy] = 1000;
+        maxEnemyTypes[(int) EnemyType.BounceEnemy] = 1000;
     }
 
     EnemySpawn PickNextEnemy()
@@ -221,7 +222,7 @@ public class EnemySpawner : MonoBehaviour
                     curAmount += am;
 
                     //If it succeeds, it skips all lower tiers and moves onto the next one.
-                    attributes.Add(new EnemyAttribute(chosenAttribute.type, am));
+                    //attributes.Add(new EnemyAttribute(chosenAttribute.type, am));
                     curAttributes++;
                     break;
                 }

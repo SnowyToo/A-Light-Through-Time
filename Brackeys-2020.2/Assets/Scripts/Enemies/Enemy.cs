@@ -19,6 +19,9 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public EnemySpawner.EnemyType type;
 
+    [SerializeField]
+    private bool removable = true;
+
     // Attributes
     public enum AttributeType { SHIELD, TIME_ONLY, REFLECT, TIME_SHIELD }
     [HideInInspector]
@@ -41,11 +44,6 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-    }
-
-    void Start()
-    {
-        Debug.Log("MY TYPE IS: " + type);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -83,7 +81,7 @@ public class Enemy : MonoBehaviour
         if(shields.Count > 0) return false;
 
         if(instantDeath)
-            Die();
+            Die(removable, removable);
 
         return true;
     }
@@ -108,7 +106,7 @@ public class Enemy : MonoBehaviour
             return false;
         }
 
-        Die(collectPoints: false);
+        Die(removable, false);
         return true;
     }
 
