@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2193,37 +2193,53 @@ MonoBehaviour:
   - {fileID: 9110422201019483521, guid: f2985a3637de4d540afccb615ad7e9ee, type: 3}
   - {fileID: 5405739955580542183, guid: 390ebf2f74b43584988cc47400ef82c8, type: 3}
   attributeProbabilities:
+  - type: 0
+    probabilityPerAmount:
+    - amount: 1
+      probability:
+        initialChance: 0.5
+        chanceIncreasePerScore:
+          scoreInterval: 0
+          chanceIncrease: 0
+        maxChance: 1
+        minimalScoreNeeded: 0
+    - amount: 2
+      probability:
+        initialChance: 0.25
+        chanceIncreasePerScore:
+          scoreInterval: 0
+          chanceIncrease: 0
+        maxChance: 1
+        minimalScoreNeeded: 0
   - type: 1
-    firstProbability: 0.1
-    probabilityChange: 0.04
-    firstThreshold: 2
-    thresholdIncrement: 75
-    max: 0.98
+    probabilityPerAmount:
+    - amount: 0
+      probability:
+        initialChance: 0.3
+        chanceIncreasePerScore:
+          scoreInterval: 0
+          chanceIncrease: 0
+        maxChance: 1
+        minimalScoreNeeded: 0
   - type: 2
-    firstProbability: 0.03
-    probabilityChange: 0.03
-    firstThreshold: 4
-    thresholdIncrement: 75
-    max: 0.3
-  shieldProbabilities:
-    initialProbabilities:
-    - 0.75
-    - 0.25
-    - 0
-    finalProbabilities:
-    - 0
-    - 0.05
-    - 0.95
-    probabilityChanges:
-    - -0.15
-    - 0.1
-    - 0.05
-    secondProbabilityChanges:
-    - 0
-    - -0.1
-    - 0.1
-    thresholds: 01000000060000000d000000
-    thresholdIncrement: 75
+    probabilityPerAmount:
+    - amount: 0
+      probability:
+        initialChance: 0.2
+        chanceIncreasePerScore:
+          scoreInterval: 0
+          chanceIncrease: 0
+        maxChance: 1
+        minimalScoreNeeded: 0
+  attributeAmounts:
+  - amount: 4
+    probability:
+      initialChance: 1
+      chanceIncreasePerScore:
+        scoreInterval: 0
+        chanceIncrease: 0
+      maxChance: 1
+      minimalScoreNeeded: 0
 --- !u!114 &884107296
 MonoBehaviour:
   m_ObjectHideFlags: 0

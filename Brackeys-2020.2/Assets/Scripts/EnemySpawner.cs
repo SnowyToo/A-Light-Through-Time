@@ -38,9 +38,9 @@ public class EnemySpawner : MonoBehaviour
 
     // Attribute probabilities
     [SerializeField]
-    private List<AttributeProbability> attributeProbabilities;
+    private List<AttributeProbabilities> attributeProbabilities;
     [SerializeField]
-    private ShieldProbabilities shieldProbabilities;
+    private List<AmountProbabilityPair> attributeAmounts;
     
     void Start()
     {
@@ -182,33 +182,70 @@ public class EnemySpawner : MonoBehaviour
     {
         // Pick attributes based on current score
         List<EnemyAttribute> attributes = new List<EnemyAttribute>();
-        
-        int shieldNumber = shieldProbabilities.CalculateNumber(GameManager.score);
-        EnemyAttribute shieldAttribute = new EnemyAttribute(Enemy.AttributeType.SHIELD, shieldNumber);
-        attributes.Add(shieldAttribute);
 
-        foreach (AttributeProbability att in attributeProbabilities)
+        //Get attribute amount. Zero is the base value.
+        int maxAttributes = 0;
+
+        //Loop through all values from lowest to highest.
+        foreach(AmountProbabilityPair a in attributeAmounts)
         {
-            float probability = att.CalculateProbability(GameManager.score);
-            if (Random.value <= probability)
-                attributes.Add(new EnemyAttribute(att.type));
+            if(Random.value <= a.probability.CalculateProbability(GameManager.score))
+            {
+                maxAttributes = a.amount;
+                break;
+            }
         }
 
+        int curAttributes = 0;
+
+        //Loop through all attributes
+        foreach(AttributeProbabilities chosenAttribute in ShuffleList(attributeProbabilities))
+        {
+            if (curAttributes == maxAttributes)
+                break;
+            
+            //Per attribute, loops through all possible amounts, starting from the highest one.
+            for (int i = chosenAttribute.probabilityPerAmount.Count-1; i >= 0; i--)
+            {
+                if (Random.value <= chosenAttribute.probabilityPerAmount[i].probability.CalculateProbability(GameManager.score))
+                {
+                    //If it succeeds, it skips all lower tiers and moves onto the next one.
+                    attributes.Add(new EnemyAttribute(chosenAttribute.type, chosenAttribute.probabilityPerAmount[i].amount));
+                    curAttributes++;
+                    break;
+                }
+            }
+        }
+
+        //Note that the first step takes a bottom-up approach (lowest --> heighest), while the second takes a top-down approach (heighest --> lowest)
+        //In general this means enemies will have less attributes, but harder ones.
+
         return attributes;
+    }
+
+    List<AttributeProbabilities> ShuffleList(List<AttributeProbabilities> shuffle)
+    {
+        List<AttributeProbabilities> copyList = new List<AttributeProbabilities>();
+
+        foreach(AttributeProbabilities a in shuffle)
+        {
+            copyList.Add(a);
+        }
+
+        int iterations = shuffle.Count;
+
+        for(int i = 0; i < iterations; i++)
+        {
+            shuffle[i] = copyList[Random.Range(0, copyList.Count)];
+            copyList.Remove(shuffle[i]);
+        }
+
+        return shuffle;
     }
 
     public void RemoveEnemy(EnemyType type)
     {
         currentEnemies[type] --;
-    }
-
-    public static int HighestThresholdIndex(int score, int[] scoreThresholds)
-    {
-        for (int i = scoreThresholds.Length - 1; i >= 0; i --)
-        {
-            if (scoreThresholds[i] <= score) return i;
-        }
-        return -1;
     }
 }
 
@@ -229,74 +266,44 @@ public struct EnemySpawn
 }
 
 [System.Serializable]
-public struct AttributeProbability
+public struct AttributeProbabilities
 {
     public Enemy.AttributeType type;
-    public float firstProbability;
-    public float probabilityChange;
-    public int firstThreshold;
-    public int thresholdIncrement;
-    public float max;
+    public List<AmountProbabilityPair> probabilityPerAmount;
+}
+
+[System.Serializable]
+public struct AmountProbabilityPair
+{
+    public int amount;
+    public SpawnProbability probability;
+}
+
+[System.Serializable]
+public struct SpawnProbability
+{
+    public float initialChance;
+    public ChancePerScore chanceIncreasePerScore;
+    public float maxChance;
+
+    public int minimalScoreNeeded;
 
     public float CalculateProbability(int score)
     {
-        int threshold = (int) Mathf.Floor(score/thresholdIncrement);
-        float probability;
+        int scoreInterval = chanceIncreasePerScore.scoreInterval;
+        if (scoreInterval <= 0)
+            scoreInterval = 1;
 
-        if (threshold >= firstThreshold)
-            probability = firstProbability + (probabilityChange * (threshold - firstThreshold));
-        else
-            probability = 0f;
-        
-        if (probability > max) probability = max;
-        return probability;
+        if (minimalScoreNeeded > score)
+            return -1;
+
+        return Mathf.Clamp(initialChance + chanceIncreasePerScore.chanceIncrease * (score-minimalScoreNeeded)/scoreInterval, 0, maxChance);
     }
 }
 
 [System.Serializable]
-public struct ShieldProbabilities
+public struct ChancePerScore
 {
-    public float[] initialProbabilities;
-    public float[] finalProbabilities;
-    public float[] probabilityChanges;
-    public float[] secondProbabilityChanges;
-    public int[] thresholds;
-    public int thresholdIncrement;
-
-    public int CalculateNumber(int score)
-    {
-        float[][] changes = {probabilityChanges, secondProbabilityChanges};
-
-        int threshold = (int) Mathf.Floor(score/thresholdIncrement);
-        int lastThreshold = EnemySpawner.HighestThresholdIndex(threshold, thresholds);
-        float[] probabilities = new float[probabilityChanges.Length];
-
-        if (lastThreshold == -1)
-            return CalculateShields(probabilities);
-        else if (lastThreshold == thresholds.Length - 1)
-            return CalculateShields(finalProbabilities);
-
-        probabilities = initialProbabilities;
-
-        for (int i = 0; i < lastThreshold; i ++)
-        {
-            for (int j = 0; j < probabilities.Length; j ++)
-            {
-                probabilities[j] += changes[i][j] * (threshold - lastThreshold);
-            }
-        }
-        return CalculateShields(probabilities);
-    }
-
-    int CalculateShields(float[] probabilities)
-    {
-        float max = 0f;
-        float r = Random.value;
-        for (int i = 0; i < probabilities.Length; i ++)
-        {
-            max += probabilities[i];
-            if (r < max) return i;
-        }
-        return 0;
-    }
+    public int scoreInterval;
+    public float chanceIncrease;
 }

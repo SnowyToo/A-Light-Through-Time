@@ -210,7 +210,7 @@ public class GameManager : MonoBehaviour
     public static void SpawnParticles(GameObject particles, GameObject source)
     {
         GameObject part = Instantiate(particles, source.transform.position, Quaternion.identity);
-        Destroy(part.gameObject, 4f);
+        Destroy(part.gameObject, 6f);
     }
 
     public static void PlaySound(AudioClip clip, GameObject source, float volume = 0.8f, float pitch = 1f)
