@@ -2038,14 +2038,16 @@ MonoBehaviour:
   attributeProbabilities:
   - type: 1
     firstProbability: 0.1
-    probabilityChange: 0.05
+    probabilityChange: 0.04
     firstThreshold: 2
     thresholdIncrement: 75
+    max: 0.98
   - type: 2
-    firstProbability: 0.05
-    probabilityChange: 0.05
-    firstThreshold: 2
+    firstProbability: 0.03
+    probabilityChange: 0.03
+    firstThreshold: 4
     thresholdIncrement: 75
+    max: 0.3
   shieldProbabilities:
     initialProbabilities:
     - 0.75

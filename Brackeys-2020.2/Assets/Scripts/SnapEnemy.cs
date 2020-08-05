@@ -9,7 +9,6 @@ public class SnapEnemy : Enemy
     private float captureTime = 2f;
     private bool capturing;
     private EdgeCollider2D edgeCol;
-    private CircleCollider2D cirCol;
 
     // Tracking
     private Rigidbody2D photonRB;
@@ -35,7 +34,6 @@ public class SnapEnemy : Enemy
         capturing = false;
 
         edgeCol = GetComponent<EdgeCollider2D>();
-        cirCol = GetComponent<CircleCollider2D>();
 
         type = EnemySpawner.EnemyType.SnapEnemy;
 
@@ -101,7 +99,6 @@ public class SnapEnemy : Enemy
         photonTransform.position = transform.position;
         photon.StartCapture();
 
-        //cirCol.enabled = false;
         edgeCol.enabled = true;
 
         yield return new WaitForSeconds(captureTime);

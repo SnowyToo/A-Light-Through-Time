@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
         if (invincible)
             return;
 
-        health -= damage;
+        //health -= damage;
 
         GameManager.uiManager.UpdateHealth(health);
 

@@ -301,6 +301,7 @@ MonoBehaviour:
     type: 3}
   invincible: 0
   partner: {fileID: 1999663366551205448}
+  sadSprite: {fileID: 21300000, guid: fa9abccf23a38564d82b63fbd2be83f9, type: 3}
 --- !u!95 &811148245
 Animator:
   serializedVersion: 3
@@ -5303,6 +5304,7 @@ MonoBehaviour:
     type: 3}
   invincible: 0
   partner: {fileID: 7178095482763796887}
+  sadSprite: {fileID: 21300000, guid: fa9abccf23a38564d82b63fbd2be83f9, type: 3}
 --- !u!95 &286734595
 Animator:
   serializedVersion: 3

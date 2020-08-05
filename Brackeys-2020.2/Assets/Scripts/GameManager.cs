@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
 
         score += scoreGain;
 
-        Debug.Log(PlayerData.stats.hiScore);
+        //Debug.Log(PlayerData.stats.hiScore);
 
         if(score > PlayerData.stats.hiScore)
         {

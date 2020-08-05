@@ -141,6 +141,13 @@ public class EnemySpawner : MonoBehaviour
                 children[0].Addtribute(attribute);
                 children[1].Addtribute(attribute);
             }
+
+            // Secret :o
+            if (Random.value < 0.002f)
+            {
+                children[0].Sadden();
+                children[1].Sadden();
+            }
         }
 
         // Update current enemies
@@ -229,6 +236,7 @@ public struct AttributeProbability
     public float probabilityChange;
     public int firstThreshold;
     public int thresholdIncrement;
+    public float max;
 
     public float CalculateProbability(int score)
     {
@@ -240,7 +248,7 @@ public struct AttributeProbability
         else
             probability = 0f;
         
-        if (probability > 1f) probability = 1f;
+        if (probability > max) probability = max;
         return probability;
     }
 }

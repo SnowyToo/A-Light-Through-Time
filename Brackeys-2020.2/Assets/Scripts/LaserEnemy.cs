@@ -7,6 +7,9 @@ public class LaserEnemy : Enemy
     [SerializeField]
     private LaserEnemy partner;
 
+    [SerializeField]
+    private Sprite sadSprite;
+
     // Freely move around
     // Kill both enemies when photon hits one
 
@@ -27,5 +30,10 @@ public class LaserEnemy : Enemy
 
         partner.Die(false, false);
         Destroy(transform.parent.gameObject);
+    }
+
+    public void Sadden()
+    {
+        GetComponent<SpriteRenderer>().sprite = sadSprite;
     }
 }
