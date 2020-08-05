@@ -25,6 +25,9 @@ public class UIManager : MonoBehaviour
     // Game over
     public Animator deathOverlayAnim;
 
+    // Count down
+    public TextMeshProUGUI countingText;
+
     public void SetUpUI(int maxHealth)
     {
         if(maxHealth == 1)
@@ -70,6 +73,17 @@ public class UIManager : MonoBehaviour
         StartCoroutine(CheatyWorkAroundToNotUseAnimationEvents());
         finalScoreText.text = score.ToString();
         hiScoreText.text = PlayerData.stats.hiScore.ToString();
+    }
+
+    public void CountDownText(string txt, Color c)
+    {
+        countingText.color = c;
+        countingText.text = txt;
+    }
+
+    public void DisableCountdown()
+    {
+        countingText.gameObject.SetActive(false);
     }
 
     private IEnumerator CheatyWorkAroundToNotUseAnimationEvents()

@@ -39,7 +39,14 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public static bool gameIsOver;
 
-    //Enemies
+    // Countdown
+    [SerializeField]
+    private AudioClip countSound;
+    [SerializeField]
+    private AudioClip countSoundFinal;
+    private bool counting;
+
+    // Enemies
     [HideInInspector]
     public static EnemySpawner enemySpawner;
 
@@ -62,8 +69,8 @@ public class GameManager : MonoBehaviour
         playerObject = GameObject.FindWithTag("Player");
         photonObject = GameObject.FindWithTag("Photon");
         player = playerObject.GetComponent<Player>();
-        
         photon = photonObject.GetComponent<Photon>();
+
         enemySpawner = GetComponent<EnemySpawner>();
         camShake = Camera.main.GetComponent<CameraShake>();
         uiManager = GetComponent<UIManager>();
@@ -74,6 +81,27 @@ public class GameManager : MonoBehaviour
         gameIsOver = false;
 
         score = 0;
+        StartCoroutine(CountDown());
+    }
+
+    IEnumerator CountDown()
+    {
+        counting = true;
+        yield return new WaitForSeconds(0.1f);
+        for (int i = 3; i >= 1; i --)
+        {
+            uiManager.CountDownText(i.ToString(), Color.white);
+            GameManager.PlaySound(countSound, gameObject);
+            yield return new WaitForSeconds(1f);
+        }
+        GameManager.PlaySound(countSoundFinal, gameObject);
+        uiManager.CountDownText("GO!", Color.green);
+        yield return new WaitForSeconds(0.4f);
+        player.enabled = true;
+        photon.enabled = true;
+        enemySpawner.enabled = true;
+        counting = false;
+        uiManager.DisableCountdown();
     }
 
     void Start()
@@ -101,7 +129,7 @@ public class GameManager : MonoBehaviour
     {
         if (!gameIsOver)
         {
-            if (Input.GetButton("Rewind") && !photon.captured)
+            if (Input.GetButton("Rewind") && !photon.captured && !counting)
                 RewindTime();
             else
                 RegularTime();
