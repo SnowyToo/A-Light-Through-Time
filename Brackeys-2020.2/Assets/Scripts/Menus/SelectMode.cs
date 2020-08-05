@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class SelectMode : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public AudioClip beep;
 
     // Update is called once per frame
     void Update()
@@ -16,7 +12,6 @@ public class SelectMode : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.N))
         {
             StartGame(3);
-            
         }
 
         if(Input.GetKeyDown(KeyCode.H))
@@ -27,6 +22,7 @@ public class SelectMode : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.M))
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+            AudioManager.ins.PlayPersistentSoundEffect(beep);
         }
     }
 
@@ -34,5 +30,6 @@ public class SelectMode : MonoBehaviour
     {
         PlayerData.maxHealth = h;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+        AudioManager.ins.PlayPersistentSoundEffect(beep);
     }
 }

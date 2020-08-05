@@ -222,7 +222,7 @@ public class EnemySpawner : MonoBehaviour
                     curAmount += am;
 
                     //If it succeeds, it skips all lower tiers and moves onto the next one.
-                    //attributes.Add(new EnemyAttribute(chosenAttribute.type, am));
+                    attributes.Add(new EnemyAttribute(chosenAttribute.type, am));
                     curAttributes++;
                     break;
                 }

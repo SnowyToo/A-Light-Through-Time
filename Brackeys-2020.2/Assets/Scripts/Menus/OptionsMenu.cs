@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
+    public AudioClip beep;
+
     public Sprite filledImage;
     public Sprite emptyImage;
 
@@ -38,21 +40,25 @@ public class OptionsMenu : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.C))
         {
             CameraShake();
+            AudioManager.ins.PlayPersistentSoundEffect(beep);
         }
 
         if(Input.GetKeyDown(KeyCode.F))
         {
             FullScreen();
+            AudioManager.ins.PlayPersistentSoundEffect(beep);
         }
 
         if(Input.GetKeyDown(KeyCode.V))
         {
             Volume();
+            AudioManager.ins.PlayPersistentSoundEffect(beep);
         }
 
         if(Input.GetKeyDown(KeyCode.M))
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            AudioManager.ins.PlayPersistentSoundEffect(beep);
         }
     }
 

@@ -60,6 +60,17 @@ public class Shield : MonoBehaviour
         shieldPart = greenShieldPop;
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(GameManager.isRewinding)
+        {
+            if (other.tag == "Photon" && !parent.invincible)
+            {
+                Hit();
+            }
+        }
+    }
+
 
     private void OnCollisionEnter2D(Collision2D other)
     {

@@ -6,6 +6,7 @@ public class Photon : MonoBehaviour
 {
     // Bouncing
     private Rigidbody2D rb;
+    private CircleCollider2D col;
     [SerializeField]
     private AudioClip boop;
     [SerializeField]
@@ -16,6 +17,7 @@ public class Photon : MonoBehaviour
     private Stack<Vector2> velocityHistory;
     private Vector2 startPoint;
     private Vector2 startVelocity;
+    private bool isCovered = false;
 
     // Other
     [SerializeField]
@@ -30,10 +32,11 @@ public class Photon : MonoBehaviour
         positionHistory = new Stack<Vector2>();
         velocityHistory = new Stack<Vector2>();
 
+        col = GetComponent<CircleCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         
         startPoint = rb.position;
-        startVelocity = rb.velocity;
+        startVelocity = GameManager.RandomVelocity(7);
         positionHistory.Push(startPoint);
     }
 
@@ -47,6 +50,8 @@ public class Photon : MonoBehaviour
 
     void Rewind()
     {
+        col.isTrigger = true;
+
         if (positionHistory.Count > 0)
             rb.position = positionHistory.Pop();
         else
@@ -60,6 +65,10 @@ public class Photon : MonoBehaviour
 
     void StorePosition()
     {
+        if (!isCovered)
+            col.isTrigger = false;
+        else
+            col.isTrigger = true;
         positionHistory.Push(rb.position);
         velocityHistory.Push(rb.velocity);
     }
@@ -85,6 +94,17 @@ public class Photon : MonoBehaviour
             Hit();
             rb.velocity = GameManager.GetMousePosition() - rb.position;
         }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (!GameManager.isRewinding && (other.gameObject.layer == 10 || other.gameObject.layer == 15 || other.gameObject.layer == 16))
+            isCovered = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        isCovered = false;
     }
 
     private void Hit()

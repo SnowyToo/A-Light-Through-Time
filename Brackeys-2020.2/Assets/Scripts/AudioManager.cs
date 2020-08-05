@@ -10,6 +10,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private AudioSource bgm;
     [SerializeField]
+    private AudioSource soundEffect;
+    [SerializeField]
     private AudioLowPassFilter lowPass;
 
     private const float NORMAL_LOW_PASS = 7500;
@@ -24,7 +26,6 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
 
-        bgm = GetComponent<AudioSource>();
         lowPass = GetComponent<AudioLowPassFilter>();
     }
 
@@ -59,5 +60,11 @@ public class AudioManager : MonoBehaviour
 
         sound.Play();
         Destroy(sound.gameObject, 4f);
+    }
+
+    public void PlayPersistentSoundEffect(AudioClip sound)
+    {
+        soundEffect.clip = sound;
+        soundEffect.Play();
     }
 }

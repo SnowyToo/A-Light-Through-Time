@@ -120,7 +120,7 @@ MonoBehaviour:
   greenDeath: {fileID: 4810384354207902745, guid: 6e177a7f6d52e544ab134a05fc8721f4,
     type: 3}
   deathSounds:
-  - {fileID: 8300000, guid: 902b839147197444ebf6c87621e8f0dc, type: 3}
+  - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
   - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
   collisionDamage: 1
   type: 0
@@ -197,7 +197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 140649820728412876}
   - component: {fileID: 2492733634445369530}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
