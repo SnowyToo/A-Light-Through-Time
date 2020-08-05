@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     public EnemySpawner.EnemyType type;
 
     // Attributes
-    public enum AttributeType { SHIELD, TIME_ONLY, REFLECT }
+    public enum AttributeType { SHIELD, TIME_ONLY, REFLECT, TIME_SHIELD }
     [HideInInspector]
     public List<EnemyAttribute> attributes = new List<EnemyAttribute>();
     [HideInInspector]
@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public bool invincible;
 
-    protected readonly EnemyAttribute TIME_WARP = new EnemyAttribute(AttributeType.TIME_ONLY);
+    protected readonly EnemyAttribute TIME_WARP = new EnemyAttribute(AttributeType.TIME_ONLY, 1);
 
     private void Awake()
     {
@@ -64,20 +64,28 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public virtual void PhotonHit()
+    public virtual bool PhotonHit()
     {
-        if (invincible) return;
+        return PhotonHit(true);
+    }
+
+    public virtual bool PhotonHit(bool instantDeath)
+    {
+        if (invincible) return false;
 
         if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding)
         {
             if(curSprite == null)
                 curSprite = Instantiate(warpSprite, transform.position, Quaternion.identity, transform);
-            return;
+            return false;
         }
 
-        if(shields.Count > 0) return;
+        if(shields.Count > 0) return false;
 
-        Die();
+        if(instantDeath)
+            Die();
+
+        return true;
     }
 
     public virtual void PlayerHit()
@@ -85,7 +93,24 @@ public class Enemy : MonoBehaviour
         GameManager.player.TakeDamage(collisionDamage);
     }
 
-    public virtual void LaserHit() { }
+    public virtual bool LaserHit()
+    {
+        if (shields.Count > 0)
+        {
+            shields.Peek().Hit();
+            return false;
+        }
+
+        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding)
+        {
+            if (curSprite == null)
+                curSprite = Instantiate(warpSprite, transform.position, Quaternion.identity, transform);
+            return false;
+        }
+
+        Die(collectPoints: false);
+        return true;
+    }
 
     public void ShieldHit(bool hurt)
     {
@@ -130,17 +155,25 @@ public class Enemy : MonoBehaviour
 
         attributes.Add(attribute);
 
-        if (attribute.type == AttributeType.SHIELD)
+        if (attribute.type == AttributeType.SHIELD || attribute.type == AttributeType.TIME_SHIELD)
         {
             for(int i = 0; i < attribute.amount; i++)
             {
                 Shield s = Instantiate(shield, transform.position, Quaternion.identity, transform).GetComponent<Shield>();
 
-                s.transform.localScale = (1.6f + 0.3f * i) * new Vector2(1, 1);
-                s.transform.localEulerAngles = Vector3.forward * 20f * i;
+                if (attribute.type == AttributeType.TIME_SHIELD)
+                    s.SetTimeOnly();
+
+                shields.Push(s);
+
+                s.transform.localScale = (1.6f + 0.3f * (shields.Count)) * new Vector2(1, 1);
+
+                if (tag == "SnapEnemy")
+                    s.transform.localScale = (1.3f + 0.3f * (shields.Count)) * new Vector2(1, 1);
+
+                s.transform.localEulerAngles = Vector3.forward * 20f * (shields.Count);
                 
                 s.parent = this;
-                shields.Push(s);
             }
         }
 
@@ -152,7 +185,7 @@ public class Enemy : MonoBehaviour
         if(attribute.type == AttributeType.REFLECT)
         {
             Shield s = Instantiate(reflect, transform.position, Quaternion.identity, transform).GetComponent<Shield>();
-            s.transform.localScale = 1.9f * new Vector2(1, 1);
+            s.transform.localScale = 1.6f * new Vector2(1, 1);
 
             s.parent = this;
         }

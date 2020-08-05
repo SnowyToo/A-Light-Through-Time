@@ -112,6 +112,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
+  timeOnly: 0
   shieldPop: {fileID: 120204116769547036, guid: 5d28530c530dd9c41a1b7aba5adc7af5,
     type: 3}
+  greenShieldPop: {fileID: 5397360673148576619, guid: 1b1b47b117d3bea4181e7db138439d12,
+    type: 3}
   shieldBoop: {fileID: 8300000, guid: 8d719576be887584abb204c389a74c79, type: 3}
+  destroyable: 1

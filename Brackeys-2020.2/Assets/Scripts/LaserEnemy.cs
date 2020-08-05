@@ -18,18 +18,14 @@ public class LaserEnemy : Enemy
         type = EnemySpawner.EnemyType.LaserEnemy;
     }
 
-    public override void PhotonHit()
+    public override bool PhotonHit()
     {
-        base.PhotonHit();
-
-        if (invincible) return;
-
-        if (shields.Count > 0) return;
-
-        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding) return;
+        if (!base.PhotonHit())
+            return false;
 
         partner.Die(false, false);
         Destroy(transform.parent.gameObject);
+        return true;
     }
 
     public void Sadden()

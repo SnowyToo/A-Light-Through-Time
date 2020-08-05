@@ -198,6 +198,8 @@ public class EnemySpawner : MonoBehaviour
 
         int curAttributes = 0;
 
+        int curAmount = 0;
+
         //Loop through all attributes
         foreach(AttributeProbabilities chosenAttribute in ShuffleList(attributeProbabilities))
         {
@@ -209,8 +211,17 @@ public class EnemySpawner : MonoBehaviour
             {
                 if (Random.value <= chosenAttribute.probabilityPerAmount[i].probability.CalculateProbability(GameManager.score))
                 {
+                    //Ensure only 3 layers of shielding
+                    int am = chosenAttribute.probabilityPerAmount[i].amount;
+                    while (curAmount + am > 3)
+                        am--;
+                    if (am < 0)
+                        break;
+
+                    curAmount += am;
+
                     //If it succeeds, it skips all lower tiers and moves onto the next one.
-                    attributes.Add(new EnemyAttribute(chosenAttribute.type, chosenAttribute.probabilityPerAmount[i].amount));
+                    attributes.Add(new EnemyAttribute(chosenAttribute.type, am));
                     curAttributes++;
                     break;
                 }

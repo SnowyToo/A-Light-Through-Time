@@ -7,13 +7,26 @@ public class Shield : MonoBehaviour
     [HideInInspector]
     public Enemy parent;
 
+    [HideInInspector]
+    public bool timeOnly;
+
     [SerializeField]
     GameObject shieldPop;
+    [SerializeField]
+    GameObject greenShieldPop;
+
+    private GameObject shieldPart;
+
     [SerializeField]
     AudioClip shieldBoop;
 
     [SerializeField]
     private bool destroyable = true;
+
+    private void Awake()
+    {
+        shieldPart = shieldPop;
+    }
 
     private void FixedUpdate()
     {
@@ -26,15 +39,25 @@ public class Shield : MonoBehaviour
 
     public void Hit()
     {
+        if (timeOnly && !GameManager.isRewinding)
+            return;
+
         parent.ShieldHit(destroyable);
 
         GameManager.PlaySound(shieldBoop, gameObject);
 
         if (destroyable)
         {
-            GameManager.SpawnParticles(shieldPop, gameObject);
+            GameManager.SpawnParticles(shieldPart, gameObject);
             Destroy(gameObject);
         }
+    }
+
+    public void SetTimeOnly()
+    {
+        timeOnly = true;
+        GetComponent<SpriteRenderer>().color = Color.green;
+        shieldPart = greenShieldPop;
     }
 
 

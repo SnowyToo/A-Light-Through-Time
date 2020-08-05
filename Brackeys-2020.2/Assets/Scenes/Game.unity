@@ -2159,11 +2159,13 @@ MonoBehaviour:
     value: 30
   _attributeScores:
   - type: 0
-    value: 15
+    value: 5
   - type: 1
-    value: 20
+    value: 10
   - type: 2
-    value: 25
+    value: 15
+  - type: 3
+    value: 10
   mirrorCollider: {fileID: 936409372}
   countSound: {fileID: 8300000, guid: e71849b490bef1242876ca449ede4011, type: 3}
   countSoundFinal: {fileID: 8300000, guid: 76b016f3b18bd5443a5ce7e8c19a09f3, type: 3}
@@ -2205,7 +2207,7 @@ MonoBehaviour:
         minimalScoreNeeded: 0
     - amount: 2
       probability:
-        initialChance: 0.25
+        initialChance: 1
         chanceIncreasePerScore:
           scoreInterval: 0
           chanceIncrease: 0
@@ -2213,9 +2215,9 @@ MonoBehaviour:
         minimalScoreNeeded: 0
   - type: 1
     probabilityPerAmount:
-    - amount: 0
+    - amount: 1
       probability:
-        initialChance: 0.3
+        initialChance: 1
         chanceIncreasePerScore:
           scoreInterval: 0
           chanceIncrease: 0
@@ -2223,9 +2225,27 @@ MonoBehaviour:
         minimalScoreNeeded: 0
   - type: 2
     probabilityPerAmount:
-    - amount: 0
+    - amount: 1
       probability:
-        initialChance: 0.2
+        initialChance: 1
+        chanceIncreasePerScore:
+          scoreInterval: 0
+          chanceIncrease: 0
+        maxChance: 0
+        minimalScoreNeeded: 0
+  - type: 3
+    probabilityPerAmount:
+    - amount: 1
+      probability:
+        initialChance: 0.5
+        chanceIncreasePerScore:
+          scoreInterval: 0
+          chanceIncrease: 0
+        maxChance: 1
+        minimalScoreNeeded: 0
+    - amount: 2
+      probability:
+        initialChance: 1
         chanceIncreasePerScore:
           scoreInterval: 0
           chanceIncrease: 0

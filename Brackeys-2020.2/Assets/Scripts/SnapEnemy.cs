@@ -76,19 +76,14 @@ public class SnapEnemy : Enemy
     // Capture photon for 2 seconds when hit
     // Die when hit by laser
 
-    public override void PhotonHit()
+    public override bool PhotonHit()
     {
-        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding)
-        {
-            if (curSprite == null)
-                curSprite = Instantiate(warpSprite, transform.position, Quaternion.identity, transform);
-            return;
-        }
-        if (shields.Count > 0) return;
-
-        if (invincible) return;
+        if (!base.PhotonHit(false))
+            return false;
 
         StartCoroutine(CapturePhoton());
+
+        return true;
     }
 
     IEnumerator CapturePhoton()
@@ -108,25 +103,16 @@ public class SnapEnemy : Enemy
         Die();
     }
 
-    public override void LaserHit()
+    public override bool LaserHit()
     {
-        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding)
-        {
-            if (curSprite == null)
-                curSprite = Instantiate(warpSprite, transform.position, Quaternion.identity, transform);
-            return;
-        }
-
-        if(shields.Count > 0)
-        {
-            shields.Peek().Hit();
-            return;
-        }
+        if (!base.LaserHit())
+            return false;
 
         capturing = false;
         photon.EndCapture();
 
-        Die(collectPoints:false);
+        //Die(collectPoints:false);
+        return true;
     }
 
     void EndGame()
