@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SnapEnemy : Enemy
-{
+{  
     // Capturing
     [SerializeField]
     private float captureTime = 2f;
     private bool capturing;
+    private EdgeCollider2D edgeCol;
 
     // Tracking
     private Rigidbody2D photonRB;
@@ -23,7 +24,7 @@ public class SnapEnemy : Enemy
     [SerializeField]
     private float speed = 2f;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         photonRB = GameManager.photonObject.GetComponent<Rigidbody2D>();
@@ -31,10 +32,22 @@ public class SnapEnemy : Enemy
         photon = GameManager.photon;
         nextUpdate = timeBetweenUpdates;
         capturing = false;
+
+        edgeCol = GetComponent<EdgeCollider2D>();
+
+        type = EnemySpawner.EnemyType.SnapEnemy;
+
+        StartCoroutine(Invincibility());
     }
 
     void Update()
     {
+        if (GameManager.gameIsOver)
+        {
+            EndGame();
+            return;
+        }
+
         if (nextUpdate <= 0f)
             UpdatePosition();
         else
@@ -48,11 +61,15 @@ public class SnapEnemy : Enemy
     {
         nextUpdate = timeBetweenUpdates;
         trackingPosition = photonRB.position;
+        if (photon.captured)
+        {
+            trackingPosition = GameManager.playerObject.transform.position;
+        }
     }
 
     void MoveToPhoton()
     {
-        rb.velocity = (photonRB.position - rb.position).normalized * speed;
+        rb.velocity = (trackingPosition - rb.position).normalized * speed;
     }
 
     // Move in front of the photon when normal time
@@ -61,24 +78,61 @@ public class SnapEnemy : Enemy
 
     public override void PhotonHit()
     {
+        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding)
+        {
+            if (curSprite == null)
+                curSprite = Instantiate(warpSprite, transform.position, Quaternion.identity, transform);
+            return;
+        }
+        if (shields.Count > 0) return;
+
+        if (invincible) return;
+
         StartCoroutine(CapturePhoton());
     }
 
     IEnumerator CapturePhoton()
     {
+        if (photon.captured || invincible) yield break;
         capturing = true;
         rb.velocity = Vector2.zero;
         photonTransform.position = transform.position;
         photon.StartCapture();
 
+        edgeCol.enabled = true;
+
         yield return new WaitForSeconds(captureTime);
 
         capturing = false;
         photon.EndCapture();
+        Die();
     }
 
     public override void LaserHit()
     {
-        Die();
+        if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding)
+        {
+            if (curSprite == null)
+                curSprite = Instantiate(warpSprite, transform.position, Quaternion.identity, transform);
+            return;
+        }
+
+        if(shields.Count > 0)
+        {
+            shields.Peek().Hit();
+            return;
+        }
+
+        capturing = false;
+        photon.EndCapture();
+
+        Die(collectPoints:false);
+    }
+
+    void EndGame()
+    {
+        rb.velocity = Vector2.zero;
+        
+        this.enabled = false;
     }
 }

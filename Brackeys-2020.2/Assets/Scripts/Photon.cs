@@ -18,8 +18,6 @@ public class Photon : MonoBehaviour
     private Vector2 startPoint;
     private Vector2 startVelocity;
 
-    public bool rewindVelocity = true;
-
     // Other
     [SerializeField]
     private GameObject deathParticles;
@@ -58,21 +56,16 @@ public class Photon : MonoBehaviour
         else
             rb.position = startPoint;
 
-        if (rewindVelocity)
-        {
-            if (velocityHistory.Count > 0)
-                rb.velocity = velocityHistory.Pop();
-            else
-                rb.velocity = startVelocity;
-        }
+        if (velocityHistory.Count > 0)
+            rb.velocity = velocityHistory.Pop();
+        else
+            rb.velocity = startVelocity;
     }
 
     void StorePosition()
     {
-        if (captured) return;
         positionHistory.Push(rb.position);
-        if (rewindVelocity)
-            velocityHistory.Push(rb.velocity);
+        velocityHistory.Push(rb.velocity);
     }
 
     void SetRandomVelocity()
@@ -83,13 +76,12 @@ public class Photon : MonoBehaviour
 
     public void Die()
     {
-        Instantiate(deathParticles, transform.position, Quaternion.identity);
+        GameManager.SpawnParticles(deathParticles, gameObject);
         Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (captured) return;
         Hit();
     }
 
@@ -99,25 +91,25 @@ public class Photon : MonoBehaviour
         if (other.gameObject.layer == 11)
         {
             Hit();
-            rb.velocity = GameManager.player.GetAimDirection();
+            rb.velocity = GameManager.GetMousePosition() - (Vector2)rb.transform.position;
         }
     }
 
     private void Hit()
     {
         GameManager.PlaySound(boop, gameObject, 0.4f);
-        Instantiate(hitParticles, transform.position, Quaternion.identity);
+        GameManager.SpawnParticles(hitParticles, gameObject);
     }
 
     public void StartCapture()
     {
         captured = true;
-        rb.velocity = Vector2.zero;
+        GameManager.uiManager.UpdateRewind(false);
     }
 
     public void EndCapture()
     {
         captured = false;
-        rb.velocity = velocityHistory.Peek() * -1f;
+        GameManager.uiManager.UpdateRewind(true);
     }
 }

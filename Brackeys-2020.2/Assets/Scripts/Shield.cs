@@ -4,15 +4,45 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    [SerializeField]
-    private ShieldEnemy enemyScript;
+    [HideInInspector]
+    public Enemy parent;
 
-    void OnCollisionEnter2D(Collision2D col)
+    [SerializeField]
+    GameObject shieldPop;
+    [SerializeField]
+    AudioClip shieldBoop;
+
+    [SerializeField]
+    private bool destroyable = true;
+
+    private void FixedUpdate()
     {
-        if (col.gameObject.CompareTag("Photon"))
+        if(!destroyable && GameManager.player != null)
         {
-            enemyScript.DestroyShield();
+            Vector2 aimDirection = GameManager.player.transform.position - transform.position;
+            transform.up = aimDirection;
+        }
+    }
+
+    public void Hit()
+    {
+        parent.ShieldHit(destroyable);
+
+        GameManager.PlaySound(shieldBoop, gameObject);
+
+        if (destroyable)
+        {
+            GameManager.SpawnParticles(shieldPop, gameObject);
             Destroy(gameObject);
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.collider.tag == "Photon" && !parent.invincible)
+        {
+            Hit();
         }
     }
 }

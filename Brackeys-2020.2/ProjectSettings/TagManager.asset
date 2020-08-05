@@ -11,7 +11,8 @@ TagManager:
   - Laser
   - Bullet
   - Wall
-  - ShieldEnemy
+  - Shield
+  - AudioManager
   layers:
   - Default
   - TransparentFX
@@ -25,11 +26,11 @@ TagManager:
   - Photon
   - Enemies
   - Mirror
-  - PlayerPP
+  - PlayerInvincible
   - Bullets
   - Walls
-  - 
-  - 
+  - Shield
+  - Laser
   - 
   - 
   - 
@@ -60,4 +61,7 @@ TagManager:
     locked: 0
   - name: Crosshair
     uniqueID: 1043184725
+    locked: 0
+  - name: Overlay
+    uniqueID: 2117266281
     locked: 0

@@ -13,13 +13,12 @@ public class Player : MonoBehaviour
 
     // Aiming
     private Camera cam;
-    private Vector2 mousePosition;
     private Vector2 aimDirection;
 
     // Health
     private int health;
     [SerializeField]
-    private int maxHealth;
+    public int maxHealth;
     [SerializeField]
     private float invincibiltyTime = 2.5f;
     private bool invincible;
@@ -46,15 +45,13 @@ public class Player : MonoBehaviour
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
-
-        mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
     void FixedUpdate()
     {
         rb.velocity = new Vector2(h, v).normalized * speed;
 
-        aimDirection = mousePosition - rb.position;
+        aimDirection = GameManager.GetMousePosition() - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;
     }
@@ -64,7 +61,10 @@ public class Player : MonoBehaviour
         if (invincible)
             return;
 
-        health -= damage;
+        //health -= damage;
+
+        GameManager.uiManager.UpdateHealth(health);
+
         if (health <= 0)
             Die();
         else
@@ -75,7 +75,8 @@ public class Player : MonoBehaviour
     {
         GameManager.GameOver();
         GameManager.PlaySound(deathSound, gameObject);
-        Instantiate(deathParticles, transform.position, Quaternion.identity);
+        GameManager.SpawnParticles(deathParticles, gameObject);
+        GameManager.CameraShake(0.2f, 0.7f);
         Destroy(gameObject);
     }
 
@@ -83,18 +84,17 @@ public class Player : MonoBehaviour
     {
         anim.SetTrigger("Hit");
         GameManager.PlaySound(hitSound, gameObject);
+        GameManager.CameraShake(0.2f, 0.5f);
         StartCoroutine(Invincibility());
     }
 
     private IEnumerator Invincibility()
     {
         invincible = true;
+        gameObject.layer = 12;
         yield return new WaitForSeconds(invincibiltyTime);
         invincible = false;
-    }
-
-    public Vector2 GetAimDirection()
-    {
-        return aimDirection;
+        gameObject.layer = 8;
+        GetComponent<Collider2D>().enabled = true;
     }
 }
