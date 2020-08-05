@@ -52,7 +52,7 @@ public class OptionsMenu : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.M))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
     }
 

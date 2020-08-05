@@ -7,6 +7,8 @@ public class PlayerData : MonoBehaviour
     public static Stats stats;
     public static Options options;
 
+    public static int maxHealth;
+
     private void Start()
     {
         stats = SaveManager.Load<Stats>();

@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
-            SceneManager.LoadScene("Game");
+            SceneManager.LoadScene("SelectMode");
         }
 
         if(Input.GetKeyDown(KeyCode.O))

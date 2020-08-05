@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour
 
         score = 0;
         newHiscore = false;
+        player.maxHealth = PlayerData.maxHealth;
 
         uiManager.SetUpUI(player.maxHealth);
 
