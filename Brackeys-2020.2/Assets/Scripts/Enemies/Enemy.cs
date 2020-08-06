@@ -135,7 +135,16 @@ public class Enemy : MonoBehaviour
     public IEnumerator Invincibility()
     {
         invincible = true;
-        yield return new WaitForSeconds(removable ? 1f : 1.75f);
+        if (!removable)
+        {            
+            yield return new WaitForSeconds(1.25f);
+            anim.Play("Idle");
+        }
+        else
+        {
+            yield return new WaitForSeconds(1.75f);
+        }
+        
         invincible = false;
     }
 

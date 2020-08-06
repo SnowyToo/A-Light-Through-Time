@@ -42,6 +42,7 @@ public class BounceEnemy : Enemy
         {
             Enemy piece = Instantiate((Random.value < 0.5 ? piece1 : piece2), transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f))).GetComponent<Enemy>();
             piece.BecomeInvincible();
+            piece.gameObject.GetComponent<BounceObject>().maxSpeed += Random.Range(-0.1f, 0.75f);
             if (attributes.Contains(TIME_WARP))
             {
                 piece.Addtribute(TIME_WARP);

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BounceObject : MonoBehaviour
 {
-    [SerializeField]
-    private float maxSpeed = 8f;
+    public float maxSpeed = 8f;
     private Rigidbody2D rb;
     [SerializeField]
     private bool immediate = false;
