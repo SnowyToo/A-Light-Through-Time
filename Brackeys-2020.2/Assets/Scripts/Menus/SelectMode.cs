@@ -6,6 +6,8 @@ public class SelectMode : MonoBehaviour
 {
     public AudioClip beep;
 
+    public bool reallySelect = true;
+
     // Update is called once per frame
     void Update()
     {
@@ -28,6 +30,9 @@ public class SelectMode : MonoBehaviour
 
     void StartGame(int h)
     {
+        if (!reallySelect)
+            return;
+
         PlayerData.maxHealth = h;
         PlayerData.playedAnimation = false;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");

@@ -78,7 +78,9 @@ public class OptionsMenu : MonoBehaviour
     {
         screenBool = !screenBool;
         Screen.fullScreen = screenBool;
+        TickBox(screenBool, fullScreen);
         PlayerData.options.useFullscreen = screenBool;
+
         PlayerData.options.Save();
     }
 

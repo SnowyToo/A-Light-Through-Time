@@ -36,5 +36,11 @@ public class MainMenu : MonoBehaviour
             Application.Quit();
             AudioManager.ins.PlayPersistentSoundEffect(beep);
         }
+
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            SceneManager.LoadScene("Controls");
+            AudioManager.ins.PlayPersistentSoundEffect(beep);
+        }
     }
 }

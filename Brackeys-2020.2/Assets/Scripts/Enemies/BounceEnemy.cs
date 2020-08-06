@@ -16,7 +16,7 @@ public class BounceEnemy : Enemy
         if (!base.PhotonHit(false))
             return false;
         
-        Explode();
+        Explode(true);
 
         return true;
     }
@@ -31,12 +31,12 @@ public class BounceEnemy : Enemy
         if (!base.LaserHit())
             return false;
         
-        Explode();
+        Explode(false);
 
         return true;
     }
 
-    private void Explode()
+    private void Explode(bool collectPoints)
     {
         for (int i = 0; i < pieceCount; i ++)
         {
@@ -47,6 +47,6 @@ public class BounceEnemy : Enemy
                 piece.Addtribute(TIME_WARP);
             }
         }
-        Die();
+        Die(collectPoints:collectPoints);
     }
 }

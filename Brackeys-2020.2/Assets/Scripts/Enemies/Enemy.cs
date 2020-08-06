@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private bool removable = true;
+    [SerializeField]
+    private bool collectsPoints = true;
 
     // Attributes
     public enum AttributeType { SHIELD, TIME_ONLY, REFLECT, TIME_SHIELD }
@@ -80,7 +82,7 @@ public class Enemy : MonoBehaviour
         if(shields.Count > 0) return false;
 
         if(instantDeath)
-            Die(removable, removable);
+            Die(removable, collectsPoints);
 
         return true;
     }
