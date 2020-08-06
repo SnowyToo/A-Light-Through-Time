@@ -2192,7 +2192,7 @@ MonoBehaviour:
     probabilityPerAmount:
     - amount: 1
       probability:
-        initialChance: 0.3
+        initialChance: 0.4
         chanceIncreasePerScore:
           scoreInterval: 75
           chanceIncrease: 0.07
@@ -2253,7 +2253,7 @@ MonoBehaviour:
   attributeAmounts:
   - amount: 0
     probability:
-      initialChance: 0.55
+      initialChance: 0.4
       chanceIncreasePerScore:
         scoreInterval: 50
         chanceIncrease: -0.1
@@ -2262,7 +2262,7 @@ MonoBehaviour:
       minimalScoreNeeded: 0
   - amount: 1
     probability:
-      initialChance: 0.95
+      initialChance: 0.97
       chanceIncreasePerScore:
         scoreInterval: 75
         chanceIncrease: -0.02
