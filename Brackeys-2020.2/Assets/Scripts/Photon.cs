@@ -36,7 +36,7 @@ public class Photon : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         
         startPoint = rb.position;
-        startVelocity = GameManager.RandomVelocity(7);
+        startVelocity = GetComponent<BounceObject>().RandomDirection();
         positionHistory.Push(startPoint);
     }
 

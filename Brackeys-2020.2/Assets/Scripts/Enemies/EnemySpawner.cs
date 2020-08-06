@@ -123,7 +123,10 @@ public class EnemySpawner : MonoBehaviour
         // Instantiate enemy
         EnemySpawn enemyToSpawn = PickNextEnemy();
         GameObject enemyGO = Instantiate(enemyToSpawn.enemyPrefab, enemyToSpawn.position, Quaternion.identity);
-        Instantiate(alert, Vector3.zero, Quaternion.identity).GetComponent<Alert>().SetTarget(enemyGO.transform);
+        GameObject alertGO = Instantiate(alert, Vector3.zero, Quaternion.identity);
+        alertGO.GetComponent<Alert>().SetTarget(enemyGO.transform);
+        if (enemyToSpawn.type == EnemyType.BounceEnemy) enemyGO.GetComponent<BounceObject>().GoTo(alertGO.transform.position);
+
         if (enemyToSpawn.type != EnemyType.LaserEnemy)
         {
             Enemy enemy = enemyGO.GetComponent<Enemy>();

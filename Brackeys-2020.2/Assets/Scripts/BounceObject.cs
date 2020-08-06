@@ -8,19 +8,29 @@ public class BounceObject : MonoBehaviour
     private float maxSpeed = 8f;
     private Rigidbody2D rb;
     [SerializeField]
-    private bool startOutsideWalls = false;
+    private bool immediate = false;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        if (startOutsideWalls)
-            rb.velocity = (new Vector2(Random.Range(-2f, 2f), Random.Range(-1.5f, 1.5f)) - rb.position).normalized * maxSpeed;
-        else
-            rb.velocity = GameManager.RandomVelocity(maxSpeed);
+        if (immediate) rb.velocity = GameManager.RandomVelocity(maxSpeed);
     }
 
     void FixedUpdate()
     {
         rb.velocity = rb.velocity.normalized * maxSpeed;
+    }
+
+    public Vector2 RandomDirection()
+    {
+        Vector2 vel = GameManager.RandomVelocity(maxSpeed);
+        rb.velocity = vel;
+        return vel;
+    }
+
+    public void GoTo(Vector3 pos)
+    {
+        //rb = GetComponent<Rigidbody2D>();
+        rb.velocity = ((Vector2) pos - rb.position).normalized * maxSpeed;
     }
 }

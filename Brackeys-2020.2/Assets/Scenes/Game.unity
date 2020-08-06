@@ -2258,7 +2258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeX: {x: 13.5, y: 15}
-  rangeY: {x: 7, y: 9}
+  rangeY: {x: 6.5, y: 9}
   alert: {fileID: 958473443704928540, guid: 7c1fc6a9a18d74e40b41a2bb87a4deee, type: 3}
   timeBetweenSpawns: 0.2
   initialMaxEnemies: 2
@@ -2347,7 +2347,7 @@ MonoBehaviour:
       initialChance: 1
       chanceIncreasePerScore:
         scoreInterval: 50
-        chanceIncrease: -0.15
+        chanceIncrease: -0.1
       minChance: 0
       maxChance: 1
       minimalScoreNeeded: 0
@@ -2359,7 +2359,7 @@ MonoBehaviour:
         chanceIncrease: -0.1
       minChance: 0
       maxChance: 0.4
-      minimalScoreNeeded: 75
+      minimalScoreNeeded: 100
   - amount: 2
     probability:
       initialChance: 0.8
@@ -2368,25 +2368,25 @@ MonoBehaviour:
         chanceIncrease: -0.1
       minChance: 0.03
       maxChance: 1
-      minimalScoreNeeded: 225
+      minimalScoreNeeded: 350
   - amount: 3
     probability:
-      initialChance: 0.75
+      initialChance: 0.8
       chanceIncreasePerScore:
         scoreInterval: 75
-        chanceIncrease: -0.05
+        chanceIncrease: -0.02
       minChance: 0.2
       maxChance: 1
-      minimalScoreNeeded: 375
+      minimalScoreNeeded: 500
   - amount: 4
     probability:
       initialChance: 0.5
       chanceIncreasePerScore:
         scoreInterval: 75
-        chanceIncrease: 0.05
+        chanceIncrease: 0.02
       minChance: 0
       maxChance: 0.8
-      minimalScoreNeeded: 450
+      minimalScoreNeeded: 675
 --- !u!114 &884107296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19699,7 +19699,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 7
-  startOutsideWalls: 0
 --- !u!1 &1750383245
 GameObject:
   m_ObjectHideFlags: 0
