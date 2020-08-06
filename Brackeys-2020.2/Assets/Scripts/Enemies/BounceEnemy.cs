@@ -40,7 +40,12 @@ public class BounceEnemy : Enemy
     {
         for (int i = 0; i < pieceCount; i ++)
         {
-            Instantiate((Random.value < 0.5 ? piece1 : piece2), transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f))).GetComponent<Enemy>().BecomeInvincible();
+            Enemy piece = Instantiate((Random.value < 0.5 ? piece1 : piece2), transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f))).GetComponent<Enemy>();
+            piece.BecomeInvincible();
+            if (attributes.Contains(TIME_WARP))
+            {
+                piece.Addtribute(TIME_WARP);
+            }
         }
         Die();
     }

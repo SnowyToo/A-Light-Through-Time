@@ -120,6 +120,33 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.65
       objectReference: {fileID: 0}
+    - target: {fileID: 8348024516367334381, guid: 7736a08f1077a244ea3f4a569ecafc54,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348024516367334381, guid: 7736a08f1077a244ea3f4a569ecafc54,
+        type: 3}
+      propertyPath: boop
+      value: 
+      objectReference: {fileID: 8300000, guid: 84b3c7f469acead4a8a90a05857dfce9, type: 3}
+    - target: {fileID: 8348024516367334381, guid: 7736a08f1077a244ea3f4a569ecafc54,
+        type: 3}
+      propertyPath: bounceGraphic
+      value: 
+      objectReference: {fileID: 1431077026564264795, guid: f6348175f68f4b14cb9fc857ecc18e62,
+        type: 3}
+    - target: {fileID: 8348024516367334381, guid: 7736a08f1077a244ea3f4a569ecafc54,
+        type: 3}
+      propertyPath: greenBounce
+      value: 
+      objectReference: {fileID: 1136003536901608459, guid: fca498f3a2999964294e3c5c822ad6ca,
+        type: 3}
+    - target: {fileID: 8348024516367334381, guid: 7736a08f1077a244ea3f4a569ecafc54,
+        type: 3}
+      propertyPath: rotateSpeed
+      value: 28
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7321079538841312445, guid: 7736a08f1077a244ea3f4a569ecafc54, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7736a08f1077a244ea3f4a569ecafc54, type: 3}

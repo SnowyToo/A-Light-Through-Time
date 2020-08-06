@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector]
     public bool invincible;
 
-    protected readonly EnemyAttribute TIME_WARP = new EnemyAttribute(AttributeType.TIME_ONLY, 0);
+    public readonly EnemyAttribute TIME_WARP = new EnemyAttribute(AttributeType.TIME_ONLY, 0);
 
     private void Awake()
     {
