@@ -8,6 +8,11 @@ public class AudioManager : MonoBehaviour
     public static AudioManager ins;
 
     [SerializeField]
+    private AudioClip normMusic;
+    [SerializeField]
+    private AudioClip reverseMusic;
+
+    [SerializeField]
     private AudioSource bgm;
     [SerializeField]
     private AudioSource soundEffect;
@@ -16,6 +21,28 @@ public class AudioManager : MonoBehaviour
 
     private const float NORMAL_LOW_PASS = 7500;
     private const float TIME_WARP_LOW_PASS = 2500;
+
+    private IEnumerator MusicManager()
+    {
+        bgm.clip = reverseMusic;
+        bgm.pitch = 0.85f;
+        bgm.Play();
+        while (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Game")
+        {
+            yield return null;
+        }
+        bgm.Stop();
+        bgm.clip = normMusic;
+        bgm.pitch = 1f;
+        yield return new WaitForSeconds(4f);
+        bgm.Play();
+        while(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            yield return null;
+        }
+        StartCoroutine(MusicManager());
+    }
+
 
     // Start is called before the first frame update
     void Awake()
@@ -27,6 +54,8 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         lowPass = GetComponent<AudioLowPassFilter>();
+
+        StartCoroutine(MusicManager());
     }
 
     public void Update()
