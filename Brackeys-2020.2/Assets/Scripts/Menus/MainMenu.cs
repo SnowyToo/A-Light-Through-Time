@@ -8,6 +8,15 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     AudioClip beep;
 
+    void Awake()
+    {
+        if(!PlayerData.playedAnimation)
+        {
+            PlayerData.playedAnimation = true;
+            GetComponent<Animator>().SetTrigger("Intro");
+        }
+    }
+
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.I))

@@ -9,6 +9,8 @@ public class PlayerData : MonoBehaviour
 
     public static int maxHealth;
 
+    public static bool playedAnimation;
+
     private void Start()
     {
         stats = SaveManager.Load<Stats>();

@@ -29,6 +29,7 @@ public class SelectMode : MonoBehaviour
     void StartGame(int h)
     {
         PlayerData.maxHealth = h;
+        PlayerData.playedAnimation = false;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
         AudioManager.ins.PlayPersistentSoundEffect(beep);
     }
