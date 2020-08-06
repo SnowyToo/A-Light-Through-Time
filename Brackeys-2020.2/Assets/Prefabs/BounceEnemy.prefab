@@ -132,7 +132,8 @@ MonoBehaviour:
     type: 3}
   invincible: 0
   pieceCount: 3
-  piece: {fileID: 7161261546187616769, guid: 7736a08f1077a244ea3f4a569ecafc54, type: 3}
+  piece1: {fileID: 7161261546187616769, guid: 7736a08f1077a244ea3f4a569ecafc54, type: 3}
+  piece2: {fileID: 5100406759544841997, guid: 746195a5f15d49c4cb8a3876c718454b, type: 3}
 --- !u!50 &5146705072468849472
 Rigidbody2D:
   serializedVersion: 4
@@ -186,7 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 1.7
-  startOutsideWalls: 1
+  immediate: 0
+  continueGoing: 0
 --- !u!1 &7818105736833165232
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +227,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7818105736833165232}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0

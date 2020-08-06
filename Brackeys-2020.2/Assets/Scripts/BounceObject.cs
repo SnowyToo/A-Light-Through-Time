@@ -10,6 +10,10 @@ public class BounceObject : MonoBehaviour
     [SerializeField]
     private bool immediate = false;
 
+    private Vector3 pos;
+    [HideInInspector]
+    public bool continueGoing = false;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -19,6 +23,9 @@ public class BounceObject : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = rb.velocity.normalized * maxSpeed;
+
+        if (continueGoing) 
+            GoTo(pos);
     }
 
     public Vector2 RandomDirection()
@@ -28,9 +35,16 @@ public class BounceObject : MonoBehaviour
         return vel;
     }
 
-    public void GoTo(Vector3 pos)
+    public void GoTo(Vector3 _pos)
     {
-        //rb = GetComponent<Rigidbody2D>();
+        continueGoing = true;
+        pos = _pos;
         rb.velocity = ((Vector2) pos - rb.position).normalized * maxSpeed;
+    }
+
+    public void EnableCollider()
+    {
+        //transform.GetChild(0).gameObject.layer = 17;
+        transform.GetChild(0).GetComponent<Collider2D>().enabled = true;
     }
 }

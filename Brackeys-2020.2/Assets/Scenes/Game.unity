@@ -1335,7 +1335,7 @@ Transform:
   m_GameObject: {fileID: 533440657}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.0204, z: 0}
-  m_LocalScale: {x: 23.8246, y: 0.07623625, z: 1}
+  m_LocalScale: {x: 23.674908, y: 0.07623625, z: 1}
   m_Children: []
   m_Father: {fileID: 582184105}
   m_RootOrder: 0
@@ -1563,7 +1563,7 @@ Transform:
   m_GameObject: {fileID: 687297709}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.0204, z: 0}
-  m_LocalScale: {x: 13.018293, y: 0.07623632, z: 1}
+  m_LocalScale: {x: 13.018293, y: 0.07623636, z: 1}
   m_Children: []
   m_Father: {fileID: 1689478610}
   m_RootOrder: 0
@@ -2005,7 +2005,7 @@ Transform:
   m_GameObject: {fileID: 808789522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.0204, z: 0}
-  m_LocalScale: {x: 13.018293, y: 0.07623632, z: 1}
+  m_LocalScale: {x: 13.032813, y: 0.07623636, z: 1}
   m_Children: []
   m_Father: {fileID: 1079106861}
   m_RootOrder: 0
@@ -2257,12 +2257,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5020004eb470715469fc07e63e846e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangeX: {x: 13.5, y: 15}
-  rangeY: {x: 6.5, y: 9}
+  rangeX: {x: 14.3, y: 15}
+  rangeY: {x: 7, y: 9}
   alert: {fileID: 958473443704928540, guid: 7c1fc6a9a18d74e40b41a2bb87a4deee, type: 3}
   timeBetweenSpawns: 0.2
   initialMaxEnemies: 2
-  maxEnemiesScoreIncrement: 450
+  maxEnemiesScoreIncrement: 300
   maxEnemiesCap: 20
   enemyPrefabs:
   - {fileID: 8362290013693408758, guid: 4c43e86af0f8c134383ff83f13931afb, type: 3}
@@ -2283,22 +2283,22 @@ MonoBehaviour:
     probabilityPerAmount:
     - amount: 1
       probability:
-        initialChance: 0.7
+        initialChance: 0.5
         chanceIncreasePerScore:
           scoreInterval: 75
-          chanceIncrease: -0.05
+          chanceIncrease: 0.05
         minChance: 0
         maxChance: 1
-        minimalScoreNeeded: 75
+        minimalScoreNeeded: 80
     - amount: 2
       probability:
-        initialChance: 0.3
+        initialChance: 0.2
         chanceIncreasePerScore:
           scoreInterval: 75
-          chanceIncrease: 0.1
+          chanceIncrease: 0.04
         minChance: 0
         maxChance: 0.99
-        minimalScoreNeeded: 150
+        minimalScoreNeeded: 275
   - type: 1
     probabilityPerAmount:
     - amount: 0
@@ -2309,7 +2309,7 @@ MonoBehaviour:
           chanceIncrease: 0.03
         minChance: 0
         maxChance: 0.98
-        minimalScoreNeeded: 250
+        minimalScoreNeeded: 325
   - type: 2
     probabilityPerAmount:
     - amount: 0
@@ -2320,7 +2320,7 @@ MonoBehaviour:
           chanceIncrease: 0.03
         minChance: 0
         maxChance: 0.3
-        minimalScoreNeeded: 400
+        minimalScoreNeeded: 450
   - type: 3
     probabilityPerAmount:
     - amount: 1
@@ -2359,7 +2359,7 @@ MonoBehaviour:
         chanceIncrease: -0.1
       minChance: 0
       maxChance: 0.4
-      minimalScoreNeeded: 100
+      minimalScoreNeeded: 90
   - amount: 2
     probability:
       initialChance: 0.8
@@ -19699,6 +19699,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 7
+  immediate: 0
+  continueGoing: 0
 --- !u!1 &1750383245
 GameObject:
   m_ObjectHideFlags: 0
@@ -24701,7 +24703,7 @@ Transform:
   m_GameObject: {fileID: 1917811415}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.0204, z: 0}
-  m_LocalScale: {x: 23.8246, y: 0.07623625, z: 1}
+  m_LocalScale: {x: 23.67491, y: 0.07623625, z: 1}
   m_Children: []
   m_Father: {fileID: 550738964}
   m_RootOrder: 0

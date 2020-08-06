@@ -105,6 +105,8 @@ public class EnemySpawner : MonoBehaviour
         maxEnemyTypes[(int) EnemyType.SnapEnemy] = Mathf.Clamp((int) Mathf.Ceil(maxEnemies/3), 1, maxEnemies);
         maxEnemyTypes[(int) EnemyType.SpikeEnemy] = 1000;
         maxEnemyTypes[(int) EnemyType.BounceEnemy] = 1000;
+
+        //Debug.Log("Max Enemies: " + maxEnemies);
     }
 
     EnemySpawn PickNextEnemy()

@@ -7,7 +7,9 @@ public class BounceEnemy : Enemy
     [SerializeField]
     private int pieceCount = 3;
     [SerializeField]
-    private GameObject piece;
+    private GameObject piece1;
+    [SerializeField]
+    private GameObject piece2;
 
     public override bool PhotonHit()
     {
@@ -17,6 +19,13 @@ public class BounceEnemy : Enemy
         Explode();
 
         return true;
+    }
+
+    public override void OnPlayField()
+    {
+        BounceObject bo = GetComponent<BounceObject>();
+        bo.continueGoing = false;
+        bo.EnableCollider();
     }
 
     public override bool LaserHit()
@@ -33,7 +42,7 @@ public class BounceEnemy : Enemy
     {
         for (int i = 0; i < pieceCount; i ++)
         {
-            Instantiate(piece, transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f))).GetComponent<Enemy>().BecomeInvincible();
+            Instantiate((Random.value < 0.5 ? piece1 : piece2), transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f))).GetComponent<Enemy>().BecomeInvincible();
         }
         Die();
     }
