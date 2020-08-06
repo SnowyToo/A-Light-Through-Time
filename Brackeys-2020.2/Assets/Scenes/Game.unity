@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2269,6 +2269,15 @@ MonoBehaviour:
   - {fileID: 9110422201019483521, guid: f2985a3637de4d540afccb615ad7e9ee, type: 3}
   - {fileID: 5405739955580542183, guid: 390ebf2f74b43584988cc47400ef82c8, type: 3}
   - {fileID: 1995678366626813561, guid: e51dd7dc80cfed54d89fa3b145fdc4b8, type: 3}
+  enemySpawnWeights:
+  - enemyType: 0
+    weight: 2
+  - enemyType: 1
+    weight: 2
+  - enemyType: 2
+    weight: 3
+  - enemyType: 3
+    weight: 2
   attributeProbabilities:
   - type: 0
     probabilityPerAmount:

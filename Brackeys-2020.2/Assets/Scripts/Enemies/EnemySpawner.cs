@@ -37,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
     public enum EnemyType {SpikeEnemy, SnapEnemy, LaserEnemy, BounceEnemy};
 
     [SerializeField]
-    private EnemySpawnWeight enemySpawnWeights;
+    private EnemySpawnWeight[] enemySpawnWeights;
 
     // Attribute probabilities
     [SerializeField]
@@ -170,12 +170,25 @@ public class EnemySpawner : MonoBehaviour
         }
 
         int[] intervals = new int[types.Count];
+        int accumulator = 0;
         for (int i = 0; i < intervals.Length; i ++)
         {
-
+            int j = (int) types[i];
+            accumulator += enemySpawnWeights[j].weight;
+            intervals[i] = accumulator;
         }
 
-        int index = Random.Range(0, types.Count);
+        int n = Random.Range(0, accumulator);
+        int index = 0;
+        for (int i = 0; i < intervals.Length; i ++)
+        {
+            if (intervals[i] > n)
+            {
+                index = i;
+                break;
+            }
+        }
+
         return types[index];
     }
 
