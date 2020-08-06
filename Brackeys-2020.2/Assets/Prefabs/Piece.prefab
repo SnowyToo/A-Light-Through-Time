@@ -250,3 +250,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 4
   immediate: 1
+  continueGoing: 0
+  rotate: 1
+  rotateSpeed: 22

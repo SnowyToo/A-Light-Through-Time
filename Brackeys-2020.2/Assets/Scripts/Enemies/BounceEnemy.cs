@@ -23,9 +23,7 @@ public class BounceEnemy : Enemy
 
     public override void OnPlayField()
     {
-        BounceObject bo = GetComponent<BounceObject>();
-        bo.continueGoing = false;
-        bo.EnableCollider();
+        GetComponent<BounceObject>().EnableCollider();
     }
 
     public override bool LaserHit()

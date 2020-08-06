@@ -130,7 +130,7 @@ public class Enemy : MonoBehaviour
     public IEnumerator Invincibility()
     {
         invincible = true;
-        yield return new WaitForSeconds(1.75f);
+        yield return new WaitForSeconds(removable ? 1f : 1.75f);
         invincible = false;
     }
 

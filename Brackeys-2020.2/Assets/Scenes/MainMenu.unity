@@ -630,7 +630,7 @@ GameObject:
   - component: {fileID: 611658536}
   - component: {fileID: 611658538}
   m_Layer: 5
-  m_Name: InsertCoint
+  m_Name: InsertCoin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -652,7 +652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -131}
+  m_AnchoredPosition: {x: 0, y: -142}
   m_SizeDelta: {x: 408.747, y: 41.939835}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &611658536
@@ -828,7 +828,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 106.41}
+  m_AnchoredPosition: {x: 0, y: 69.40999}
   m_SizeDelta: {x: 1149.5535, y: 478.74896}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &697061824
@@ -985,7 +985,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00000047684, y: 305}
+  m_AnchoredPosition: {x: 0.00000047684, y: 268}
   m_SizeDelta: {x: 1149.5535, y: 81.5757}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &720566785

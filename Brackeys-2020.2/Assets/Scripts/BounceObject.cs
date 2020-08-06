@@ -13,11 +13,16 @@ public class BounceObject : MonoBehaviour
     private Vector3 pos;
     [HideInInspector]
     public bool continueGoing = false;
+    [SerializeField]
+    private bool rotate = true;
+    [SerializeField]
+    private float rotateSpeed = 5f;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         if (immediate) rb.velocity = GameManager.RandomVelocity(maxSpeed);
+        if (Random.value < 0.5) rotateSpeed *= -1f;
     }
 
     void FixedUpdate()
@@ -26,6 +31,14 @@ public class BounceObject : MonoBehaviour
 
         if (continueGoing) 
             GoTo(pos);
+    }
+
+    void Update()
+    {
+        if (rotate)
+        {
+            transform.Rotate(0f, 0f, rotateSpeed * Time.deltaTime);
+        }
     }
 
     public Vector2 RandomDirection()
@@ -44,7 +57,7 @@ public class BounceObject : MonoBehaviour
 
     public void EnableCollider()
     {
-        //transform.GetChild(0).gameObject.layer = 17;
+        continueGoing = false;
         transform.GetChild(0).GetComponent<Collider2D>().enabled = true;
     }
 }

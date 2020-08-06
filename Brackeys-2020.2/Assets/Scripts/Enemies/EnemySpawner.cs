@@ -102,9 +102,9 @@ public class EnemySpawner : MonoBehaviour
         maxEnemies = Mathf.Clamp(initialMaxEnemies + GameManager.score / maxEnemiesScoreIncrement, initialMaxEnemies, maxEnemiesCap);
 
         maxEnemyTypes[(int) EnemyType.LaserEnemy] = Mathf.Clamp((int) Mathf.Floor(maxEnemies/4), 1, maxEnemies);
-        maxEnemyTypes[(int) EnemyType.SnapEnemy] = Mathf.Clamp((int) Mathf.Ceil(maxEnemies/3), 1, maxEnemies);
-        maxEnemyTypes[(int) EnemyType.SpikeEnemy] = 1000;
-        maxEnemyTypes[(int) EnemyType.BounceEnemy] = 1000;
+        maxEnemyTypes[(int) EnemyType.SnapEnemy] = Mathf.Clamp((int) Mathf.Floor(maxEnemies/2), 1, maxEnemies);
+        maxEnemyTypes[(int) EnemyType.SpikeEnemy] = Mathf.Clamp((int) Mathf.Ceil(maxEnemies/2), 3, maxEnemies);
+        maxEnemyTypes[(int) EnemyType.BounceEnemy] = Mathf.Clamp((int) Mathf.Ceil(maxEnemies * 2/3), 1, maxEnemies);
 
         //Debug.Log("Max Enemies: " + maxEnemies);
     }
