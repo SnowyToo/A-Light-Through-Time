@@ -9,6 +9,7 @@ public class SnapEnemy : Enemy
     private float captureTime = 2f;
     private bool capturing;
     private EdgeCollider2D edgeCol;
+    private bool canCapture;
 
     // Tracking
     private Rigidbody2D photonRB;
@@ -32,12 +33,18 @@ public class SnapEnemy : Enemy
         photon = GameManager.photon;
         nextUpdate = timeBetweenUpdates;
         capturing = false;
+        canCapture = false;
 
         edgeCol = GetComponent<EdgeCollider2D>();
 
         type = EnemySpawner.EnemyType.SnapEnemy;
 
         StartCoroutine(Invincibility());
+    }
+
+    public override void OnPlayField()
+    {
+        canCapture = true;
     }
 
     void Update()
@@ -88,7 +95,7 @@ public class SnapEnemy : Enemy
 
     IEnumerator CapturePhoton()
     {
-        if (photon.captured || invincible) yield break;
+        if (photon.captured || invincible || !canCapture) yield break;
         capturing = true;
         rb.velocity = Vector2.zero;
         photonTransform.position = transform.position;

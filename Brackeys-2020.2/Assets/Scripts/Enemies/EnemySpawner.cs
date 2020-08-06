@@ -33,8 +33,11 @@ public class EnemySpawner : MonoBehaviour
     // Enemies
     public GameObject[] enemyPrefabs;
     public static GameObject[] _enemyPrefabs;
-    [HideInInspector]
+    [System.Serializable]
     public enum EnemyType {SpikeEnemy, SnapEnemy, LaserEnemy, BounceEnemy};
+
+    [SerializeField]
+    private EnemySpawnWeight enemySpawnWeights;
 
     // Attribute probabilities
     [SerializeField]
@@ -119,7 +122,6 @@ public class EnemySpawner : MonoBehaviour
 
         // Instantiate enemy
         EnemySpawn enemyToSpawn = PickNextEnemy();
-        nextEnemies --;
         GameObject enemyGO = Instantiate(enemyToSpawn.enemyPrefab, enemyToSpawn.position, Quaternion.identity);
         Instantiate(alert, Vector3.zero, Quaternion.identity).GetComponent<Alert>().SetTarget(enemyGO.transform);
         if (enemyToSpawn.type != EnemyType.LaserEnemy)
@@ -153,17 +155,24 @@ public class EnemySpawner : MonoBehaviour
 
         // Update current enemies
         currentEnemies[enemyToSpawn.type] ++;
+        nextEnemies --;
     }
 
     EnemyType PickType()
     {
-        // Pick next enemy type based on current enemy types and score
+        // Make list of all possible enemy types to spawn (ones that aren't maxed out)
         List<EnemyType> types = new List<EnemyType>();
-        foreach(KeyValuePair<EnemyType, int> entry in currentEnemies)
+        foreach (KeyValuePair<EnemyType, int> entry in currentEnemies)
         {
             int i = (int) entry.Key;
             if (entry.Value < maxEnemyTypes[i])
                 types.Add(entry.Key);
+        }
+
+        int[] intervals = new int[types.Count];
+        for (int i = 0; i < intervals.Length; i ++)
+        {
+
         }
 
         int index = Random.Range(0, types.Count);
@@ -296,6 +305,7 @@ public struct SpawnProbability
 {
     public float initialChance;
     public ChancePerScore chanceIncreasePerScore;
+    public float minChance;
     public float maxChance;
 
     public int minimalScoreNeeded;
@@ -309,7 +319,7 @@ public struct SpawnProbability
         if (minimalScoreNeeded > score)
             return -1;
 
-        return Mathf.Clamp(initialChance + chanceIncreasePerScore.chanceIncrease * (score-minimalScoreNeeded)/scoreInterval, 0, maxChance);
+        return Mathf.Clamp(initialChance + chanceIncreasePerScore.chanceIncrease * (score-minimalScoreNeeded)/scoreInterval, minChance, maxChance);
     }
 }
 
@@ -318,4 +328,11 @@ public struct ChancePerScore
 {
     public int scoreInterval;
     public float chanceIncrease;
+}
+
+[System.Serializable]
+public struct EnemySpawnWeight
+{
+    public EnemySpawner.EnemyType enemyType;
+    public int weight;
 }

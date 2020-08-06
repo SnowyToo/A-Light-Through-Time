@@ -70,7 +70,6 @@ public class Enemy : MonoBehaviour
     public virtual bool PhotonHit(bool instantDeath)
     {
         if (invincible) return false;
-
         if (attributes.Contains(TIME_WARP) && !GameManager.isRewinding)
         {
             if(curSprite == null)
@@ -119,6 +118,13 @@ public class Enemy : MonoBehaviour
             anim.SetTrigger("Hit");
             StartCoroutine(Invincibility());
         }
+    }
+
+    public virtual void OnPlayField() { }
+
+    public void BecomeInvincible()
+    {
+        StartCoroutine(Invincibility());
     }
 
     public IEnumerator Invincibility()

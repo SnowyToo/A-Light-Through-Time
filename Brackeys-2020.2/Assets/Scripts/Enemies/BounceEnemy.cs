@@ -33,7 +33,7 @@ public class BounceEnemy : Enemy
     {
         for (int i = 0; i < pieceCount; i ++)
         {
-            Instantiate(piece, transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+            Instantiate(piece, transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f))).GetComponent<Enemy>().BecomeInvincible();
         }
         Die();
     }

@@ -15,6 +15,7 @@ public class Alert : MonoBehaviour
 
             if (transform.position == target.position)
             {
+                target.gameObject.GetComponent<Enemy>()?.OnPlayField();
                 Destroy(this.gameObject);
             }
         }

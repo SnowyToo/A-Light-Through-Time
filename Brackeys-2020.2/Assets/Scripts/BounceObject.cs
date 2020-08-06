@@ -14,7 +14,7 @@ public class BounceObject : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         if (startOutsideWalls)
-            rb.velocity = (new Vector2(Random.Range(-3f, 3f), Random.Range(-2f, 2f)) - rb.position).normalized * maxSpeed;
+            rb.velocity = (new Vector2(Random.Range(-2f, 2f), Random.Range(-1.5f, 1.5f)) - rb.position).normalized * maxSpeed;
         else
             rb.velocity = GameManager.RandomVelocity(maxSpeed);
     }
@@ -22,13 +22,5 @@ public class BounceObject : MonoBehaviour
     void FixedUpdate()
     {
         rb.velocity = rb.velocity.normalized * maxSpeed;
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (startOutsideWalls && other.gameObject.layer == 14)
-        {
-            transform.GetChild(0).gameObject.layer = 17;
-        }
     }
 }

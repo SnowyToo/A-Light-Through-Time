@@ -78,8 +78,6 @@ public class Photon : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "BounceEnemy") Debug.Log("photon hit bounce enemy");
-        if (other.gameObject.tag == "Piece") Debug.Log("photon hit piece");
         Hit();
     }
 

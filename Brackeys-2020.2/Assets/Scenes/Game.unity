@@ -2274,67 +2274,110 @@ MonoBehaviour:
     probabilityPerAmount:
     - amount: 1
       probability:
-        initialChance: 0.5
+        initialChance: 0.7
         chanceIncreasePerScore:
-          scoreInterval: 0
-          chanceIncrease: 0
+          scoreInterval: 75
+          chanceIncrease: -0.05
+        minChance: 0
         maxChance: 1
-        minimalScoreNeeded: 0
+        minimalScoreNeeded: 75
     - amount: 2
       probability:
-        initialChance: 1
+        initialChance: 0.3
         chanceIncreasePerScore:
-          scoreInterval: 0
-          chanceIncrease: 0
-        maxChance: 1
-        minimalScoreNeeded: 0
+          scoreInterval: 75
+          chanceIncrease: 0.1
+        minChance: 0
+        maxChance: 0.99
+        minimalScoreNeeded: 150
   - type: 1
     probabilityPerAmount:
     - amount: 0
       probability:
-        initialChance: 1
+        initialChance: 0.1
         chanceIncreasePerScore:
-          scoreInterval: 0
-          chanceIncrease: 0
-        maxChance: 1
-        minimalScoreNeeded: 0
+          scoreInterval: 75
+          chanceIncrease: 0.03
+        minChance: 0
+        maxChance: 0.98
+        minimalScoreNeeded: 250
   - type: 2
     probabilityPerAmount:
     - amount: 0
       probability:
-        initialChance: 1
+        initialChance: 0.1
         chanceIncreasePerScore:
-          scoreInterval: 0
-          chanceIncrease: 0
-        maxChance: 0
-        minimalScoreNeeded: 0
+          scoreInterval: 85
+          chanceIncrease: 0.03
+        minChance: 0
+        maxChance: 0.3
+        minimalScoreNeeded: 400
   - type: 3
     probabilityPerAmount:
     - amount: 1
       probability:
-        initialChance: 0.5
+        initialChance: 0.1
         chanceIncreasePerScore:
-          scoreInterval: 0
-          chanceIncrease: 0
-        maxChance: 1
-        minimalScoreNeeded: 0
+          scoreInterval: 75
+          chanceIncrease: 0.05
+        minChance: 0
+        maxChance: 0.75
+        minimalScoreNeeded: 360
     - amount: 2
       probability:
-        initialChance: 1
+        initialChance: 0.1
         chanceIncreasePerScore:
-          scoreInterval: 0
-          chanceIncrease: 0
-        maxChance: 1
-        minimalScoreNeeded: 0
+          scoreInterval: 75
+          chanceIncrease: 0.04
+        minChance: 0
+        maxChance: 0.7
+        minimalScoreNeeded: 400
   attributeAmounts:
-  - amount: 4
+  - amount: 0
     probability:
       initialChance: 1
       chanceIncreasePerScore:
-        scoreInterval: 0
-        chanceIncrease: 0
+        scoreInterval: 50
+        chanceIncrease: -0.15
+      minChance: 0
       maxChance: 1
       minimalScoreNeeded: 0
+  - amount: 1
+    probability:
+      initialChance: 0.95
+      chanceIncreasePerScore:
+        scoreInterval: 75
+        chanceIncrease: -0.1
+      minChance: 0
+      maxChance: 0.4
+      minimalScoreNeeded: 75
+  - amount: 2
+    probability:
+      initialChance: 0.8
+      chanceIncreasePerScore:
+        scoreInterval: 75
+        chanceIncrease: -0.1
+      minChance: 0.03
+      maxChance: 1
+      minimalScoreNeeded: 225
+  - amount: 3
+    probability:
+      initialChance: 0.75
+      chanceIncreasePerScore:
+        scoreInterval: 75
+        chanceIncrease: -0.05
+      minChance: 0.2
+      maxChance: 1
+      minimalScoreNeeded: 375
+  - amount: 4
+    probability:
+      initialChance: 0.5
+      chanceIncreasePerScore:
+        scoreInterval: 75
+        chanceIncrease: 0.05
+      minChance: 0
+      maxChance: 0.8
+      minimalScoreNeeded: 450
 --- !u!114 &884107296
 MonoBehaviour:
   m_ObjectHideFlags: 0
