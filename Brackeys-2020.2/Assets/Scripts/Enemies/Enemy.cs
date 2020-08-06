@@ -105,6 +105,8 @@ public class Enemy : MonoBehaviour
             return false;
         }
 
+        if (!removable && invincible) return false;
+        
         Die(removable, false);
         return true;
     }
@@ -124,6 +126,7 @@ public class Enemy : MonoBehaviour
 
     public void BecomeInvincible()
     {
+        if (!removable) anim.SetTrigger("Hit");
         StartCoroutine(Invincibility());
     }
 

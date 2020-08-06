@@ -118,7 +118,6 @@ public class SnapEnemy : Enemy
         capturing = false;
         photon.EndCapture();
 
-        //Die(collectPoints:false);
         return true;
     }
 
