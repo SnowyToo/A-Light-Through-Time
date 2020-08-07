@@ -49,6 +49,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piece Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7161261546187616772, guid: 7736a08f1077a244ea3f4a569ecafc54,
+        type: 3}
+      propertyPath: warpSprite
+      value: 
+      objectReference: {fileID: 8813261529561919023, guid: 15009081b9c23944ea61b474eafbd55a,
+        type: 3}
+    - target: {fileID: 7161261546187616772, guid: 7736a08f1077a244ea3f4a569ecafc54,
+        type: 3}
+      propertyPath: type
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7161261546187616794, guid: 7736a08f1077a244ea3f4a569ecafc54,
         type: 3}
       propertyPath: m_Sprite

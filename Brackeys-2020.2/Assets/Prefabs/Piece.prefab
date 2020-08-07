@@ -174,12 +174,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
   - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
   collisionDamage: 1
-  type: 0
+  type: 3
   removable: 0
+  collectsPoints: 1
   attributes: []
   shield: {fileID: 0}
   reflect: {fileID: 0}
-  warpSprite: {fileID: 0}
+  warpSprite: {fileID: 8813261529561919023, guid: 15009081b9c23944ea61b474eafbd55a,
+    type: 3}
   invincible: 0
 --- !u!50 &7161261546187616775
 Rigidbody2D:
@@ -249,11 +251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c3d4aa61681d1459fd3b3a9a25049f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceGraphic: {fileID: 1431077026564264795, guid: f6348175f68f4b14cb9fc857ecc18e62,
-    type: 3}
-  greenBounce: {fileID: 1136003536901608459, guid: fca498f3a2999964294e3c5c822ad6ca,
-    type: 3}
-  boop: {fileID: 8300000, guid: 84b3c7f469acead4a8a90a05857dfce9, type: 3}
   maxSpeed: 4
   immediate: 1
   continueGoing: 0

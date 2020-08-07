@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int collisionDamage;
 
-    [HideInInspector]
     public EnemySpawner.EnemyType type;
 
     [SerializeField]
@@ -92,7 +91,7 @@ public class Enemy : MonoBehaviour
         GameManager.player.TakeDamage(collisionDamage);
     }
 
-    public virtual bool LaserHit()
+    public virtual bool LaserHit(bool instantDeath=true)
     {
         if (shields.Count > 0)
         {
@@ -109,7 +108,10 @@ public class Enemy : MonoBehaviour
 
         if (!removable && invincible) return false;
         
-        Die(removable, false);
+        if(instantDeath)
+        {
+            Die(removable, false);
+        }
         return true;
     }
 

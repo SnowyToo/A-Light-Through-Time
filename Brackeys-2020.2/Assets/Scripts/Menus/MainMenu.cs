@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
     AudioClip beep;
+
+    public TextMeshProUGUI hiScore;
+    public TextMeshProUGUI hiScoreLabel;
 
     void Awake()
     {
@@ -15,11 +19,16 @@ public class MainMenu : MonoBehaviour
             PlayerData.playedAnimation = true;
             GetComponent<Animator>().SetTrigger("Intro");
         }
+
+        
+
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        hiScore.text = PlayerData.stats.hiScore.ToString();
+
+        if (Input.GetKeyDown(KeyCode.I))
         {
             SceneManager.LoadScene("SelectMode");
             AudioManager.ins.PlayPersistentSoundEffect(beep);

@@ -110,9 +110,9 @@ public class SnapEnemy : Enemy
         Die();
     }
 
-    public override bool LaserHit()
+    public override bool LaserHit(bool instantDeath)
     {
-        if (!base.LaserHit())
+        if (!base.LaserHit(true))
             return false;
 
         capturing = false;

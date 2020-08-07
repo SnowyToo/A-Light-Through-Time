@@ -47,6 +47,8 @@ public class EnemySpawner : MonoBehaviour
     
     void Start()
     {
+        initialMaxEnemies += Random.value < 0.7f ? 0 : 1;
+
         maxEnemyTypes = new int[enemyPrefabs.Length];
         UpdateMaxEnemies();
         nextEnemies = maxEnemies;
@@ -106,7 +108,14 @@ public class EnemySpawner : MonoBehaviour
         maxEnemyTypes[(int) EnemyType.SpikeEnemy] = Mathf.Clamp((int) Mathf.Ceil(maxEnemies/2), 3, maxEnemies);
         maxEnemyTypes[(int) EnemyType.BounceEnemy] = Mathf.Clamp((int) Mathf.Ceil(maxEnemies * 2/3), 1, maxEnemies);
 
-        //Debug.Log("Max Enemies: " + maxEnemies);
+        /*if(currentEnemies != null)
+        {
+            Debug.Log("Bouncers: " + currentEnemies[EnemyType.BounceEnemy]);
+            Debug.Log("Lasers: " + currentEnemies[EnemyType.LaserEnemy]);
+            Debug.Log("Spikes: " + currentEnemies[EnemyType.SpikeEnemy]);
+            Debug.Log("Snappers: " + currentEnemies[EnemyType.SnapEnemy]);
+        }*/
+
     }
 
     EnemySpawn PickNextEnemy()

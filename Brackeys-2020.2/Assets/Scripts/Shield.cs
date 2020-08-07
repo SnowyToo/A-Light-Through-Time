@@ -23,6 +23,10 @@ public class Shield : MonoBehaviour
     [SerializeField]
     private bool destroyable = true;
 
+    [SerializeField]
+    private GameObject warpSprite; //I will keep using time warp out of spite now.
+    private GameObject curSprite;
+
     private void Awake()
     {
         shieldPart = shieldPop;
@@ -40,7 +44,11 @@ public class Shield : MonoBehaviour
     public void Hit()
     {
         if (timeOnly && !GameManager.isRewinding)
+        {
+            if (curSprite == null)
+                curSprite = Instantiate(warpSprite, transform.position, Quaternion.identity, transform);
             return;
+        }
 
         parent.ShieldHit(destroyable);
 

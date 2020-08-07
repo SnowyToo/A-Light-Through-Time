@@ -122,7 +122,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
   - {fileID: 8300000, guid: 282c92fdfe601fc409ed0e4bb4da00d6, type: 3}
   collisionDamage: 1
-  type: 0
+  type: 1
+  removable: 1
+  collectsPoints: 1
   attributes: []
   shield: {fileID: 2493650241932866960, guid: 6ec3375ba598e904093cd712e36d8663, type: 3}
   reflect: {fileID: 3631163048206574139, guid: 0bcee80c4977ddf43a6c47b5bb35a091, type: 3}

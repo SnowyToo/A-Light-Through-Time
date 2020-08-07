@@ -119,3 +119,5 @@ MonoBehaviour:
     type: 3}
   shieldBoop: {fileID: 8300000, guid: 8d719576be887584abb204c389a74c79, type: 3}
   destroyable: 1
+  warpSprite: {fileID: 8813261529561919023, guid: 15009081b9c23944ea61b474eafbd55a,
+    type: 3}

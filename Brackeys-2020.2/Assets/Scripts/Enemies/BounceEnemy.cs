@@ -26,9 +26,9 @@ public class BounceEnemy : Enemy
         GetComponent<BounceObject>().EnableCollider();
     }
 
-    public override bool LaserHit()
+    public override bool LaserHit(bool instantDeath)
     {
-        if (!base.LaserHit())
+        if (!base.LaserHit(false))
             return false;
         
         Explode(false);
