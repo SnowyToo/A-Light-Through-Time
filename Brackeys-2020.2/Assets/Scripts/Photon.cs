@@ -84,7 +84,7 @@ public class Photon : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (captured) return;
-        if (other.gameObject.layer == 11)
+        if (other.gameObject.layer == 11 && !GameManager.isRewinding)
         {
             Hit();
             rb.velocity = GameManager.GetMousePosition() - rb.position;

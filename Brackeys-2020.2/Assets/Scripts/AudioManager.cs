@@ -11,6 +11,13 @@ public class AudioManager : MonoBehaviour
     private AudioClip normMusic;
     [SerializeField]
     private AudioClip reverseMusic;
+    [SerializeField]
+    private AudioClip webGLnormMusic;
+    [SerializeField]
+    private AudioClip webGLreverseMusic;
+
+    [SerializeField]
+    private AudioSource normSource;
 
     [SerializeField]
     private AudioSource bgm;
@@ -22,6 +29,9 @@ public class AudioManager : MonoBehaviour
     private const float NORMAL_LOW_PASS = 7500;
     private const float TIME_WARP_LOW_PASS = 2500;
 
+    private bool hasReversed;
+    private bool hasUnreversed;
+
     private IEnumerator MusicManager()
     {
         bgm.clip = reverseMusic;
@@ -32,10 +42,16 @@ public class AudioManager : MonoBehaviour
             yield return null;
         }
         bgm.Stop();
+
         bgm.clip = normMusic;
+
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+            bgm.clip = webGLnormMusic;
+
         bgm.pitch = 1f;
         yield return new WaitForSeconds(4f);
         bgm.Play();
+
         while(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "MainMenu")
         {
             yield return null;
@@ -55,6 +71,14 @@ public class AudioManager : MonoBehaviour
 
         lowPass = GetComponent<AudioLowPassFilter>();
 
+        if(Application.platform != RuntimePlatform.WebGLPlayer)
+        {
+            lowPass.enabled = false;
+        }
+
+        hasUnreversed = true;
+        hasReversed = false;
+
         StartCoroutine(MusicManager());
     }
 
@@ -65,14 +89,47 @@ public class AudioManager : MonoBehaviour
 
     public void SetTimeWarpMusic()
     {
-        bgm.pitch = -1;
-        lowPass.cutoffFrequency = TIME_WARP_LOW_PASS;
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            if (!hasReversed)
+            {
+                float curTrackTime = bgm.time;
+                float reverseTrackTime = webGLreverseMusic.length - curTrackTime;
+                bgm.clip = webGLreverseMusic;
+                bgm.Play();
+                bgm.time = reverseTrackTime;
+                hasReversed = true;
+                hasUnreversed = false;
+            }
+
+        }
+        else
+        {
+            bgm.pitch = -1;
+            lowPass.cutoffFrequency = TIME_WARP_LOW_PASS;
+        }
+        
     }
 
     public void SetNormalMusic()
-    {
-        bgm.pitch = 1;
-        lowPass.cutoffFrequency = NORMAL_LOW_PASS;
+    {        
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            if (!hasUnreversed)
+            {
+                float curTrackTime = bgm.time;
+                float reverseTrackTime = webGLnormMusic.length - curTrackTime;
+                bgm.clip = webGLnormMusic;
+                bgm.Play();
+                bgm.time = reverseTrackTime;
+                hasReversed = false;
+                hasUnreversed = true;
+            }
+        }
+        else
+        {
+            bgm.pitch = 1;
+        }
     }
 
     public void PlaySound(AudioClip clip, GameObject source, float volume = 0.8f, float pitch = 1f)
