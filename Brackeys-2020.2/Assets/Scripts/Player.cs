@@ -49,6 +49,8 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        health = Mathf.Clamp(health, 0, maxHealth);
+
         rb.velocity = new Vector2(h, v).normalized * speed;
 
         aimDirection = GameManager.GetMousePosition() - rb.position;
