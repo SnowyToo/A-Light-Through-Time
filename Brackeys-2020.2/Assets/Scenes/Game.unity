@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -25028,6 +25028,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normMusic: {fileID: 8300000, guid: ee3e62c6be7329746a1fbb471d105b79, type: 3}
   reverseMusic: {fileID: 8300000, guid: 4f6c794111113a9498439f3a32b051ff, type: 3}
+  webGLnormMusic: {fileID: 8300000, guid: 4bc56ca1e0da6ac47abc2fa5d09f8212, type: 3}
+  webGLreverseMusic: {fileID: 8300000, guid: 89f88db8013afb14cbbe57f7818d4eef, type: 3}
+  normSource: {fileID: 1994102621}
   bgm: {fileID: 1994102621}
   soundEffect: {fileID: 1965514277}
   lowPass: {fileID: 0}

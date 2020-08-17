@@ -56,6 +56,10 @@ public class AudioManager : MonoBehaviour
         {
             yield return null;
         }
+
+        bgm.Stop();
+        bgm.time = 0;
+
         StartCoroutine(MusicManager());
     }
 
@@ -129,6 +133,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             bgm.pitch = 1;
+            lowPass.cutoffFrequency = NORMAL_LOW_PASS;
         }
     }
 

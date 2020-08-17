@@ -20,8 +20,6 @@ public class MainMenu : MonoBehaviour
             GetComponent<Animator>().SetTrigger("Intro");
         }
 
-        
-
     }
 
     void Update()
